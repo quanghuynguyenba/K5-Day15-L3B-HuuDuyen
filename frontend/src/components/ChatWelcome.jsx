@@ -31,7 +31,7 @@ const STARTERS = [
   },
 ];
 
-export default function ChatWelcome({ onChoose }) {
+export default function ChatWelcome({ onChoose, onBrowse, poiCount }) {
   return (
     <div className="welcome">
       <div className="welcome-icon">
@@ -57,6 +57,15 @@ export default function ChatWelcome({ onChoose }) {
           </Button>
         ))}
       </div>
+      {onBrowse && (
+        <Button
+          className="browse-pois"
+          onClick={onBrowse}
+          startIcon={<Icon name="pin" size={17} />}
+        >
+          Khám phá {poiCount || ""} địa điểm từ dữ liệu nhóm
+        </Button>
+      )}
       <p className="starter-help">Chọn một gợi ý để chỉnh sửa trước khi gửi.</p>
     </div>
   );

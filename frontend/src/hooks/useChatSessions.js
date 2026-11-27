@@ -108,7 +108,11 @@ export default function useChatSessions() {
         patch(targetId, (current) => ({
           messages: [
             ...current.messages,
-            { role: "assistant", content: result.reply },
+            {
+              role: "assistant",
+              content: result.reply,
+              hasPlan: !!result.plan,
+            },
           ],
           plan: result.plan ?? null,
           weather: result.weather ?? current.weather,

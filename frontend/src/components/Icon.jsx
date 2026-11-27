@@ -12,8 +12,14 @@ import SendRounded from "@mui/icons-material/SendRounded";
 import ScheduleRounded from "@mui/icons-material/ScheduleRounded";
 import CloseRounded from "@mui/icons-material/CloseRounded";
 import HelpOutlineRounded from "@mui/icons-material/HelpOutlineRounded";
+import SmartToyOutlined from "@mui/icons-material/SmartToyOutlined";
+import PaymentsOutlined from "@mui/icons-material/PaymentsOutlined";
+import GraphicEqRounded from "@mui/icons-material/GraphicEqRounded";
 
 const icons = {
+  bot: SmartToyOutlined,
+  money: PaymentsOutlined,
+  waveform: GraphicEqRounded,
   explore: ExploreOutlined,
   plus: AddRounded,
   panel: SpaceDashboardOutlined,

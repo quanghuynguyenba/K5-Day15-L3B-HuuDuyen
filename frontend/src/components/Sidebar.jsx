@@ -1,21 +1,45 @@
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
+import ViewSidebarOutlined from "@mui/icons-material/ViewSidebarOutlined";
 import Icon from "./Icon.jsx";
+
+function dayGroup(createdAt) {
+  const day = new Date(createdAt);
+  const today = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
+  return day.toDateString() === today.toDateString()
+    ? "Hôm nay"
+    : day.toDateString() === yesterday.toDateString()
+      ? "Hôm qua"
+      : "Trước đó";
+}
+function SessionRow({ title, active, onClick, hint }) {
+  return (
+    <Button
+      className={`session ${active ? "active" : ""}`}
+      onClick={onClick}
+      title={hint || title}
+      aria-current={active ? "page" : undefined}
+    >
+      <Icon name="chat" size={18} />
+      <span className="sidebar-label session-title">{title}</span>
+    </Button>
+  );
+}
 
 export default function Sidebar({
   collapsed,
   onCollapse,
   onReset,
-  onPreview,
   preview,
-  date,
-  onDate,
-  onHelp,
   sessions = [],
   activeId,
   onSwitch,
   onClose,
 }) {
+  const visibleSessions = sessions;
+  const groups = ["Hôm nay", "Hôm qua", "Trước đó"];
   return (
     <aside
       className={`sidebar ${collapsed ? "collapsed" : ""}`}
@@ -29,7 +53,7 @@ export default function Sidebar({
             onClick={onReset}
             title="Cuộc trò chuyện mới"
           >
-            <Icon name="plus" />
+            <Icon name="plus" size={20} />
             <span className="sidebar-label">Cuộc trò chuyện mới</span>
           </Button>
           <IconButton
@@ -43,73 +67,37 @@ export default function Sidebar({
                   : "Thu gọn thanh bên"
             }
           >
-            <Icon name={onClose ? "close" : "panel"} />
+            {onClose ? (
+              <Icon name="close" size={18} />
+            ) : (
+              <ViewSidebarOutlined sx={{ fontSize: 18 }} />
+            )}
           </IconButton>
         </div>
-        <nav aria-label="Danh sách phiên chat">
-          <p className="nav-label sidebar-label">
-            PHIÊN HIỆN TẠI · {sessions.length}
-          </p>
-          <div className="session-list">
-            {sessions.map((session) => (
-              <Button
-                key={session.id}
-                className={`session ${!preview && activeId === session.id ? "active" : ""}`}
-                onClick={() => onSwitch(session.id)}
-                title={session.title}
-                aria-current={
-                  !preview && activeId === session.id ? "page" : undefined
-                }
-              >
-                <Icon name="chat" />
-                <span className="sidebar-label session-title">
-                  {session.title}
-                  <small>
-                    {session.loading
-                      ? "Đang trả lời…"
-                      : session.error
-                        ? "Cần thử lại"
-                        : session.plan
-                          ? `${session.plan.stops?.length || 0} điểm dừng`
-                          : session.messages.length
-                            ? `${session.messages.length} tin nhắn`
-                            : "Bắt đầu hành trình mới"}
-                  </small>
-                </span>
-              </Button>
-            ))}
-          </div>
+        <nav className="session-list" aria-label="Danh sách phiên chat">
+          {groups.map((group) => {
+            const rows = visibleSessions.filter(
+              (session) => dayGroup(session.createdAt) === group,
+            );
+            if (!rows.length) return null;
+            return (
+              <section className="session-group" key={group}>
+                <p className="nav-label sidebar-label">{group}</p>
+                {rows.map((session) => (
+                  <SessionRow
+                    key={session.id}
+                    title={session.title}
+                    active={!preview && session.id === activeId}
+                    onClick={() => onSwitch(session.id)}
+                    hint={`${session.title}${session.loading ? " · Đang trả lời…" : session.error ? " · Cần thử lại" : ""}`}
+                  />
+                ))}
+              </section>
+            );
+          })}
         </nav>
-        <div className="preview-session">
-          <p className="nav-label sidebar-label">KHÁM PHÁ GIAO DIỆN</p>
-          <Button
-            className={`session ${preview ? "active" : ""}`}
-            onClick={onPreview}
-            title="Hành trình mẫu"
-          >
-            <Icon />
-            <span className="sidebar-label">
-              Một ngày khám phá Hà Nội<small>Dữ liệu minh họa</small>
-            </span>
-          </Button>
-        </div>
-        <label className="date-control sidebar-label">
-          Ngày đi
-          <input
-            type="date"
-            value={date}
-            onChange={(event) => onDate(event.target.value)}
-          />
-        </label>
-        <p className="sidebar-note sidebar-label">
-          Các phiên chỉ được giữ trong lần mở trang này.
-        </p>
       </div>
       <div className="sidebar-bottom">
-        <Button className="session" onClick={onHelp} title="Trợ giúp">
-          <Icon name="help" />
-          <span className="sidebar-label">Trợ giúp</span>
-        </Button>
         <div className="user-profile">
           <div className="avatar">K</div>
           <div className="sidebar-label">

@@ -14,7 +14,7 @@ from typing import Literal
 from agent.llm import chat, new_state
 from agent.tools import narrate
 from config import AUDIO_DIR, DEFAULT_START, SUPPORTED_LANGS, USE_MOCK
-from rag.search import get_poi, load_pois
+from rag.search import get_poi, load_pois, is_schedulable
 from routing.summary import summarize_trip, trip_facts
 from services.weather import get_weather
 
@@ -69,14 +69,20 @@ class SummaryIn(BaseModel):
 
 @app.get("/api/config")
 def get_config():
-    return {"mock": USE_MOCK, "langs": SUPPORTED_LANGS, "center": DEFAULT_START}
+    pois = load_pois()
+    return {"mock": USE_MOCK, "langs": SUPPORTED_LANGS, "center": DEFAULT_START,
+            "poi_count": len(pois), "schedulable_poi_count": sum(is_schedulable(poi) for poi in pois),
+            "data_source": "repo-pois"}
 
 
 @app.post("/api/chat")
 def post_chat(body: ChatIn):
     state = _session(body.session_id, body.date)
     reply, state = chat(body.message, state)
-    return {"reply": reply, "plan": _enrich(state.get("plan")), "weather": state.get("weather")}
+    plan = _enrich(state.get("plan"))
+    if plan is not None:
+        plan["n_people"] = state.get("constraints", {}).get("n_people")
+    return {"reply": reply, "plan": plan, "weather": state.get("weather")}
 
 
 @app.post("/api/reset")
@@ -87,7 +93,17 @@ def post_reset(body: SummaryIn):
 
 @app.get("/api/pois")
 def list_pois():
-    return load_pois()
+    return [_poi_view(poi) for poi in load_pois()]
+
+
+def _poi_view(poi):
+    """Expose data completeness; a URL is not a claim of independent verification."""
+    missing = []
+    if poi.get("price_vnd") is None:
+        missing.append("price")
+    if not poi.get("open") or not poi.get("close"):
+        missing.append("opening_hours")
+    return {**poi, "data_source": "repo-pois", "schedulable": is_schedulable(poi), "missing_fields": missing}
 
 
 @app.get("/api/pois/{poi_id}")
@@ -95,7 +111,7 @@ def one_poi(poi_id: str):
     p = get_poi(poi_id)
     if not p:
         raise HTTPException(404, "Không có POI %s" % poi_id)
-    return p
+    return _poi_view(p)
 
 
 @app.get("/api/weather")

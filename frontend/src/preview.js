@@ -61,6 +61,7 @@ export const previewStops = [
   },
 ].map((p) => ({ ...p, open: "08:00", close: "17:00", visit_minutes: 60 }));
 export const previewPlan = {
+  n_people: 2,
   stops: previewStops,
   total_cost: 850000,
   total_minutes: 540,

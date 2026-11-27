@@ -24,11 +24,27 @@ const numberIcon = (number, selected) =>
     iconAnchor: [17, 17],
   });
 
-function MapViewport({ plan, selectedPoi, center, selection, routeViewKey }) {
+function MapViewport({
+  plan,
+  selectedPoi,
+  center,
+  selection,
+  routeViewKey,
+  catalogue,
+}) {
   const map = useMap();
-  const bounds = useMemo(() => overviewPoints(plan), [plan]);
+  const candidates = useMemo(
+    () => [...(plan?.stops || []), ...catalogue],
+    [plan, catalogue],
+  );
+  const bounds = useMemo(() => {
+    const route = overviewPoints(plan);
+    return route.length
+      ? route
+      : catalogue.filter(hasCoordinates).map((poi) => [poi.lat, poi.lng]);
+  }, [plan, catalogue]);
   const viewport = useRef(null);
-  viewport.current = { bounds, selectedPoi, plan, center };
+  viewport.current = { bounds, selectedPoi, candidates, center };
   const fit = () => {
     if (bounds.length)
       map.fitBounds(bounds, { padding: [55, 55], maxZoom: 15 });
@@ -36,15 +52,17 @@ function MapViewport({ plan, selectedPoi, center, selection, routeViewKey }) {
   };
   useEffect(() => {
     fit();
-  }, [plan, center, routeViewKey, map]);
+  }, [plan, catalogue, center, routeViewKey, map]);
   useEffect(() => {
-    const stop = plan?.stops?.find((item) => item.poi_id === selectedPoi);
+    const stop = candidates.find(
+      (item) => (item.poi_id || item.id) === selectedPoi,
+    );
     if (hasCoordinates(stop)) {
       map.setView([stop.lat, stop.lng], 15, { animate: false });
       if (window.matchMedia("(max-width:800px)").matches)
         map.panBy([0, map.getSize().y * 0.2], { animate: false });
     }
-  }, [selectedPoi, selection, plan, map]);
+  }, [selectedPoi, selection, candidates, map]);
   useEffect(() => {
     if (typeof ResizeObserver === "undefined") return;
     let wasHidden = true;
@@ -54,8 +72,8 @@ function MapViewport({ plan, selectedPoi, center, selection, routeViewKey }) {
       map.invalidateSize({ pan: false });
       if (visible && wasHidden) {
         const current = viewport.current;
-        const stop = current.plan?.stops?.find(
-          (item) => item.poi_id === current.selectedPoi,
+        const stop = current.candidates.find(
+          (item) => (item.poi_id || item.id) === current.selectedPoi,
         );
         if (hasCoordinates(stop)) {
           map.setView([stop.lat, stop.lng], 15, { animate: false });
@@ -93,6 +111,8 @@ export default function MapView({
   selection,
   routeViewKey,
   onShowRoute,
+  catalogue = [],
+  onBrowse,
 }) {
   const stops = plan?.stops || [];
   const geometry = routePoints(plan);
@@ -100,6 +120,7 @@ export default function MapView({
     .filter(hasCoordinates)
     .map((stop) => [stop.lat, stop.lng]);
   const positions = geometry.length > 1 ? geometry : fallback;
+  const routeIds = new Set(stops.map((stop) => stop.poi_id));
   return (
     <>
       <MapContainer center={center} zoom={14} className="map">
@@ -107,6 +128,23 @@ export default function MapView({
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        {catalogue
+          .filter((poi) => hasCoordinates(poi) && !routeIds.has(poi.id))
+          .map((poi) => (
+            <Marker
+              key={poi.id}
+              position={[poi.lat, poi.lng]}
+              icon={L.divIcon({
+                className: `catalogue-marker ${selectedPoi === poi.id ? "selected" : ""}`,
+                html: "<span></span>",
+                iconSize: [20, 20],
+                iconAnchor: [10, 10],
+              })}
+              title={poi.name.vi}
+              alt={poi.name.vi}
+              eventHandlers={{ click: () => onSelect(poi.id) }}
+            />
+          ))}
         {stops.map((stop, index) =>
           hasCoordinates(stop) ? (
             <StopMarker
@@ -132,16 +170,28 @@ export default function MapView({
           center={center}
           selection={selection}
           routeViewKey={routeViewKey}
+          catalogue={catalogue}
         />
       </MapContainer>
       <div className="map-route-controls">
+        {onBrowse && (
+          <Button
+            variant="contained"
+            onClick={onBrowse}
+            startIcon={<Icon name="pin" />}
+          >
+            Danh sách địa điểm ({catalogue.length})
+          </Button>
+        )}
         <Button
           variant="contained"
           onClick={onShowRoute}
-          disabled={!stops.some(hasCoordinates)}
+          disabled={
+            !stops.some(hasCoordinates) && !catalogue.some(hasCoordinates)
+          }
           startIcon={<Icon />}
         >
-          Xem toàn tuyến
+          {stops.length ? "Xem toàn tuyến" : "Xem tất cả địa điểm"}
         </Button>
         {plan && geometry.length < 2 && (
           <span>Đường nối minh họa, chưa có chỉ dẫn đường.</span>

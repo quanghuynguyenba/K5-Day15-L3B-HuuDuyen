@@ -5,7 +5,6 @@ import ChatComposer from "./ChatComposer.jsx";
 import useChatScroll from "../hooks/useChatScroll.js";
 import { useEffect, useRef, useState } from "react";
 import Icon from "./Icon.jsx";
-const money = (n) => Number(n || 0).toLocaleString("vi-VN") + "đ";
 export default function Chat({
   messages,
   loading,
@@ -22,6 +21,10 @@ export default function Chat({
   onRetry,
   draft,
   onDraftChange,
+  onBrowse,
+  poiCount,
+  date,
+  onDate,
 }) {
   const [localText, setLocalText] = useState("");
   const text = draft ?? localText;
@@ -57,24 +60,52 @@ export default function Chat({
       inputRef.current?.focus();
     }
   }
+  const planMessageIndex = messages.findLastIndex(
+    (message) => message.role === "assistant" && message.hasPlan,
+  );
+  const timelineIndex =
+    planMessageIndex >= 0
+      ? planMessageIndex
+      : messages.findLastIndex((message) => message.role === "assistant");
+  const timeline = (
+    <ItineraryTimeline
+      plan={plan}
+      selectedPoi={selectedPoi}
+      selection={selection}
+      onSelect={onSelect}
+      onNarrate={onNarrate}
+      narration={narration}
+      onShowRoute={onShowRoute}
+    />
+  );
   return (
     <section className="chat" aria-label="Trợ lý hành trình">
       <div className="chat-header">
         <div className="bot-avatar">
-          <Icon />
+          <Icon name="bot" />
         </div>
         <div>
           <h2>Trợ lý hành trình</h2>
           <p>
-            {preview
-              ? "Hành trình mẫu · Dữ liệu minh họa"
-              : "Sẵn sàng lên lịch trình Hà Nội cho bạn"}
+            <span className={`ready-dot ${loading ? "busy" : ""}`} />
+            {loading
+              ? "Đang xử lý yêu cầu của bạn"
+              : "Sẵn sàng gợi ý & điều chỉnh tuyến đường"}
           </p>
         </div>
-        <span
-          className={`ready-dot ${loading ? "busy" : ""}`}
-          title={loading ? "Đang xử lý" : "Sẵn sàng"}
-        />
+        {onDate && (
+          <label className="chat-trip-date">
+            <span>Ngày đi</span>
+            <input
+              type="date"
+              value={date}
+              onChange={(event) => {
+                if (event.target.value) onDate(event.target.value);
+              }}
+              aria-label="Ngày đi của chuyến đi"
+            />
+          </label>
+        )}
       </div>
       <div
         ref={listRef}
@@ -91,28 +122,19 @@ export default function Chat({
           aria-relevant="additions text"
         >
           {!messages.length ? (
-            <ChatWelcome onChoose={fillPrompt} />
+            <ChatWelcome
+              onChoose={fillPrompt}
+              onBrowse={onBrowse}
+              poiCount={poiCount}
+            />
           ) : (
             <>
               {messages.map((m, i) => (
-                <div key={i} className={`msg ${m.role}`}>
-                  {m.role === "assistant" && (
-                    <span className="message-author">
-                      <Icon size={16} /> Hanoi Travel AI
-                    </span>
-                  )}
-                  {m.content}
+                <div key={i} className="conversation-turn">
+                  <div className={`msg ${m.role}`}>{m.content}</div>
+                  {i === timelineIndex && timeline}
                 </div>
               ))}
-              <ItineraryTimeline
-                plan={plan}
-                selectedPoi={selectedPoi}
-                selection={selection}
-                onSelect={onSelect}
-                onNarrate={onNarrate}
-                narration={narration}
-                onShowRoute={onShowRoute}
-              />
             </>
           )}
           {loading && (

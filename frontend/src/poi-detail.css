@@ -1,0 +1,262 @@
+/* Detail card proportions: 424px at the supplied 1920px desktop reference. */
+.poi-overlay {
+  top: 80px;
+  bottom: auto;
+  left: 20px;
+  width: var(--poi-reference-width);
+  max-width: calc(100% - 40px);
+  max-height: calc(100% - 96px);
+  border-radius: 20px;
+  border-color: #cbdde8;
+  box-shadow: 0 8px 22px #193f6226;
+  scrollbar-width: thin;
+}
+.poi-overlay .poi-card {
+  padding: 20px;
+}
+.poi-overlay .poi-photo {
+  height: 180px;
+  margin: -20px -20px 20px;
+}
+.poi-overlay .poi-photo img {
+  object-position: center 48%;
+}
+.poi-overlay .poi-photo-schedule {
+  bottom: 12px;
+  left: 14px;
+  font-size: 12px;
+  line-height: 18px;
+  padding: 3px 10px;
+}
+.poi-overlay .close-poi {
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  border: 1px solid #d5e2e8;
+}
+.poi-overlay .poi-card h3 {
+  font-size: 20px;
+  line-height: 26px;
+  letter-spacing: -0.25px;
+  padding-right: 0;
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+.poi-overlay .poi-tags {
+  gap: 7px;
+  margin: 0 0 16px;
+}
+.poi-overlay .poi-tags .MuiChip-root {
+  height: 23px;
+  font-size: 12px;
+  border: 0;
+}
+.poi-overlay .poi-tags .poi-tag-outdoor {
+  background: #fff0e8;
+  color: #a73a00;
+}
+.poi-overlay .poi-description {
+  font-size: 14px;
+  line-height: 23px;
+  margin: 0 0 16px;
+}
+.poi-overlay .poi-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 16px;
+  background: #f1f6f8;
+  border: 1px solid #d3e4ed;
+  border-radius: 16px;
+  padding: 12px;
+  margin: 0 0 14px;
+}
+.poi-overlay .poi-facts > div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+.poi-overlay .poi-facts dt {
+  font-size: 12px;
+  line-height: 18px;
+  color: #33414a;
+}
+.poi-overlay .poi-facts dt svg {
+  display: none;
+}
+.poi-overlay .poi-facts dd {
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 500;
+}
+.poi-fact-sources a {
+  display: block;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 400;
+  font-size: 13px;
+}
+.poi-overlay .poi-card > .MuiButton-contained {
+  height: 50px;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.poi-overlay .poi-card .show-in-chat {
+  height: 45px;
+  border-radius: 15px;
+  border-color: #adcfe4;
+  margin-top: 14px;
+  color: #171c1f;
+  font-size: 14px;
+}
+.poi-extra-details {
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--muted);
+}
+.poi-extra-details summary {
+  cursor: pointer;
+}
+.poi-extra-details .notes {
+  font-size: 12px;
+  line-height: 1.7;
+  margin-top: 10px;
+}
+.poi-overlay .narration-player {
+  margin: 10px 0 0;
+  border: 1px solid #a9d7f1;
+  border-radius: 16px;
+  padding: 10px 12px;
+  background: #ecfbff;
+  max-height: none;
+}
+.poi-overlay .narration-heading strong {
+  font-size: 12px;
+}
+.poi-overlay .narration-player audio {
+  width: 100%;
+  margin-bottom: 0;
+}
+.poi-overlay .narration-provenance {
+  font-size: 10px;
+}
+.compact-audio.narration-player {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #ecfbff;
+  border: 1px solid #a9d7f1;
+  border-radius: 16px;
+}
+.compact-audio audio {
+  display: none;
+}
+.compact-audio .audio-toggle {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  background: var(--primary);
+  color: white;
+}
+.compact-audio .audio-toggle.Mui-disabled {
+  background: #d0e9f5;
+  color: #557787;
+}
+.audio-main {
+  flex: 1;
+  min-width: 0;
+}
+.audio-label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--primary);
+  line-height: 20px;
+}
+.audio-label-row > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.audio-label-row time {
+  flex-shrink: 0;
+  font:
+    11px/20px ui-monospace,
+    monospace;
+  color: #33414a;
+}
+.audio-language {
+  flex-shrink: 0;
+  font-size: 11px;
+  color: var(--primary);
+  background: #fff;
+  border: 1px solid #c9e2f1;
+  border-radius: 6px;
+  padding: 2px 5px;
+}
+.audio-progress {
+  display: block;
+  width: 100%;
+  height: 6px;
+  padding: 0;
+  border: 0;
+  margin: 3px 0 0;
+  border-radius: 8px;
+  appearance: none;
+  background: linear-gradient(
+    to right,
+    var(--primary) var(--audio-progress),
+    white var(--audio-progress)
+  );
+  cursor: pointer;
+}
+.audio-progress::-webkit-slider-thumb {
+  appearance: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.audio-progress::-moz-range-thumb {
+  width: 8px;
+  height: 8px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--primary);
+}
+.compact-audio .audio-retry {
+  padding: 3px;
+  font-size: 11px;
+  min-width: 0;
+}
+@media (max-width: 1100px) and (min-width: 801px) {
+  .poi-overlay {
+    width: min(380px, calc(100% - 24px));
+    left: 12px;
+    max-width: calc(100% - 24px);
+  }
+}
+@media (max-width: 800px) {
+  .poi-overlay {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-width: none;
+    max-height: min(75dvh, calc(100% - 70px));
+    border-radius: 20px 20px 0 0;
+  }
+  .poi-overlay .poi-photo {
+    height: 180px;
+    margin-top: -20px;
+  }
+  .poi-overlay .poi-card {
+    padding: 20px;
+  }
+}

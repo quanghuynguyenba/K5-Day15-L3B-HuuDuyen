@@ -46,6 +46,7 @@ export const api = {
     post("/api/chat", { session_id: sessionId, message, date }),
   reset: (sessionId) => post("/api/reset", { session_id: sessionId }),
   poi: (poiId) => request(`/api/pois/${poiId}`),
+  pois: () => request("/api/pois"),
   weather: (date) => request(`/api/weather?date=${date}`),
   narrate: (poiId, lang) => post("/api/narrate", { poi_id: poiId, lang }),
   summary: (sessionId, lang) =>

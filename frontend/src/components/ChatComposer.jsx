@@ -5,6 +5,7 @@ import Icon from "./Icon.jsx";
 const QUICK_ACTIONS = [
   "Giảm ngân sách",
   "Ưu tiên trong nhà",
+  "Bỏ một điểm",
   "Tôi đang trễ giờ",
 ];
 
@@ -67,6 +68,7 @@ export default function ChatComposer({
               : "Gửi tin nhắn (Enter)"
           }
         >
+          <span>Gửi</span>
           <Icon name="send" size={18} />
         </Button>
       </form>

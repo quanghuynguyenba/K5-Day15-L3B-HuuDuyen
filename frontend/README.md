@@ -75,3 +75,12 @@ Giao diện dựa trên hai file HTML desktop trong `stitch_hanoi_travel_ai_inte
 - Dùng `plan.polyline` từ công cụ. Thiếu geometry thì vẽ nét đứt nối các điểm kèm nhãn minh họa; không coi là chỉ dẫn đường.
 - Nút nghe trên card hoặc thông tin POI gọi cùng API `/api/narrate`. Một trình phát chung dưới workspace ngăn audio phát chồng; có loading, thử lại khi lỗi API và nội dung chữ khi không có audio.
 - Đổi ngôn ngữ/phiên sẽ đóng thuyết minh. Kết quả cũ về muộn không thay thế địa điểm đang nghe.
+
+## Dùng bộ POI từ API
+
+- Phiên mới tải `/api/pois`: marker nhỏ là danh mục POI; marker đánh số là các điểm thuộc lịch trình hiện tại. Chọn marker nhỏ vẫn mở thông tin POI qua API, không cần tạo lịch trình trước.
+- Bấm **Khám phá địa điểm từ dữ liệu nhóm** ở màn hình chào hoặc **Danh sách địa điểm** trên map để tìm tên (có/không dấu), lọc loại, trong nhà và đủ thông tin lập lịch.
+- API thêm `schedulable`, `missing_fields`, `data_source`. Điểm thiếu giá/giờ vẫn xem được nhưng không xem là sẵn sàng lập lịch. Không tự thay dữ liệu thiếu bằng 0.
+- Cờ mock chỉ mô tả agent mô phỏng khi chưa nối LLM; dữ liệu POI vẫn lấy từ API/repo. Hành trình mẫu là chế độ thiết kế riêng, không tự làm dữ liệu dự phòng khi API lỗi.
+- Nguồn do nhóm tổng hợp, chưa phải bảo đảm mọi giá/giờ/tọa độ đều được xác minh độc lập. Đọc ghi chú và các link nguồn của từng điểm trước khi sử dụng thực tế.
+- Cải tiến này không thay đổi hay tạo thêm audio.

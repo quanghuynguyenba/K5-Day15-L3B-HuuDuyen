@@ -1,4 +1,5 @@
 import useChatSessions from "./hooks/useChatSessions.js";
+import useDesktopDensity from "./hooks/useDesktopDensity.js";
 import Drawer from "@mui/material/Drawer";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "./components/Header.jsx";
@@ -13,11 +14,16 @@ import Icon from "./components/Icon.jsx";
 import { previewMessages, previewPlan, previewStops } from "./preview.js";
 import useNarration from "./hooks/useNarration.js";
 import NarrationPlayer from "./components/NarrationPlayer.jsx";
+import usePoiCatalogue from "./hooks/usePoiCatalogue.js";
 
 const MapView = lazy(() => import("./components/MapView.jsx"));
+const PoiExplorer = lazy(() => import("./components/PoiExplorer.jsx"));
 
 export default function App() {
+  const density = useDesktopDensity();
   const sessionStore = useChatSessions();
+  const catalogue = usePoiCatalogue();
+  const [explorerOpen, setExplorerOpen] = useState(false);
   const [preview, setPreview] = useState(false);
   const [previewView, setPreviewView] = useState({
     selectedPoi: "hn_001",
@@ -154,28 +160,31 @@ export default function App() {
     setPreview(false);
     setDrawerOpen(false);
   }
+  function chooseCataloguePoi(id) {
+    setPreview(false);
+    sessionStore.setField("selectedPoi", id);
+    sessionStore.setField("selection", (previous) => ({
+      source: "catalogue",
+      version: (previous?.version || 0) + 1,
+    }));
+    sessionStore.setField("mobilePane", "map");
+    sessionStore.setField("tab", "trip");
+    setExplorerOpen(false);
+  }
   const sidebar = (
     <Sidebar
       collapsed={!compact && collapsed}
       onCollapse={() => setCollapsed(!collapsed)}
       onReset={reset}
-      onPreview={showPreview}
       preview={preview}
-      date={date}
-      onDate={setDate}
       sessions={sessionStore.sessions}
       activeId={sessionId}
       onSwitch={switchSession}
       onClose={compact ? () => setDrawerOpen(false) : undefined}
-      onHelp={() =>
-        setNotice(
-          "M?i phi?n gi? ri?ng h?i tho?i v? l?ch tr?nh trong l?n m? trang n?y. Ch?n ?i?m ??n ?? nghe thuy?t minh ho?c xem v? tr?.",
-        )
-      }
     />
   );
   return (
-    <div className="app-shell">
+    <div className="app-shell" style={{ "--desktop-density": density }}>
       <Header
         onOpenSidebar={compact ? () => setDrawerOpen(true) : undefined}
         langs={config.langs}
@@ -197,39 +206,42 @@ export default function App() {
           sidebar
         )}
         <main>
-          <div className="workspace-toolbar">
-            <div className="view-tabs">
-              <Button
-                type="button"
-                className={tab === "trip" ? "active" : ""}
-                onClick={() => setTab("trip")}
-              >
-                Khám phá Hà Nội
-              </Button>
-              <Button
-                type="button"
-                className={tab === "after" ? "active" : ""}
-                onClick={() => setTab("after")}
-              >
-                Sau chuyến đi
-              </Button>
+          <details className="workspace-options">
+            <summary>Tùy chọn</summary>
+            <div className="workspace-toolbar">
+              <div className="view-tabs">
+                <Button
+                  type="button"
+                  className={tab === "trip" ? "active" : ""}
+                  onClick={() => setTab("trip")}
+                >
+                  Khám phá Hà Nội
+                </Button>
+                <Button
+                  type="button"
+                  className={tab === "after" ? "active" : ""}
+                  onClick={() => setTab("after")}
+                >
+                  Sau chuyến đi
+                </Button>
+              </div>
+              <div className="preview-switch">
+                <span>
+                  {preview
+                    ? "Dữ liệu minh họa"
+                    : config.mock
+                      ? "POI từ API · Agent mô phỏng"
+                      : "POI từ API · LLM thật"}
+                </span>
+                <Button
+                  type="button"
+                  onClick={preview ? () => setPreview(false) : showPreview}
+                >
+                  {preview ? "Về phiên mới" : "Hành trình mẫu"}
+                </Button>
+              </div>
             </div>
-            <div className="preview-switch">
-              <span>
-                {preview
-                  ? "Dữ liệu minh họa"
-                  : config.mock
-                    ? "API · Chế độ mock"
-                    : "API · Trực tiếp"}
-              </span>
-              <Button
-                type="button"
-                onClick={preview ? () => setPreview(false) : showPreview}
-              >
-                {preview ? "Về phiên mới" : "Hành trình mẫu"}
-              </Button>
-            </div>
-          </div>
+          </details>
           {notice && (
             <div className="notice" role="status">
               {notice}
@@ -279,6 +291,10 @@ export default function App() {
                       routeViewKey={routeViewKey}
                       onShowRoute={showRoute}
                       onShowInChat={showInChat}
+                      catalogue={preview ? [] : catalogue.pois}
+                      onBrowse={
+                        preview ? undefined : () => setExplorerOpen(true)
+                      }
                     />
                   </Suspense>
                   <div className="map-summary">
@@ -297,8 +313,14 @@ export default function App() {
                             đ
                           </strong>
                         </>
-                      ) : (
+                      ) : preview ? (
                         "Tuyến đường sẽ hiển thị sau khi bạn chọn lịch trình"
+                      ) : catalogue.loading ? (
+                        "Đang tải địa điểm từ API…"
+                      ) : catalogue.error ? (
+                        "Chưa tải được địa điểm từ API"
+                      ) : (
+                        `${catalogue.pois.length} địa điểm có nguồn · ${catalogue.pois.filter((poi) => poi.schedulable).length} đủ thông tin lập lịch`
                       )}
                     </span>
                   </div>
@@ -334,10 +356,26 @@ export default function App() {
                         lang={lang}
                         onNarrate={narrate}
                         narration={narration}
+                        stopNumber={
+                          shownPlan?.stops?.findIndex(
+                            (item) => item.poi_id === selectedPoi,
+                          ) >= 0
+                            ? shownPlan.stops.findIndex(
+                                (item) => item.poi_id === selectedPoi,
+                              ) + 1
+                            : undefined
+                        }
+                        onCloseNarration={closeNarration}
                         stop={shownPlan?.stops?.find(
                           (item) => item.poi_id === selectedPoi,
                         )}
-                        onShowInChat={() => showInChat(selectedPoi)}
+                        onShowInChat={
+                          shownPlan?.stops?.some(
+                            (item) => item.poi_id === selectedPoi,
+                          )
+                            ? () => showInChat(selectedPoi)
+                            : undefined
+                        }
                         previewPoi={
                           preview
                             ? previewStops.find((p) => p.poi_id === selectedPoi)
@@ -352,6 +390,10 @@ export default function App() {
                   messages={preview ? previewMessages : messages}
                   loading={loading}
                   onSend={send}
+                  date={date}
+                  onDate={setDate}
+                  onBrowse={preview ? undefined : () => setExplorerOpen(true)}
+                  poiCount={catalogue.pois.length}
                   draft={chatDraft}
                   onDraftChange={setChatDraft}
                   error={chatError}
@@ -398,14 +440,37 @@ export default function App() {
               lang={lang}
             />
           )}
-          <NarrationPlayer
-            key={`${narration?.poiId}-${narration?.lang}-${narration?.audio_url}`}
-            narration={narration}
-            onClose={closeNarration}
-            onRetry={() => listen(narration.poiId)}
-          />
+          {!(
+            tab === "trip" &&
+            selectedPoi &&
+            narration?.poiId === selectedPoi &&
+            (mobilePane === "map" || !compact)
+          ) && (
+            <NarrationPlayer
+              key={`${narration?.poiId}-${narration?.lang}-${narration?.audio_url}`}
+              narration={narration}
+              onClose={closeNarration}
+              onRetry={() => listen(narration.poiId)}
+            />
+          )}
         </main>
       </div>
+      {explorerOpen && (
+        <Suspense
+          fallback={
+            <div className="notice" role="status">
+              Đang mở danh sách địa điểm…
+            </div>
+          }
+        >
+          <PoiExplorer
+            open={explorerOpen}
+            onClose={() => setExplorerOpen(false)}
+            catalogue={catalogue}
+            onSelect={chooseCataloguePoi}
+          />
+        </Suspense>
+      )}
     </div>
   );
 }
