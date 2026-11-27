@@ -1,0 +1,25 @@
+# Prefer reusing an existing pgvector on :5432 (see README option A).
+# Only start this service when host port 5432 is free; otherwise seed the shared DB.
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: hanoi_travel_pgvector
+    restart: unless-stopped
+    profiles: ["dedicated"]
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-travel}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-travel}
+      POSTGRES_DB: ${POSTGRES_DB:-travel}
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-travel} -d ${POSTGRES_DB:-travel}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  pgdata:
