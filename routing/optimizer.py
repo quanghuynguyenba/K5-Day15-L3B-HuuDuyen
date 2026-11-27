@@ -4,7 +4,7 @@ Bản hiện tại: greedy nearest-neighbor có kiểm giờ mở cửa, ngày �
 TODO (Tùng): OR-Tools có time windows + disjunction penalty, giới hạn ~2 giây; lỗi thì quay về greedy.
 Mọi con số (giờ, tiền, phút) tính ở đây — LLM KHÔNG tự tính.
 """
-from rag.search import get_poi, is_open_on
+from rag.search import get_poi, is_open_on, is_schedulable
 from routing.maps import directions, distance_matrix
 
 
@@ -22,8 +22,8 @@ def plan_route(poi_ids: list[str], start_latlng: tuple, start_time: str,
                vehicle: str = "car", date: str | None = None) -> dict:
     pois = [p for p in (get_poi(i) for i in poi_ids) if p]
     dropped = [i for i in poi_ids if not get_poi(i)]
-    dropped += [p["id"] for p in pois if not is_open_on(p, date)]
-    remaining = [p for p in pois if is_open_on(p, date)]
+    dropped += [p["id"] for p in pois if not is_open_on(p, date) or not is_schedulable(p)]
+    remaining = [p for p in pois if is_open_on(p, date) and is_schedulable(p)]
 
     # Gọi ma trận MỘT lần cho mọi cặp (điểm xuất phát + POI), greedy / OR-Tools chỉ tra bảng.
     # Chỉ số 0 = điểm xuất phát, i + 1 = remaining[i] ban đầu.

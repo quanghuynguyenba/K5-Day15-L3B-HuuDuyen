@@ -29,7 +29,7 @@ export default function PoiCard({ poiId, lang }) {
     <div className="poi-card">
       <h3>{poi.name.vi}</h3>
       <p className="muted">
-        {poi.name.en} · {poi.open}–{poi.close} · {poi.price_vnd.toLocaleString('vi-VN')} VND
+        {poi.name.en} · {poi.open && poi.close ? `${poi.open}–${poi.close}` : 'Chưa có giờ mở cửa'} · {poi.price_vnd == null ? 'Chưa có giá vé' : `${poi.price_vnd.toLocaleString('vi-VN')} VND`}
         {poi.closed_days?.length > 0 && ` · nghỉ: ${poi.closed_days.join(', ')}`}
       </p>
       {notes && <p className="notes">📌 {notes}</p>}

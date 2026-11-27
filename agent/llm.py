@@ -126,15 +126,19 @@ def _chat_mock(text: str, state: dict) -> str:
         m = re.search(r"(\d+[.,]?\d*)\s*(triệu|tr|k|nghìn)", t)
         if m:
             c["budget_vnd"] = _money(m.group(1), m.group(2))
+        else:
+            m = re.search(r"\b(\d{1,3}(?:[.,]\d{3})+|\d+)\s*(?:đ|vnd)\b", t)
+            if m:
+                c["budget_vnd"] = int(re.sub(r"[.,]", "", m.group(1)))
     m = re.search(r"(\d+)\s*(người|people|명|人)", t)
     if m:
         c["n_people"] = int(m.group(1))
     found = [k for k, words in INTEREST_WORDS.items() if any(w in t for w in words)]
     if found and not re.search(r"bớt|trễ|mưa", t):
         c["interests"] = found
-    indoor = False
+    indoor = "trong nhà" in t or "indoor" in t
     if re.search(r"mưa|rain|비|雨", t):
-        indoor = dispatch("get_weather", {"date": state.get("date") or "2026-11-28"}, state)["is_rainy"]
+        indoor = indoor or dispatch("get_weather", {"date": state.get("date") or "2026-11-28"}, state)["is_rainy"]
     m = re.search(r"trễ\s*(\d+)\s*(tiếng|giờ|h)", t)
     if m:
         h, mi = map(int, c["start_time"].split(":"))
@@ -148,7 +152,7 @@ def _chat_mock(text: str, state: dict) -> str:
                                    "start_lng": c["start"][1], "start_time": c["start_time"],
                                    "budget_vnd": c["budget_vnd"], "n_people": c["n_people"]}, state)
     lines = ["[MOCK — chưa nối LLM] lang=%s · %d người · ngân sách %s VND%s" % (
-        c["lang"], c["n_people"], f"{c['budget_vnd']:,}", " · trời mưa → chỉ điểm trong nhà" if indoor else "")]
+        c["lang"], c["n_people"], f"{c['budget_vnd']:,}", " · chỉ điểm trong nhà" if indoor else "")]
     for i, s in enumerate(plan["stops"], 1):
         lines.append("%d. %s–%s %s (%s VND)" % (i, s["arrive"], s["depart"],
                                                  get_poi(s["poi_id"])["name"]["vi"], f"{s['cost']:,}"))
