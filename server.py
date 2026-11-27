@@ -12,8 +12,10 @@ from pydantic import BaseModel
 
 from agent.llm import chat, new_state
 from agent.tools import narrate
-from config import AUDIO_DIR, DEFAULT_START, SUPPORTED_LANGS, USE_MOCK
+from config import AUDIO_DIR, DEFAULT_END_TIME, DEFAULT_START, DEFAULT_START_TIME, SUPPORTED_LANGS, USE_MOCK, USE_TOMTOM
 from rag.search import get_poi, load_pois
+from routing import maps
+from routing.optimizer import plan_route
 from routing.summary import summarize_trip, trip_facts
 from services.weather import get_weather
 
@@ -110,3 +112,58 @@ def post_summary(body: SummaryIn):
     if not state or not state.get("plan") or not state["plan"]["stops"]:
         raise HTTPException(400, "Chưa có lịch trình")
     return {"facts": trip_facts(state["plan"]), "summary": summarize_trip(state["plan"], body.lang)}
+
+
+# ---------------------------------------------------------------- trang xem bản đồ (frontend/maps.html) — gọi thẳng plan_route, không qua LLM
+class RouteIn(BaseModel):
+    poi_ids: list[str]
+    start: tuple[float, float] = DEFAULT_START
+    start_time: str = DEFAULT_START_TIME
+    end_time: str = DEFAULT_END_TIME
+    budget_vnd: int = 10_000_000
+    n_people: int = 1
+    vehicle: str = "car"
+    date: str | None = None
+
+
+@app.post("/api/route")
+def post_route(body: RouteIn):
+    before = dict(maps.stats)
+    plan = plan_route(body.poi_ids, body.start, body.start_time, body.end_time,
+                      body.budget_vnd, body.n_people, body.vehicle, body.date)
+    return {
+        "plan": _enrich(plan),
+        "routing": {
+            "provider": "tomtom" if USE_TOMTOM else "haversine",
+            "api_calls": maps.stats["api_calls"] - before["api_calls"],
+            "fallback_pairs": maps.stats["fallback_pairs"] - before["fallback_pairs"],
+        },
+    }
+
+
+class DirectionsIn(BaseModel):
+    points: list[tuple[float, float]]
+    vehicle: str = "car"
+
+
+@app.post("/api/directions")
+def post_directions(body: DirectionsIn):
+    """Tuyến cố định qua các điểm theo thứ tự (dùng cho tuyến mẫu trên maps.html)."""
+    if len(body.points) < 2:
+        raise HTTPException(400, "Cần ít nhất 2 điểm")
+    before = dict(maps.stats)
+    m = maps.distance_matrix(body.points, body.vehicle)
+    legs = [m[i][i + 1] for i in range(len(body.points) - 1)]
+    poly = maps.directions(body.points, body.vehicle)
+    km = sum(maps._haversine_km(a, b) for a, b in zip(poly, poly[1:]))
+    return {
+        "polyline": poly,
+        "leg_minutes": legs,
+        "total_minutes": sum(legs),
+        "km": round(km, 1),
+        "routing": {
+            "provider": "tomtom" if USE_TOMTOM else "haversine",
+            "api_calls": maps.stats["api_calls"] - before["api_calls"],
+            "fallback_pairs": maps.stats["fallback_pairs"] - before["fallback_pairs"],
+        },
+    }

@@ -5,7 +5,7 @@ TODO (Tùng): OR-Tools có time windows + disjunction penalty, giới hạn ~2 g
 Mọi con số (giờ, tiền, phút) tính ở đây — LLM KHÔNG tự tính.
 """
 from rag.search import get_poi, is_open_on
-from routing.goong import directions, travel_minutes
+from routing.maps import directions, distance_matrix
 
 
 def _to_min(hhmm: str) -> int:
@@ -25,14 +25,20 @@ def plan_route(poi_ids: list[str], start_latlng: tuple, start_time: str,
     dropped += [p["id"] for p in pois if not is_open_on(p, date)]
     remaining = [p for p in pois if is_open_on(p, date)]
 
+    # Gọi ma trận MỘT lần cho mọi cặp (điểm xuất phát + POI), greedy / OR-Tools chỉ tra bảng.
+    # Chỉ số 0 = điểm xuất phát, i + 1 = remaining[i] ban đầu.
+    points = [tuple(start_latlng)] + [(p["lat"], p["lng"]) for p in remaining]
+    matrix = distance_matrix(points, vehicle, skip_return_to_first=True)
+    idx = {p["id"]: i + 1 for i, p in enumerate(remaining)}
+
     now, end = _to_min(start_time), _to_min(end_time)
-    pos = tuple(start_latlng)
-    spent, stops, path = 0, [], [pos]
+    cur = 0  # chỉ số điểm hiện tại trong matrix
+    spent, stops, path = 0, [], [points[0]]
 
     while remaining:
         best = None
         for p in remaining:
-            arrive = now + travel_minutes(pos, (p["lat"], p["lng"]), vehicle)
+            arrive = now + matrix[cur][idx[p["id"]]]
             arrive = max(arrive, _to_min(p["open"]))           # tới sớm thì chờ mở cửa
             depart = arrive + p["visit_minutes"]
             cost = p["price_vnd"] * n_people
@@ -45,8 +51,8 @@ def plan_route(poi_ids: list[str], start_latlng: tuple, start_time: str,
         p, arrive, depart, cost = best
         stops.append({"poi_id": p["id"], "arrive": _to_hhmm(arrive), "depart": _to_hhmm(depart), "cost": cost})
         spent += cost
-        now, pos = depart, (p["lat"], p["lng"])
-        path.append(pos)
+        now, cur = depart, idx[p["id"]]
+        path.append(points[cur])
         remaining.remove(p)
 
     dropped += [p["id"] for p in remaining]

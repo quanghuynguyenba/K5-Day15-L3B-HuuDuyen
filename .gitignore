@@ -27,5 +27,6 @@ starter-repo/traces/
 data/pois.db
 data/cache/*
 !data/cache/.gitkeep
+!data/cache/maps_cache.json
 frontend/node_modules/
 frontend/dist/

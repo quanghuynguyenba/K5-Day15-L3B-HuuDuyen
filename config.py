@@ -27,10 +27,12 @@ _load_env()
 LLM_API_KEY = os.environ.get("LLM_API_KEY", "").strip()
 LLM_MODEL = os.environ.get("LLM_MODEL", "").strip()
 LLM_BASE_URL = os.environ.get("LLM_BASE_URL", "").strip() or None
-GOONG_API_KEY = os.environ.get("GOONG_API_KEY", "").strip()
+TOMTOM_API_KEY = os.environ.get("TOMTOM_API_KEY", "").strip()
 EMBED_API_KEY = os.environ.get("EMBED_API_KEY", "").strip()
 
 USE_MOCK = os.environ.get("USE_MOCK", "").strip().lower() in ("1", "true", "yes") or not LLM_API_KEY
+# TomTom độc lập với LLM: có key là dùng đường thật, không thì Haversine. Tắt hẳn: USE_TOMTOM=0
+USE_TOMTOM = bool(TOMTOM_API_KEY) and os.environ.get("USE_TOMTOM", "1").strip().lower() not in ("0", "false", "no")
 
 # Điểm xuất phát mặc định: Hồ Hoàn Kiếm
 DEFAULT_START = (21.0285, 105.8542)
