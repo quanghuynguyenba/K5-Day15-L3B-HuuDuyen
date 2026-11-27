@@ -26,7 +26,9 @@ class PoiCatalogueTests(unittest.TestCase):
             self.assertEqual(poi['data_source'],'repo-pois')
 
     def test_chat_plan_uses_catalogue_ids_and_known_prices(self):
-        with patch('agent.llm.USE_MOCK', True), patch('routing.optimizer.travel_minutes', return_value=15), patch('routing.optimizer.directions',return_value=[]):
+        # optimizer lấy thời gian di chuyển từ ma trận (routing.maps) → giả 15 phút mỗi chặng, không gọi TomTom
+        matrix_15 = lambda points, *a, **k: [[0 if i == j else 15 for j in range(len(points))] for i in range(len(points))]
+        with patch('agent.llm.USE_MOCK', True), patch('routing.optimizer.distance_matrix', side_effect=matrix_15), patch('routing.optimizer.directions',return_value=[]):
             response = self.client.post('/api/chat',json={'session_id':'catalogue-regression','message':'2 người, 1 triệu, bảo tàng trong nhà','date':'2026-11-28'})
         self.assertEqual(response.status_code,200)
         plan = response.json()['plan']
