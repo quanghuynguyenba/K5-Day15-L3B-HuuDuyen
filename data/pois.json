@@ -1,92 +1,713 @@
 [
   {
     "id": "hn_001",
-    "name": {"vi": "Văn Miếu – Quốc Tử Giám", "en": "Temple of Literature"},
-    "lat": 21.0294, "lng": 105.8355,
+    "name": {
+      "vi": "Văn Miếu – Quốc Tử Giám",
+      "en": "Temple of Literature"
+    },
+    "lat": 21.0281,
+    "lng": 105.8357,
     "category": "history",
-    "tags": ["history", "culture", "architecture", "photo"],
+    "tags": [
+      "history",
+      "culture",
+      "architecture",
+      "photo"
+    ],
     "indoor": false,
     "price_vnd": 70000,
-    "open": "08:00", "close": "17:00",
+    "open": "08:00",
+    "close": "17:00",
     "closed_days": [],
-    "visit_minutes": 60,
-    "suitable_for": ["family", "elderly", "couple", "friends", "solo"],
-    "description_vi": "Văn Miếu – Quốc Tử Giám là điểm tham quan văn hóa và lịch sử ở Hà Nội. Du khách có thể dành thời gian quan sát kiến trúc và không gian trong khuôn viên.",
-    "description_en": "The Temple of Literature is a cultural and historical attraction in Hanoi. Visitors can explore its architecture and grounds.",
-    "notes_vi": "Dữ liệu demo: giá vé và giờ mở cửa chỉ là giả lập.",
-    "notes_en": "Demo data: admission price and opening hours are illustrative.",
-    "source": "mock-demo — giá/giờ/toạ độ chưa kiểm chứng"
+    "visit_minutes": 75,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Quần thể di tích gắn với truyền thống khoa cử và giáo dục Việt Nam, nổi bật với Khuê Văn Các, bia tiến sĩ và các sân cổ kính.",
+    "description_en": "A heritage complex devoted to Vietnamese scholarship, featuring the Khue Van Pavilion, doctoral steles and historic courtyards.",
+    "notes_vi": "Vé người lớn ban ngày; tour đêm có lịch và vé riêng. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "Standard daytime adult admission; night tours have separate schedules and tickets. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://vanmieu.gov.vn/vi/visitor-information | https://tourshoponhopoff.com/hanoi-tourist-map/"
   },
   {
     "id": "hn_002",
-    "name": {"vi": "Hồ Hoàn Kiếm – Đền Ngọc Sơn", "en": "Hoan Kiem Lake – Ngoc Son Temple"},
-    "lat": 21.0307, "lng": 105.8524,
+    "name": {
+      "vi": "Hồ Hoàn Kiếm – Đền Ngọc Sơn",
+      "en": "Hoan Kiem Lake – Ngoc Son Temple"
+    },
+    "lat": 21.03073,
+    "lng": 105.85238,
     "category": "history",
-    "tags": ["history", "culture", "nature", "photo"],
+    "tags": [
+      "history",
+      "culture",
+      "nature",
+      "architecture",
+      "photo"
+    ],
     "indoor": false,
     "price_vnd": 50000,
-    "open": "08:00", "close": "18:00",
+    "open": "07:00",
+    "close": "19:00",
     "closed_days": [],
-    "visit_minutes": 45,
-    "suitable_for": ["family", "elderly", "couple", "friends", "solo"],
-    "description_vi": "Hồ Hoàn Kiếm và Đền Ngọc Sơn là cụm điểm tham quan ở trung tâm Hà Nội. Lịch trình demo coi đây là một điểm dừng để đi dạo và tham quan.",
-    "description_en": "Hoan Kiem Lake and Ngoc Son Temple are attractions in central Hanoi. The demo itinerary treats them as one stop for a walk and visit.",
-    "notes_vi": "Dữ liệu demo: giá vé và giờ mở cửa chỉ là giả lập.",
-    "notes_en": "Demo data: admission price and opening hours are illustrative.",
-    "source": "mock-demo — giá/giờ/toạ độ chưa kiểm chứng"
+    "visit_minutes": 60,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Hồ Gươm là không gian dạo bộ ở trung tâm Hà Nội; cầu Thê Húc dẫn đến đền Ngọc Sơn trên đảo nhỏ.",
+    "description_en": "A central lakeside walking spot with the red The Huc Bridge leading to Ngoc Son Temple on an islet.",
+    "notes_vi": "Giá và giờ áp dụng cho đền; dạo quanh hồ miễn phí. Thứ Sáu–Chủ nhật và ngày lễ đền mở đến 22:00. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "Admission and hours refer to the temple; walking around the lake is free. Friday–Sunday and holidays: open until 22:00. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://banqldtdthanoi.vn/lien-he/lien-he-danh-thang/ | https://mapcarta.com/35927092 | https://vietnam.travel/things-to-do/11-must-see-attractions-ha-noi/"
   },
   {
     "id": "hn_003",
-    "name": {"vi": "Bảo tàng Dân tộc học Việt Nam", "en": "Vietnam Museum of Ethnology"},
-    "lat": 21.0405, "lng": 105.7985,
+    "name": {
+      "vi": "Bảo tàng Dân tộc học Việt Nam",
+      "en": "Vietnam Museum of Ethnology"
+    },
+    "lat": 21.0403,
+    "lng": 105.7987,
     "category": "museum",
-    "tags": ["museum", "culture", "history"],
+    "tags": [
+      "museum",
+      "culture",
+      "history",
+      "architecture",
+      "education"
+    ],
     "indoor": true,
     "price_vnd": 40000,
-    "open": "08:30", "close": "17:30",
-    "closed_days": ["mon"],
-    "visit_minutes": 90,
-    "suitable_for": ["family", "elderly", "couple", "friends", "solo"],
-    "description_vi": "Bảo tàng Dân tộc học Việt Nam là điểm dừng phù hợp cho lịch trình quan tâm văn hóa và bảo tàng. Bản demo dùng địa điểm này để thử lọc điểm trong nhà và ngày đóng cửa.",
-    "description_en": "The Vietnam Museum of Ethnology suits an itinerary focused on culture and museums. This demo uses it to exercise indoor and closed-day filters.",
-    "notes_vi": "Dữ liệu demo: giá vé, giờ mở cửa và ngày nghỉ chỉ là giả lập.",
-    "notes_en": "Demo data: admission price, opening hours and closing days are illustrative.",
-    "source": "mock-demo — giá/giờ/toạ độ chưa kiểm chứng"
+    "open": "08:30",
+    "close": "17:30",
+    "closed_days": [
+      "mon"
+    ],
+    "visit_minutes": 120,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Các bộ sưu tập trang phục, vật dụng sinh hoạt và nhà truyền thống giới thiệu sự đa dạng văn hóa của các dân tộc Việt Nam.",
+    "description_en": "Collections of clothing, everyday objects and traditional houses introduce the cultural diversity of Vietnam’s ethnic communities.",
+    "notes_vi": "Có cả vườn kiến trúc ngoài trời; indoor=true vì có khu trưng bày trong nhà đáng kể. Nghỉ Tết Nguyên đán. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "Includes an outdoor architectural garden; indoor=true denotes substantial indoor galleries. Closed during Lunar New Year. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://www.vme.org.vn/vi/p/thoi-gian-mo-cua-22930.html | https://vme.org.vn/vi/p/ve-vao-cong-9.html | https://vietnam.travel/things-to-do/11-must-see-attractions-ha-noi/ | https://tourshoponhopoff.com/hanoi-tourist-map/"
   },
   {
     "id": "hn_004",
-    "name": {"vi": "Hoàng thành Thăng Long", "en": "Imperial Citadel of Thang Long"},
-    "lat": 21.0352, "lng": 105.8403,
+    "name": {
+      "vi": "Hoàng thành Thăng Long",
+      "en": "Imperial Citadel of Thang Long"
+    },
+    "lat": 21.0352,
+    "lng": 105.8403,
     "category": "history",
-    "tags": ["history", "architecture", "photo"],
+    "tags": [
+      "history",
+      "culture",
+      "architecture",
+      "archaeology",
+      "photo"
+    ],
     "indoor": false,
-    "price_vnd": 70000,
-    "open": "08:00", "close": "17:00",
+    "price_vnd": 100000,
+    "open": "08:00",
+    "close": "17:00",
     "closed_days": [],
-    "visit_minutes": 75,
-    "suitable_for": ["family", "couple", "friends", "solo"],
-    "description_vi": "Hoàng thành Thăng Long là điểm tham quan lịch sử tại Hà Nội. Trong lịch trình demo, đây là lựa chọn cho khách thích lịch sử, kiến trúc và chụp ảnh.",
-    "description_en": "The Imperial Citadel of Thang Long is a historical attraction in Hanoi. The demo recommends it for visitors interested in history, architecture and photography.",
-    "notes_vi": "Dữ liệu demo: giá vé và giờ mở cửa chỉ là giả lập.",
-    "notes_en": "Demo data: admission price and opening hours are illustrative.",
-    "source": "mock-demo — giá/giờ/toạ độ chưa kiểm chứng"
+    "visit_minutes": 90,
+    "suitable_for": [
+      "family",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Di sản thế giới lưu giữ các lớp dấu tích của kinh đô Thăng Long, với cổng Đoan Môn, nền điện Kính Thiên và khu khảo cổ.",
+    "description_en": "A World Heritage site preserving layers of the former imperial capital, including Doan Mon Gate, Kinh Thien Palace foundations and archaeological remains.",
+    "notes_vi": "Vé 100.000 đồng áp dụng từ 01/01/2025; tour đêm và dịch vụ bổ sung tính riêng. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "The 100,000 VND fee applies from 1 January 2025; night tours and extra services cost separately. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://hoangthanhthanglong.vn/tang-gia-ve-tham-quan-tai-khu-trung-tam-hoang-thanh-thang-long-ha-noi/ | https://tourshoponhopoff.com/hanoi-tourist-map/ | https://eodi-go.com/vi/blog/dia-diem-du-lich-ha-noi"
   },
   {
     "id": "hn_005",
-    "name": {"vi": "Quán phở phố cổ (mẫu)", "en": "Old Quarter pho shop (sample)"},
-    "lat": 21.0338, "lng": 105.8500,
-    "category": "food",
-    "tags": ["food", "local"],
+    "name": {
+      "vi": "Di tích Nhà tù Hỏa Lò",
+      "en": "Hoa Lo Prison Relic"
+    },
+    "lat": 21.0253,
+    "lng": 105.8465,
+    "category": "history",
+    "tags": [
+      "history",
+      "museum",
+      "culture",
+      "education"
+    ],
     "indoor": true,
-    "price_vnd": 60000,
-    "open": "06:00", "close": "21:00",
+    "price_vnd": 50000,
+    "open": "08:00",
+    "close": "17:00",
+    "closed_days": [],
+    "visit_minutes": 75,
+    "suitable_for": [
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Di tích nhà tù thời thuộc địa trưng bày tư liệu, hiện vật và không gian giam giữ, giúp tìm hiểu lịch sử đấu tranh và ký ức chiến tranh.",
+    "description_en": "A former colonial prison with exhibits, documents and preserved detention spaces exploring resistance and wartime history.",
+    "notes_vi": "Vé ban ngày; nội dung có thể nặng nề với trẻ nhỏ. Tour đêm và thuyết minh riêng không bao gồm. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "Daytime admission; some exhibits may be distressing for young children. Night tours and audio guides are extra. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://hoalo.vn/Home/Ve | https://hoalo.vn/Articles/4/gioi-thieu | https://tourshoponhopoff.com/hanoi-tourist-map/"
+  },
+  {
+    "id": "hn_006",
+    "name": {
+      "vi": "Bảo tàng Phụ nữ Việt Nam",
+      "en": "Vietnamese Women’s Museum"
+    },
+    "lat": 21.0234,
+    "lng": 105.8516,
+    "category": "museum",
+    "tags": [
+      "museum",
+      "culture",
+      "history",
+      "education"
+    ],
+    "indoor": true,
+    "price_vnd": 40000,
+    "open": "08:00",
+    "close": "17:00",
+    "closed_days": [],
+    "visit_minutes": 90,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Bảo tàng giới thiệu đời sống gia đình, trang phục và những đóng góp của phụ nữ Việt Nam trong xã hội và lịch sử.",
+    "description_en": "The museum explores family life, clothing and Vietnamese women’s contributions to society and history.",
+    "notes_vi": "Giá vé theo Cục Du lịch Quốc gia; nên đối chiếu tại quầy khi đến. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "Admission is listed by the national tourism authority; confirm at the ticket counter. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://vietnam.travel/vi/things-to-do/11-must-see-attractions-ha-noi/ | https://vinwonders.com/vi/wonderpedia/news/bao-tang-phu-nu-viet-nam/ | https://tourshoponhopoff.com/hanoi-tourist-map/"
+  },
+  {
+    "id": "hn_007",
+    "name": {
+      "vi": "Bảo tàng Mỹ thuật Việt Nam",
+      "en": "Vietnam National Fine Arts Museum"
+    },
+    "lat": 21.0308,
+    "lng": 105.8371,
+    "category": "museum",
+    "tags": [
+      "museum",
+      "art",
+      "culture",
+      "history",
+      "architecture"
+    ],
+    "indoor": true,
+    "price_vnd": 40000,
+    "open": "08:30",
+    "close": "17:00",
+    "closed_days": [
+      "mon"
+    ],
+    "visit_minutes": 90,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Các phòng trưng bày giới thiệu nghệ thuật Việt Nam qua điêu khắc, tranh sơn mài, hội họa và nhiều chất liệu truyền thống.",
+    "description_en": "Galleries trace Vietnamese visual arts through sculpture, lacquer painting, fine art and traditional media.",
+    "notes_vi": "Giờ tham quan theo CityGuide; phí thuyết minh tính riêng. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "Hours follow CityGuide; guided interpretation costs extra. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://vnfam.vn/vi/tham-quan | https://cityguide.vn/vn/hanoi/dia-diem/bao-tang-my-thuat-viet-nam | https://tourshoponhopoff.com/hanoi-tourist-map/"
+  },
+  {
+    "id": "hn_008",
+    "name": {
+      "vi": "Bảo tàng Lịch sử Quốc gia",
+      "en": "Vietnam National Museum of History"
+    },
+    "lat": 21.02414,
+    "lng": 105.85976,
+    "category": "museum",
+    "tags": [
+      "museum",
+      "history",
+      "culture",
+      "archaeology",
+      "architecture"
+    ],
+    "indoor": true,
+    "price_vnd": 40000,
+    "open": "08:00",
+    "close": "17:00",
+    "closed_days": [
+      "mon"
+    ],
+    "visit_minutes": 90,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Hiện vật khảo cổ và các bộ sưu tập lịch sử giới thiệu những giai đoạn phát triển của Việt Nam. Tọa độ chọn cơ sở số 1 Tràng Tiền.",
+    "description_en": "Archaeological and historical collections trace Vietnam’s development across different eras. The pin refers to 1 Trang Tien Street.",
+    "notes_vi": "Nghỉ trưa 12:00–13:30; vé dùng cho hai cơ sở theo nguồn du lịch. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "Lunch closure 12:00–13:30; the travel guide reports that admission covers both buildings. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://baotanglichsu.vn/vi | https://govietnam.travel/destination/vietnam-national-museum-of-history/ | https://cityguide.vn/en/hanoi/places/bao-tang-lich-su-quoc-gia"
+  },
+  {
+    "id": "hn_009",
+    "name": {
+      "vi": "Bảo tàng Hà Nội",
+      "en": "Hanoi Museum"
+    },
+    "lat": 21.0099,
+    "lng": 105.7863,
+    "category": "museum",
+    "tags": [
+      "museum",
+      "history",
+      "culture",
+      "architecture",
+      "photo"
+    ],
+    "indoor": true,
+    "price_vnd": 50000,
+    "open": "09:00",
+    "close": "17:00",
+    "closed_days": [
+      "mon"
+    ],
+    "visit_minutes": 90,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Công trình hình kim tự tháp ngược giới thiệu di sản và quá trình phát triển của Thăng Long – Hà Nội qua hiện vật và trưng bày.",
+    "description_en": "An inverted-pyramid building presenting the heritage and development of Thang Long–Hanoi through artifacts and exhibitions.",
+    "notes_vi": "Giá 50.000 đồng là mức giai đoạn 2 theo nghị quyết và trang giới thiệu; chưa xác nhận trực tiếp mức đang thu (giai đoạn 1 là 30.000 đồng). Thứ Sáu, thứ Bảy mở thêm 17:00–21:00. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "50,000 VND is the phase-two fee listed in the regulation and museum introduction; the actual fee has not been directly confirmed (phase one is 30,000 VND). Extra Friday/Saturday hours: 17:00–21:00. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://baotanghanoi.com.vn/en/thong-bao/ | https://baotanghanoi.com.vn/bao-tang-ha-noi-mo-cua-buoi-toi-danh-thuc/ | https://xaydungchinhsach.chinhphu.vn/muc-thu-phi-2-di-tich-pho-co-ha-noi-va-bao-tang-ha-noi-tu-1-1-2025-119241211120724374.htm | https://cityguide.vn/vn/hanoi/dia-diem/bao-tang-ha-noi | https://tourshoponhopoff.com/hanoi-tourist-map/"
+  },
+  {
+    "id": "hn_010",
+    "name": {
+      "vi": "Bảo tàng Lịch sử Quân sự Việt Nam",
+      "en": "Vietnam Military History Museum"
+    },
+    "lat": 21.0106,
+    "lng": 105.7542,
+    "category": "museum",
+    "tags": [
+      "museum",
+      "history",
+      "education",
+      "architecture",
+      "photo"
+    ],
+    "indoor": true,
+    "price_vnd": 40000,
+    "open": "08:00",
+    "close": "16:30",
+    "closed_days": [
+      "mon",
+      "fri"
+    ],
+    "visit_minutes": 120,
+    "suitable_for": [
+      "family",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Bảo tàng tại cơ sở mới trên Đại lộ Thăng Long có các phòng trưng bày và khu hiện vật ngoài trời về lịch sử quân sự Việt Nam.",
+    "description_en": "The new museum on Thang Long Boulevard contains galleries and outdoor displays on Vietnamese military history.",
+    "notes_vi": "Tọa độ cơ sở mới, không phải cơ sở cũ trên Điện Biên Phủ. Có khu ngoài trời; giá người lớn phổ thông. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "The pin refers to the new site, not the former Dien Bien Phu location. Includes outdoor displays; standard adult fee. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://btlsqsvn.mod.gov.vn/ | https://xaydungchinhsach.chinhphu.vn/tu-1-11-bao-tang-lich-su-quan-su-viet-nam-vi-tri-moi-mo-cua-don-khach-mien-phi-tham-quan-119241004184508454.htm | https://tourshoponhopoff.com/hanoi-tourist-map/"
+  },
+  {
+    "id": "hn_011",
+    "name": {
+      "vi": "Chùa Một Cột",
+      "en": "One Pillar Pagoda"
+    },
+    "lat": 21.03586,
+    "lng": 105.83361,
+    "category": "history",
+    "tags": [
+      "history",
+      "culture",
+      "architecture",
+      "spiritual",
+      "photo"
+    ],
+    "indoor": false,
+    "price_vnd": 0,
+    "open": "08:00",
+    "close": "11:00",
+    "closed_days": [
+      "mon",
+      "fri"
+    ],
+    "visit_minutes": 30,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Liên Hoa Đài có hình dáng tựa bông sen vươn lên từ mặt nước, là một biểu tượng kiến trúc của Hà Nội.",
+    "description_en": "The lotus-shaped shrine rising above a pond is a distinctive architectural symbol of Hanoi.",
+    "notes_vi": "Vé 0 đồng dành cho công dân Việt Nam theo nguồn báo chí dẫn lại; khách quốc tế 25.000 đồng. Dùng khung giờ mùa đông thận trọng của Cục Du lịch; nguồn khác ghi 07:00–18:00 hằng ngày, cần xác nhận. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "Free for Vietnamese citizens according to cited press reporting; foreign visitors 25,000 VND. Conservative winter hours follow the tourism authority; other sources list 07:00–18:00 daily, so confirm before visiting. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://vietnam.travel/things-to-do/11-must-see-attractions-ha-noi/ | https://cityguide.vn/vn/hanoi/dia-diem/chua-mot-cot"
+  },
+  {
+    "id": "hn_012",
+    "name": {
+      "vi": "Chùa Trấn Quốc",
+      "en": "Tran Quoc Pagoda"
+    },
+    "lat": 21.0479,
+    "lng": 105.8368,
+    "category": "history",
+    "tags": [
+      "history",
+      "culture",
+      "architecture",
+      "spiritual",
+      "nature",
+      "photo"
+    ],
+    "indoor": false,
+    "price_vnd": 0,
+    "open": "07:30",
+    "close": "18:30",
     "closed_days": [],
     "visit_minutes": 45,
-    "suitable_for": ["family", "elderly", "couple", "friends", "solo"],
-    "description_vi": "Đây là quán phở giả lập trong khu phố cổ, dùng để minh họa điểm ăn uống trong lịch trình. Không dùng địa điểm này để dẫn đường ngoài đời thực.",
-    "description_en": "This is a fictional pho shop in the Old Quarter, used to demonstrate a food stop. Do not use it for real-world navigation.",
-    "notes_vi": "Địa điểm giả lập; giá, giờ và toạ độ chỉ phục vụ demo.",
-    "notes_en": "Fictional venue; price, hours and coordinates are for demonstration only.",
-    "source": "mock-demo — địa điểm giả lập"
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Ngôi chùa cổ bên Hồ Tây có bảo tháp nhiều tầng và sân chùa nhìn ra mặt nước.",
+    "description_en": "An old Buddhist pagoda beside West Lake, known for its tall stupa and waterside courtyards.",
+    "notes_vi": "Theo Vietnam Airlines, nghỉ trưa 11:30–13:30; nguồn khác ghi 08:00–16:00. Nên xác nhận giờ thực tế và mặc trang phục kín đáo. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "Vietnam Airlines lists a lunch closure from 11:30 to 13:30; other sources list 08:00–16:00. Confirm actual hours and dress modestly. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://www.vietnamairlines.com/vn/vi/plan-book/travel/travel-guide/tran-quoc-pagoda | https://cityguide.vn/vn/hanoi/dia-diem/chua-tran-quoc"
+  },
+  {
+    "id": "hn_013",
+    "name": {
+      "vi": "Đền Quán Thánh",
+      "en": "Quan Thanh Temple"
+    },
+    "lat": 21.04301,
+    "lng": 105.83659,
+    "category": "history",
+    "tags": [
+      "history",
+      "culture",
+      "spiritual",
+      "architecture",
+      "photo"
+    ],
+    "indoor": false,
+    "price_vnd": 10000,
+    "open": "08:00",
+    "close": "17:00",
+    "closed_days": [],
+    "visit_minutes": 35,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Một trong Thăng Long tứ trấn, đền nằm gần Hồ Tây và nổi tiếng với tượng đồng Huyền Thiên Trấn Vũ.",
+    "description_en": "One of the four guardian temples of Thang Long, near West Lake and known for its bronze statue of Tran Vu.",
+    "notes_vi": "Giá theo biểu phí thành phố; giờ tham khảo từ cẩm nang (MyHanoi ghi đến 18:00). Chưa xác nhận tình trạng tu bổ và giờ thực tế. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "Fee follows the municipal tariff; hours are indicative (MyHanoi lists closing at 18:00). Renovation status and actual hours remain unconfirmed. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://hanoi.gov.vn/hoat-dong-cua-hdnd-thanh-pho-ha-noi/quy-dinh-phi-tham-quan-danh-lam-thang-canh-di-tich-lich-su-cong-trinh-van-hoa-tren-dia-ban-thanh-pho-ha-noi-ap-dung-tu-1-1-2024-42861763.htm | https://myhanoi.vn/vi/denquanthanh | https://cityguide.vn/vn/hanoi/dia-diem/den-quan-thanh"
+  },
+  {
+    "id": "hn_014",
+    "name": {
+      "vi": "Nhà thờ Lớn Hà Nội",
+      "en": "St. Joseph’s Cathedral"
+    },
+    "lat": 21.02866,
+    "lng": 105.84885,
+    "category": "history",
+    "tags": [
+      "history",
+      "culture",
+      "architecture",
+      "spiritual",
+      "photo"
+    ],
+    "indoor": true,
+    "price_vnd": 0,
+    "open": "08:00",
+    "close": "20:00",
+    "closed_days": [],
+    "visit_minutes": 35,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Nhà thờ mang phong cách Gothic với hai tháp chuông, là điểm nhấn kiến trúc ở khu vực phố Nhà Chung.",
+    "description_en": "A Gothic-style cathedral with twin bell towers, a distinctive landmark around Nha Chung Street.",
+    "notes_vi": "Giờ vào trong thứ Hai–thứ Bảy: 08:00–11:00 và 14:00–20:00; Chủ nhật 07:00–11:00 và 15:00–21:00. Tôn trọng giờ lễ; khu vực ngoài trời có thể ngắm riêng. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "Interior hours Monday–Saturday: 08:00–11:00 and 14:00–20:00; Sunday: 07:00–11:00 and 15:00–21:00. Respect services; exterior sightseeing is separate. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://vietnam.travel/things-to-do/11-must-see-attractions-ha-noi/ | https://mapcarta.com/W28912942"
+  },
+  {
+    "id": "hn_015",
+    "name": {
+      "vi": "Chợ Đồng Xuân",
+      "en": "Dong Xuan Market"
+    },
+    "lat": 21.038256,
+    "lng": 105.849671,
+    "category": "market",
+    "tags": [
+      "shopping",
+      "food",
+      "local",
+      "culture",
+      "photo"
+    ],
+    "indoor": true,
+    "price_vnd": 0,
+    "open": "06:00",
+    "close": "18:00",
+    "closed_days": [],
+    "visit_minutes": 60,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Khu chợ có mái che ở phía bắc phố cổ tập trung nhiều quầy hàng, vải vóc, đồ gia dụng và hoạt động buôn bán địa phương.",
+    "description_en": "A covered market in the northern Old Quarter with stalls selling textiles, household goods and other local merchandise.",
+    "notes_vi": "Miễn phí vào chợ; mua sắm và ăn uống tính riêng. Giờ từng quầy có thể khác; chợ đêm là hoạt động riêng. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "Free entry; purchases and food cost extra. Stall hours vary; the night market is separate. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://cityguide.vn/en/hanoi/places/cho-dong-xuan | https://www.vietnamtourism.com/vi/cho-ong-xuan-o-ha-noi-cam-nang-ay-u-ve-khu-cho-bieu-tuong"
+  },
+  {
+    "id": "hn_016",
+    "name": {
+      "vi": "Phố cổ Hà Nội",
+      "en": "Hanoi Old Quarter"
+    },
+    "lat": 21.0341,
+    "lng": 105.8506,
+    "category": "culture",
+    "tags": [
+      "culture",
+      "history",
+      "architecture",
+      "food",
+      "shopping",
+      "local",
+      "photo"
+    ],
+    "indoor": false,
+    "price_vnd": 0,
+    "open": "07:00",
+    "close": "23:59",
+    "closed_days": [],
+    "visit_minutes": 90,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Mạng lưới phố nghề và nhà ống truyền thống thích hợp để khám phá ẩm thực, cửa hàng nhỏ và nhịp sống của Hà Nội.",
+    "description_en": "A network of old trade streets and traditional tube houses, ideal for exploring street food, shops and Hanoi’s daily life.",
+    "notes_vi": "Không có cổng kiểm soát chung; giờ 07:00–23:59 biểu diễn khung tham quan gợi ý theo bài giới thiệu, không phải giờ đóng phố. Chi phí ăn uống riêng. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "No common entrance or closing time; 07:00–23:59 represents a suggested sightseeing window from the travel article, not a street closure. Food costs extra. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://vietnam.travel/things-to-do/11-must-see-attractions-ha-noi/ | https://tourshoponhopoff.com/hanoi-tourist-map/ | https://phocohanoi.hoankiem.vn/"
+  },
+  {
+    "id": "hn_017",
+    "name": {
+      "vi": "Ngôi nhà Di sản 87 Mã Mây",
+      "en": "Heritage House 87 Ma May"
+    },
+    "lat": 21.0344,
+    "lng": 105.8535,
+    "category": "history",
+    "tags": [
+      "history",
+      "culture",
+      "architecture",
+      "museum",
+      "photo"
+    ],
+    "indoor": true,
+    "price_vnd": 20000,
+    "open": "08:00",
+    "close": "17:30",
+    "closed_days": [],
+    "visit_minutes": 35,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Ngôi nhà ống truyền thống với các khoảng sân trong và không gian sinh hoạt tái hiện nếp sống của cư dân phố cổ.",
+    "description_en": "A traditional tube house with internal courtyards and living spaces illustrating historic Old Quarter life.",
+    "notes_vi": "Nghỉ trưa 12:00–13:30 theo lịch công bố cho các di tích phố cổ; có thể điều chỉnh theo sự kiện, cần kiểm tra trước. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "Lunch closure 12:00–13:30 follows the published Old Quarter heritage schedule; event-related changes are possible. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://giaoducthoidai.vn/ha-noi-chinh-thuc-thu-phi-tham-quan-bang-ve-dien-tu-tai-hai-di-tich-pho-co-post764010.html | https://xaydungchinhsach.chinhphu.vn/muc-thu-phi-2-di-tich-pho-co-ha-noi-va-bao-tang-ha-noi-tu-1-1-2025-119241211120724374.htm | https://tourshoponhopoff.com/hanoi-tourist-map/"
+  },
+  {
+    "id": "hn_018",
+    "name": {
+      "vi": "Đền Bạch Mã",
+      "en": "Bach Ma Temple"
+    },
+    "lat": 21.03592,
+    "lng": 105.85099,
+    "category": "history",
+    "tags": [
+      "history",
+      "culture",
+      "architecture",
+      "spiritual"
+    ],
+    "indoor": false,
+    "price_vnd": 20000,
+    "open": "08:00",
+    "close": "17:30",
+    "closed_days": [],
+    "visit_minutes": 30,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Đền thờ thần Bạch Mã trên phố Hàng Buồm, gắn với truyền thuyết xây dựng kinh thành Thăng Long.",
+    "description_en": "A temple on Hang Buom Street dedicated to the White Horse deity and associated with legends of the founding of Thang Long.",
+    "notes_vi": "Nghỉ trưa 12:00–13:30; có thể mở thêm 19:00–21:00 thứ Sáu–Chủ nhật. Một số ngày âm lịch miễn phí. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "Lunch closure 12:00–13:30; possible extra Friday–Sunday opening 19:00–21:00. Free on certain lunar dates. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://cityguide.vn/vn/hanoi/dia-diem/den-bach-ma | https://phocohanoi.hoankiem.vn/ | https://mapcarta.com/W700840711"
+  },
+  {
+    "id": "hn_019",
+    "name": {
+      "vi": "Di tích Nhà 48 Hàng Ngang",
+      "en": "Historic House at 48 Hang Ngang"
+    },
+    "lat": 21.03433,
+    "lng": 105.85044,
+    "category": "history",
+    "tags": [
+      "history",
+      "culture",
+      "museum",
+      "architecture"
+    ],
+    "indoor": true,
+    "price_vnd": 0,
+    "open": "08:00",
+    "close": "17:00",
+    "closed_days": [
+      "sat",
+      "sun"
+    ],
+    "visit_minutes": 30,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Ngôi nhà gắn với sự kiện Chủ tịch Hồ Chí Minh soạn thảo bản Tuyên ngôn Độc lập năm 1945.",
+    "description_en": "A historic house associated with Ho Chi Minh’s drafting of the Declaration of Independence in 1945.",
+    "notes_vi": "Theo Ban quản lý di tích danh thắng: miễn phí và mở thứ Hai–thứ Sáu. Nguồn khác ghi lịch khác; cần xác nhận trước. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "The heritage management board lists free entry Monday–Friday. Other sources report different schedules; confirm before visiting. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://banqldtdthanoi.vn/lien-he/lien-he-danh-thang/ | https://mapcarta.com/N445345255 | https://cityguide.vn/vn/hanoi/dia-diem/pho-co-ha-noi"
+  },
+  {
+    "id": "hn_020",
+    "name": {
+      "vi": "Hồ Tây – đường Thanh Niên",
+      "en": "West Lake – Thanh Nien Road"
+    },
+    "lat": 21.04894,
+    "lng": 105.83858,
+    "category": "nature",
+    "tags": [
+      "nature",
+      "walking",
+      "outdoor",
+      "photo",
+      "sunset"
+    ],
+    "indoor": false,
+    "price_vnd": 0,
+    "open": "00:00",
+    "close": "23:59",
+    "closed_days": [],
+    "visit_minutes": 60,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Đoạn đường bên Hồ Tây và hồ Trúc Bạch là nơi dạo bộ, ngắm cảnh mặt nước và hoàng hôn.",
+    "description_en": "A scenic stretch beside West Lake and Truc Bach Lake for walking, waterside views and sunsets.",
+    "notes_vi": "Không gian công cộng miễn phí; 00:00–23:59 biểu diễn mở cả ngày. Tọa độ tham chiếu gần đầu đường Thanh Niên, không phải tâm hồ; chi phí dịch vụ riêng. Thời lượng và nhóm khách là gợi ý; tọa độ là điểm tham chiếu bản đồ, không bảo đảm đúng cổng vào.",
+    "notes_en": "Free public space; 00:00–23:59 represents all-day access. Approximate reference near the end of Thanh Nien Road, not the lake center; services cost extra. Duration and audience tags are recommendations; coordinates are map reference points, not guaranteed entrances.",
+    "source": "https://hanoigo.hanoi.gov.vn/en/place/ho-tay-ctv-cta905 | https://vinpearl.com/vi/duong-thanh-nien-ha-noi | https://hanoi.worldplaces.me/vi/review/25233586-the-coffee-bean-dg-thanh-nien.html"
   }
 ]

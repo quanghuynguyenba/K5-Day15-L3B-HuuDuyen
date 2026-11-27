@@ -129,14 +129,15 @@ summarize_trip(plan: dict, lang: str) -> str   # plan = output của plan_route 
 
 ### Hiếu — Dữ liệu POI + RAG
 
-**Checklist MVP (dữ liệu mock, 27/11):**
-- [x] Có 5 POI đúng schema trong `data/pois.json`; nội dung mô tả dùng được cho thuyết minh demo.
-- [x] Gắn nhãn `mock-demo` cho nguồn; giá, giờ, tọa độ chưa kiểm chứng. `hn_005` là địa điểm giả lập.
+**Checklist MVP (bộ dữ liệu 20 POI đã chốt, 27/11):**
+- [x] `data/pois.json` có 20 POI, ID không trùng và đủ các trường theo schema; mỗi POI có mô tả Việt/Anh và URL nguồn.
+- [x] Kiểm tra tự động dữ liệu: JSON đọc được, tọa độ trong vùng Hà Nội, giá không âm, `open` trước `close`, mô tả không rỗng.
 - [x] `search_pois` lọc theo giá, nhóm khách, trong nhà và ngày đóng cửa; xếp hạng theo tag.
 - [x] `get_poi_context` trả nội dung tiếng Việt/Anh và fallback cho ngôn ngữ khác.
-- [ ] Kiểm chứng dữ liệu và thêm POI thật nếu mở rộng sau MVP.
+- [x] Smoke test: truy vấn bảo tàng trong nhà trả 9 POI; bộ lập lịch chọn được 7 điểm trong tình huống thử nghiệm.
+- [x] Đối chiếu từng giá vé, giờ mở cửa, ngày nghỉ và tọa độ với nguồn tương ứng trước khi công bố là thông tin đã xác minh.
 
-Phạm vi MVP hiện dùng JSON và xếp hạng theo tag; SQLite/vector/embedding và thu thập ≥30 POI được hoãn. Không trình bày dữ liệu mock như thông tin du lịch đã xác minh.
+Phạm vi MVP dùng JSON và xếp hạng theo tag; SQLite/vector/embedding và mốc ≥30 POI trong kế hoạch ban đầu được hoãn.
 
 **Nguồn dữ liệu:**
 
