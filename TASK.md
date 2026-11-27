@@ -68,13 +68,19 @@ Mọi người code song song theo hợp đồng này, test bằng dữ liệu g
   "indoor": false,
   "price_vnd": 70000,
   "open": "08:00", "close": "17:00",
+  "closed_days": [],
   "visit_minutes": 60,
   "suitable_for": ["family", "elderly", "couple", "friends", "solo"],
   "description_vi": "…",
   "description_en": "…",
+  "notes_vi": "…",
+  "notes_en": "…",
   "source": "https://…"
 }
 ```
+
+- `closed_days`: các thứ đóng cửa, giá trị trong `mon`…`sun` (vd bảo tàng nghỉ thứ Hai → `["mon"]`). `search_pois` và `plan_route` phải loại điểm đóng cửa vào ngày đi.
+- `notes_vi` / `notes_en`: lưu ý cho khách (trang phục, chỉ mở buổi sáng, cấm chụp ảnh…) — chatbot dùng để trả lời câu hỏi "lưu ý".
 
 Category gợi ý: `history`, `museum`, `food`, `cafe`, `nature`, `shopping`, `night`, `art`.
 
@@ -94,6 +100,8 @@ get_weather(date: str, lat: float, lng: float) -> dict
 # {"rain_prob_by_hour": {...}, "is_rainy": bool, "temp_max": float}
 
 narrate(poi_id: str, lang: str) -> {"text": str, "audio_path": str}
+
+summarize_trip(plan: dict, lang: str) -> str   # plan = output của plan_route (Hiếu)
 ```
 
 ---
@@ -112,7 +120,7 @@ narrate(poi_id: str, lang: str) -> {"text": str, "audio_path": str}
 | Giá vé, giờ mở cửa, thời gian tham quan | Website chính thức, trang du lịch Hà Nội | **Tự gom**: LLM tạo bản nháp, người kiểm tra lại từng điểm |
 | `suitable_for`, `indoor`, `tags` | Tự gán | **Tự gom** |
 
-→ Overpass/Wikipedia cho số lượng; giá & giờ phải tự gom vì không có API đáng tin. Ưu tiên **50 POI sạch** hơn 200 POI bẩn. Ghi `source` cho từng điểm.
+→ Overpass/Wikipedia cho số lượng; giá & giờ phải tự gom vì không có API đáng tin. Ưu tiên **30 POI sạch** (làm trước các điểm trên tuyến demo) hơn 200 POI bẩn; còn giờ mới bổ sung. Ghi `source` cho từng điểm.
 
 **Embedding — 2 phương án, chọn 1 trước 13h:**
 
@@ -130,9 +138,9 @@ narrate(poi_id: str, lang: str) -> {"text": str, "audio_path": str}
 **Task:**
 - [ ] Viết `pois.json` mẫu 5 POI theo schema → push **trước 12:00** để mọi người test
 - [ ] Script Overpass + Wikipedia lấy dữ liệu thô
-- [ ] Hoàn thiện ≥50 POI (giá, giờ, tag, indoor, suitable_for) → **trước 16:00**
+- [ ] Hoàn thiện ≥30 POI sạch (giá, giờ, `closed_days`, `notes`, tag, indoor, suitable_for), ưu tiên điểm trên tuyến demo → **trước 16:00**. Còn giờ thì bổ sung lên 50
 - [ ] `build_db.py`: json → SQLite + vector
-- [ ] `search_pois`: lọc cứng (giá, nhóm, indoor) rồi xếp hạng bằng vector similarity theo interests
+- [ ] `search_pois`: lọc cứng (giá, nhóm, indoor, `closed_days` theo ngày đi) rồi xếp hạng bằng vector similarity theo interests
 - [ ] Hàm `get_poi_context(poi_id, lang)` trả đoạn nội dung cho thuyết minh
 
 ### Huy — Agent LLM + đa ngôn ngữ
@@ -144,9 +152,9 @@ narrate(poi_id: str, lang: str) -> {"text": str, "audio_path": str}
 - [ ] Đăng ký 4 tool theo hợp đồng mục 3.2, vòng lặp tool calling
 - [ ] Đa ngôn ngữ: tự nhận diện ngôn ngữ user, trả lời đúng ngôn ngữ đó, tên POI kèm tên tiếng Việt
 - [ ] Sửa lịch trình qua chat ("bỏ bảo tàng", "bớt 200k", "trời mưa thì sao") → gọi lại tool với ràng buộc mới, giữ state lịch trình hiện tại
+- [ ] Lập lại lịch giữa chuyến: khách báo vị trí / trễ giờ ("Tôi đang ở Hồ Gươm, trễ 1 tiếng rồi") → gọi lại `plan_route` cho phần còn lại của ngày với `start_latlng` = vị trí hiện tại, `start_time` = giờ hiện tại, bỏ các điểm đã đi (thêm 1 dòng hướng dẫn vào system prompt)
 - [ ] Prompt thuyết minh: 60–90 giây, chỉ dùng nội dung RAG trả về, **không bịa số liệu**
 - [ ] Guardrail: LLM **không tự tính** khoảng cách, giờ, tiền — luôn lấy từ `plan_route`
-- [ ] Màn hình "Sau chuyến đi": LLM tóm tắt lịch trình, tổng chi, gợi ý lần sau
 
 ### Hiếu — Map API + tối ưu lộ trình
 
@@ -168,7 +176,8 @@ narrate(poi_id: str, lang: str) -> {"text": str, "audio_path": str}
 - [ ] `routing/goong.py` + cache
 - [ ] Greedy fallback chạy được → **trước 18:00**
 - [ ] OR-Tools có time windows + disjunction
-- [ ] Trả đúng output `plan_route` (kèm `dropped` để LLM giải thích vì sao bỏ điểm)
+- [ ] Trả đúng output `plan_route` (kèm `dropped` để LLM giải thích vì sao bỏ điểm); loại POI có `closed_days` trùng ngày đi
+- [ ] Hàm tóm tắt "Sau chuyến đi" `summarize_trip(plan, lang) -> str`: tổng chi và tổng thời gian **tính bằng code** từ `stops`, LLM chỉ viết lời tóm tắt + gợi ý lần sau (dùng lại client LLM của Huy)
 
 ### Cường — Giao diện + thuyết minh + thời tiết + demo
 
@@ -193,7 +202,7 @@ narrate(poi_id: str, lang: str) -> {"text": str, "audio_path": str}
 - [ ] Khung Streamlit chạy với dữ liệu giả → **trước 14:00**
 - [ ] Map marker + polyline + click marker
 - [ ] `services/tts.py`, `services/weather.py`
-- [ ] Màn hình "Sau chuyến đi" (gọi hàm tóm tắt của Huy)
+- [ ] Màn hình "Sau chuyến đi" (gọi `summarize_trip` của Hiếu)
 - [ ] Kịch bản demo + slide + quay video dự phòng
 
 ---
@@ -205,7 +214,7 @@ narrate(poi_id: str, lang: str) -> {"text": str, "audio_path": str}
 | Hôm nay 11:30 | Chốt schema, tool contract, tạo repo + `.env.example` | Cả nhóm |
 | 12:00 | 5 POI mẫu lên repo | Tùng |
 | 14:00 | UI khung chạy dữ liệu giả; agent gọi được tool giả | Cường, Huy |
-| 16:00 | ≥50 POI hoàn chỉnh + DB + vector | Tùng |
+| 16:00 | ≥30 POI sạch + DB + vector | Tùng |
 | 18:00 | Greedy route chạy với Goong thật | Hiếu |
 | 21:00 | **Tích hợp lần 1:** chat → lịch trình → map end-to-end | Cả nhóm |
 | 22:00 | **Khoá tính năng.** Sau mốc này không thêm tính năng mới | Cả nhóm |
@@ -222,8 +231,9 @@ narrate(poi_id: str, lang: str) -> {"text": str, "audio_path": str}
 2. Bot trả lời tiếng Hàn + map hiện 5–6 điểm đánh số, đường đi, giờ, tổng chi phí
 3. *"Chiều nay trời mưa thì sao?"* → lấy thời tiết → đổi điểm ngoài trời sang trong nhà
 4. *"Bớt 200k"* → lịch trình tính lại
-5. Bấm marker Văn Miếu → nghe thuyết minh tiếng Hàn
-6. Chuyển sang "Sau chuyến đi" → tóm tắt hành trình + chi tiêu
+5. *"Tôi đang ở Hồ Gươm, trễ 1 tiếng rồi"* → lập lại phần còn lại của ngày từ vị trí + giờ hiện tại, bỏ điểm không kịp
+6. Bấm marker Văn Miếu → nghe thuyết minh tiếng Hàn
+7. Chuyển sang "Sau chuyến đi" → tóm tắt hành trình + chi tiêu
 
 ---
 
