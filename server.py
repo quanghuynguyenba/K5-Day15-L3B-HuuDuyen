@@ -9,11 +9,12 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+from typing import Literal
 
 from agent.llm import chat, new_state
 from agent.tools import narrate
 from config import AUDIO_DIR, DEFAULT_START, SUPPORTED_LANGS, USE_MOCK
-from rag.search import get_poi, load_pois
+from rag.search import get_poi, load_pois, is_schedulable
 from routing.summary import summarize_trip, trip_facts
 from services.weather import get_weather
 
@@ -40,7 +41,12 @@ def _enrich(plan: dict | None) -> dict | None:
     stops = []
     for s in plan["stops"]:
         p = get_poi(s["poi_id"]) or {}
-        stops.append({**s, "name": p.get("name"), "lat": p.get("lat"), "lng": p.get("lng")})
+        stops.append({
+            **s,
+            "name": p.get("name"), "lat": p.get("lat"), "lng": p.get("lng"),
+            "description_vi": p.get("description_vi"),
+            "description_en": p.get("description_en"),
+        })
     dropped = [{"poi_id": i, "name": (get_poi(i) or {}).get("name")} for i in plan["dropped"]]
     return {**plan, "stops": stops, "dropped": dropped}
 
@@ -53,7 +59,7 @@ class ChatIn(BaseModel):
 
 class NarrateIn(BaseModel):
     poi_id: str
-    lang: str = "vi"
+    lang: Literal["vi", "en", "ko", "ja", "zh"] = "vi"
 
 
 class SummaryIn(BaseModel):
@@ -63,14 +69,20 @@ class SummaryIn(BaseModel):
 
 @app.get("/api/config")
 def get_config():
-    return {"mock": USE_MOCK, "langs": SUPPORTED_LANGS, "center": DEFAULT_START}
+    pois = load_pois()
+    return {"mock": USE_MOCK, "langs": SUPPORTED_LANGS, "center": DEFAULT_START,
+            "poi_count": len(pois), "schedulable_poi_count": sum(is_schedulable(poi) for poi in pois),
+            "data_source": "repo-pois"}
 
 
 @app.post("/api/chat")
 def post_chat(body: ChatIn):
     state = _session(body.session_id, body.date)
     reply, state = chat(body.message, state)
-    return {"reply": reply, "plan": _enrich(state.get("plan")), "weather": state.get("weather")}
+    plan = _enrich(state.get("plan"))
+    if plan is not None:
+        plan["n_people"] = state.get("constraints", {}).get("n_people")
+    return {"reply": reply, "plan": plan, "weather": state.get("weather")}
 
 
 @app.post("/api/reset")
@@ -81,7 +93,17 @@ def post_reset(body: SummaryIn):
 
 @app.get("/api/pois")
 def list_pois():
-    return load_pois()
+    return [_poi_view(poi) for poi in load_pois()]
+
+
+def _poi_view(poi):
+    """Expose data completeness; a URL is not a claim of independent verification."""
+    missing = []
+    if poi.get("price_vnd") is None:
+        missing.append("price")
+    if not poi.get("open") or not poi.get("close"):
+        missing.append("opening_hours")
+    return {**poi, "data_source": "repo-pois", "schedulable": is_schedulable(poi), "missing_fields": missing}
 
 
 @app.get("/api/pois/{poi_id}")
@@ -89,7 +111,7 @@ def one_poi(poi_id: str):
     p = get_poi(poi_id)
     if not p:
         raise HTTPException(404, "Không có POI %s" % poi_id)
-    return p
+    return _poi_view(p)
 
 
 @app.get("/api/weather")
@@ -99,9 +121,18 @@ def weather(date: str):
 
 @app.post("/api/narrate")
 def post_narrate(body: NarrateIn):
-    n = narrate(body.poi_id, body.lang)
+    if not get_poi(body.poi_id):
+        raise HTTPException(404, "Không tìm thấy địa điểm để thuyết minh.")
+    try:
+        n = narrate(body.poi_id, body.lang)
+    except ValueError as error:
+        raise HTTPException(400, str(error)) from error
+    except Exception as error:
+        raise HTTPException(503, "Chưa tạo được thuyết minh. Vui lòng thử lại sau.") from error
     url = "/audio/" + os.path.basename(n["audio_path"]) if n.get("audio_path") else None
-    return {"text": n["text"], "audio_url": url}
+    if url and n.get("audio_version"):
+        url += "?v=" + n["audio_version"]
+    return {**{key: value for key, value in n.items() if key != "audio_path"}, "audio_url": url}
 
 
 @app.post("/api/summary")

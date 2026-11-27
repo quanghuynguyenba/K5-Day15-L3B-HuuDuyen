@@ -1,0 +1,523 @@
+/* Shared visual contract for preview and API-backed conversations. */
+/* Reference geometry: 1900px canvas, 274px sidebar, 949px map, 677px chat. */
+@media (min-width: 1101px) {
+  .top-header {
+    height: 78px;
+  }
+  .workspace > .sidebar:not(.collapsed) {
+    width: 274px;
+    padding: 16px 14px;
+  }
+  .trip {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  }
+  .workspace > .sidebar .new-chat {
+    font-size: 14px;
+    min-height: 44px;
+  }
+  .workspace > .sidebar .collapse-button {
+    height: 44px;
+    width: 44px;
+  }
+  .workspace > .sidebar .session {
+    min-height: 44px;
+    font-size: 14px;
+  }
+  .workspace > .sidebar .nav-label {
+    font-size: 12px;
+    line-height: 16px;
+  }
+}
+main {
+  position: relative;
+}
+.workspace-options {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 8;
+  font-size: 11px;
+}
+.workspace-options > summary {
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid #cbdfea;
+  border-radius: 8px;
+  color: #33414a;
+  background: #ffffffed;
+  list-style: none;
+}
+.workspace-options:not([open]) > summary {
+  opacity: 0.55;
+}
+.workspace-options[open] {
+  width: min(510px, calc(100% - 30px));
+}
+.workspace-options .workspace-toolbar {
+  margin-top: 5px;
+  border: 1px solid #cbdfea;
+  border-radius: 10px;
+  box-shadow: 0 4px 14px #173f5e22;
+}
+.conversation-turn {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+.chat .chat-header {
+  height: 84px;
+  flex-shrink: 0;
+  min-height: 84px;
+  padding: 20px 30px;
+  gap: 12px;
+}
+.chat .chat-trip-date {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex-shrink: 0;
+  padding: 6px 9px;
+  border: 1px solid #cbdfea;
+  border-radius: 10px;
+  background: #f1f6f8;
+}
+.chat-trip-date > span {
+  font-size: 11px;
+  color: #5a7382;
+  line-height: 15px;
+}
+.chat-trip-date input {
+  width: 125px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  font:
+    13px/20px Inter,
+    system-ui,
+    sans-serif;
+  color: #17354a;
+}
+.chat .chat-header > div:nth-child(2) {
+  min-width: 0;
+}
+@media (max-width: 1450px) {
+  .chat .chat-header {
+    height: auto;
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
+  .chat .chat-header p {
+    font-size: 12px;
+  }
+}
+@media (max-width: 420px) {
+  .chat .chat-trip-date {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    margin-left: 52px;
+  }
+  .chat-trip-date input {
+    font-size: 16px;
+    width: 145px;
+  }
+}
+.chat .bot-avatar {
+  width: 40px;
+  height: 40px;
+  background: #e3f8fc;
+}
+.chat .chat-header h2 {
+  font-size: 18px;
+  line-height: 24px;
+  margin: 0;
+}
+.chat .chat-header p {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 22px;
+  color: #17354a;
+}
+.chat .ready-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin: 0;
+  box-shadow: none;
+  flex-shrink: 0;
+}
+.chat .messages {
+  padding: 30px;
+}
+.chat .chat-content {
+  gap: 20px;
+}
+.chat .msg {
+  font-size: 18px;
+  line-height: 25px;
+}
+.chat .msg.user {
+  background: #0369b2;
+  color: white;
+  border: 0;
+  padding: 16px 20px;
+  border-radius: 20px 20px 4px 20px;
+  margin-left: 90px;
+  max-width: calc(100% - 90px);
+  font-weight: 500;
+  align-self: flex-end;
+}
+.chat .msg.assistant:not(.typing) {
+  padding: 16px 20px;
+  border: 1px solid #ccdfeb;
+  background: #f1f6f8;
+  border-radius: 20px 20px 20px 4px;
+  align-self: flex-start;
+  max-width: 92%;
+  width: fit-content;
+  color: #102534;
+}
+.chat .trip-overview {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 15px 20px;
+  min-height: 56px;
+  margin: -5px 0 14px;
+  background: #f0fbff;
+  border: 1px solid #b5def5;
+  border-radius: 16px;
+}
+.chat .trip-overview > span,
+.chat .trip-overview > strong {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  color: #102534;
+}
+.chat .trip-overview > strong {
+  color: #0075c6;
+  font-size: 18px;
+  margin: 0;
+}
+.chat .trip-overview svg {
+  color: #0075c6;
+}
+.chat .timeline {
+  border-left: 2px solid #c4dded;
+  padding: 0 0 0 20px;
+  margin: 0 0 14px;
+}
+.chat .stop-card {
+  position: relative;
+  display: block;
+  background: white;
+  border: 1px solid #cbdfea;
+  border-radius: 20px;
+  padding: 16px 16px 16px 54px;
+  margin: 0 0 14px;
+  box-shadow: 0 2px 3px #173f5e0b;
+}
+.chat .stop-card:last-child {
+  margin-bottom: 0;
+}
+.chat .stop-card:before {
+  display: none;
+}
+.chat .stop-number {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  margin: 0;
+  width: 30px;
+  height: 30px;
+  background: #0369b2;
+  font-size: 16px;
+}
+.chat .stop-content {
+  position: static;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+.chat .stop-content h3 {
+  margin: 0 130px 10px 0;
+  font-size: 18px;
+  line-height: 25px;
+}
+.chat .stop-time {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: #163a56;
+  font-size: 13px;
+  line-height: 24px;
+}
+.chat .stop-content p {
+  font-size: 14px;
+  color: #314e64;
+  line-height: 23px;
+  margin: 0 0 14px;
+}
+.chat .stop-cost {
+  color: #001a2e;
+  font-weight: 500;
+}
+.chat .stop-cost {
+  font-size: 15px;
+}
+.chat .stop-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.chat .stop-actions > .MuiButton-root:first-child {
+  padding: 7px 12px;
+  font-size: 14px;
+  line-height: 20px;
+  min-height: 34px;
+  color: #0075c6;
+  background: #e3f8fc;
+  border-radius: 30px;
+}
+.chat .stop-actions .stop-audio {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  padding: 0;
+  border: 1px solid #cbdfea;
+  border-radius: 14px;
+  color: #163a56;
+}
+.chat .stop-actions .stop-audio.active {
+  background: #0369b2;
+  color: white;
+  border-color: #0369b2;
+}
+.chat .stop-card.selected {
+  border: 2px solid #a73a00;
+  background: #fff7f2;
+  padding: 15px 15px 15px 53px;
+}
+.chat .stop-card.selected .stop-content {
+  background: transparent;
+  border: 0;
+}
+.chat .stop-card.selected .stop-number {
+  background: #a73a00;
+  color: white;
+  left: 14px;
+  top: 14px;
+}
+.chat .stop-card.selected .stop-time {
+  color: #a73a00;
+}
+.chat .stop-card.selected .stop-actions > .MuiButton-root:first-child {
+  background: #a73a00;
+  color: white;
+  font-weight: 600;
+}
+.chat .show-whole-route {
+  border: 1px solid #a9cbe2;
+  color: #102534;
+  border-radius: 14px;
+  padding: 10px 16px;
+  font-size: 14px;
+}
+.chat .composer {
+  padding: 14px 22px 10px;
+}
+.chat .quick-actions {
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.chat .quick-actions button {
+  font-size: 14px;
+  line-height: 20px;
+  padding: 5px 12px;
+  color: #314e64;
+  background: #f1f6f8;
+  border: 1px solid #cbdfea;
+}
+.chat .composer form {
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  gap: 10px;
+  align-items: flex-end;
+  box-shadow: none;
+}
+.chat .composer .MuiInputBase-root {
+  background: #f1f6f8;
+  border: 1px solid #a9cbe2;
+  border-radius: 16px;
+  padding: 11px 14px;
+  font-size: 16px;
+  line-height: 26px;
+}
+.chat .composer textarea {
+  font-size: 18px;
+  line-height: 26px;
+  padding: 0;
+  min-height: 26px;
+  background: transparent;
+  border-radius: 0;
+}
+.chat .composer form > .MuiButton-root {
+  display: flex;
+  width: 95px;
+  min-width: 95px;
+  height: 50px;
+  gap: 8px;
+  border-radius: 16px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.chat .composer-hint {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.chat .composer > p {
+  font-size: 12px;
+  line-height: 18px;
+  color: #102534;
+  margin-top: 10px;
+}
+@media (max-width: 1100px) and (min-width: 801px) {
+  .chat .messages {
+    padding: 20px;
+  }
+  .chat .msg {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .chat .msg.user {
+    margin-left: 35px;
+    max-width: calc(100% - 35px);
+  }
+  .chat .stop-content h3 {
+    font-size: 15px;
+    margin-right: 0;
+    padding-top: 23px;
+  }
+  .chat .stop-time {
+    top: 12px;
+  }
+  .chat .trip-overview {
+    padding: 12px;
+    gap: 8px;
+  }
+  .chat .trip-overview > span {
+    font-size: 12px;
+  }
+  .chat .trip-overview > strong {
+    font-size: 15px;
+  }
+  .chat .stop-actions > .MuiButton-root:first-child {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+  .chat .quick-actions {
+    gap: 5px;
+  }
+  .chat .quick-actions button {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}
+@media (max-width: 800px) {
+  .chat .chat-header {
+    padding: 16px;
+    min-height: 78px;
+  }
+  .chat .messages {
+    padding: 20px 16px;
+  }
+  .chat .msg {
+    font-size: 16px;
+    line-height: 24px;
+  }
+  .chat .msg.user {
+    margin-left: 30px;
+    max-width: calc(100% - 30px);
+  }
+  .chat .trip-overview {
+    padding: 12px;
+    gap: 10px;
+  }
+  .chat .trip-overview > span {
+    font-size: 12px;
+    gap: 5px;
+  }
+  .chat .trip-overview > strong {
+    font-size: 15px;
+    gap: 5px;
+  }
+  .chat .timeline {
+    padding-left: 10px;
+  }
+  .chat .stop-card {
+    padding: 14px 12px 14px 48px;
+  }
+  .chat .stop-card.selected {
+    padding: 13px 11px 13px 47px;
+  }
+  .chat .stop-number {
+    left: 10px;
+    top: 14px;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+  .chat .stop-card.selected .stop-number {
+    left: 9px;
+    top: 13px;
+  }
+  .chat .stop-content h3 {
+    font-size: 16px;
+    line-height: 23px;
+    margin-right: 0;
+    padding-top: 22px;
+  }
+  .chat .stop-time {
+    top: 10px;
+    right: 12px;
+    font-size: 12px;
+  }
+  .chat .stop-actions > .MuiButton-root:first-child {
+    font-size: 12px;
+    padding: 6px 9px;
+  }
+  .chat .composer {
+    padding: 12px 16px max(10px, env(safe-area-inset-bottom));
+  }
+  .chat .quick-actions {
+    gap: 6px;
+  }
+  .chat .quick-actions button {
+    font-size: 12px;
+    padding: 5px 9px;
+  }
+  .chat .composer form > .MuiButton-root {
+    width: 78px;
+    min-width: 78px;
+  }
+}

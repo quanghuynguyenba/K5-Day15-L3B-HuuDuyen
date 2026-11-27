@@ -6,9 +6,10 @@ dispatch(): chạy tool theo tên, lưu kết quả quan trọng vào state (vd 
 import json
 
 from config import DEFAULT_END_TIME, DEFAULT_START, DEFAULT_START_TIME, USE_MOCK
-from rag.search import get_poi_context, search_pois
+from rag.search import get_poi, get_poi_context, search_pois
 from routing.optimizer import plan_route
-from services.tts import audio_path, get_or_create_audio
+from services.tts import get_audio_result, load_prepared_audio, validate_language
+from services.content import has_source, is_placeholder
 from services.weather import get_weather
 
 GROUP_TYPES = ["family", "elderly", "couple", "friends", "solo"]
@@ -59,15 +60,31 @@ NARRATE_SYSTEM = ("Bạn là hướng dẫn viên. Viết lời thuyết minh 60
 
 def narrate(poi_id: str, lang: str) -> dict:
     from agent.llm import call_llm  # import trễ để tránh vòng import
+    validate_language(lang)
     ctx = get_poi_context(poi_id, lang)
     if not ctx:
         return {"text": "", "audio_path": None}
-    text = call_llm(NARRATE_SYSTEM % lang, ctx, mock_reply="[MOCK thuyết minh] " + ctx)
-    if USE_MOCK:  # không gọi TTS khi mock, chỉ dùng file đã pre-generate nếu có
-        import os
-        path = audio_path(poi_id, lang)
-        return {"text": text, "audio_path": path if os.path.exists(path) else None}
-    return {"text": text, "audio_path": get_or_create_audio(poi_id, lang, text)}
+    prepared = load_prepared_audio(poi_id, lang, ctx)
+    if prepared:
+        return prepared
+    poi = get_poi(poi_id) or {}
+    if is_placeholder(ctx) or not has_source(poi.get("source")):
+        return {"text": "Chưa có nội dung địa điểm và nguồn đã kiểm tra để tạo thuyết minh.",
+                "audio_path": None, "mock": True, "source": "placeholder", "tts_status": "not_ready",
+                "warning": "Cần bổ sung mô tả có nguồn hoặc kịch bản demo đã duyệt."}
+    if USE_MOCK:
+        return {"text": "[MOCK — chưa nối LLM] " + ctx, "audio_path": None, "mock": True,
+                "source": "mock", "tts_status": "disabled",
+                "warning": "Chưa có model dịch/viết thuyết minh. Có thể dùng audio đã chuẩn bị và duyệt trước."}
+    text = call_llm(NARRATE_SYSTEM % lang, ctx)
+    if not isinstance(text, str) or not text.strip():
+        raise ValueError("Model chưa trả về nội dung thuyết minh.")
+    try:
+        audio = get_audio_result(poi_id, lang, text)
+    except OSError:
+        audio = {"audio_path": None, "tts_status": "unavailable",
+                 "warning": "Chưa lưu được audio. Bạn vẫn có thể đọc nội dung thuyết minh."}
+    return {"text": text, "mock": False, "source": "rag-llm", **audio}
 
 
 def _slim_poi(p: dict) -> dict:

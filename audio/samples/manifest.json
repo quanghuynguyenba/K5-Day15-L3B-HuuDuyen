@@ -1,0 +1,32 @@
+[
+  {
+    "lang": "vi",
+    "text": "Xin chào! Chào mừng bạn đến với Hanoi Travel AI. Đây là bản nghe thử giọng nói tiếng Việt.",
+    "provider": "gtts",
+    "status": "ready"
+  },
+  {
+    "lang": "en",
+    "text": "Hello! Welcome to Hanoi Travel AI. This is an English voice sample.",
+    "provider": "edge-tts",
+    "status": "ready"
+  },
+  {
+    "lang": "ko",
+    "text": "안녕하세요! 하노이 트래블 AI에 오신 것을 환영합니다. 이것은 한국어 음성 샘플입니다.",
+    "provider": "edge-tts",
+    "status": "ready"
+  },
+  {
+    "lang": "ja",
+    "text": "こんにちは！ハノイトラベルAIへようこそ。これは日本語の音声サンプルです。",
+    "provider": "edge-tts",
+    "status": "ready"
+  },
+  {
+    "lang": "zh",
+    "text": "你好！欢迎使用河内旅行AI。这是中文语音示例。",
+    "provider": "edge-tts",
+    "status": "ready"
+  }
+]

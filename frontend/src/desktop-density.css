@@ -1,0 +1,10 @@
+/* Scale the complete desktop workspace, not individual text or controls. */
+@media (min-width: 1101px) {
+  .app-shell {
+    zoom: var(--desktop-density, 1);
+    height: calc(100dvh / var(--desktop-density, 1));
+  }
+  .app-shell .poi-overlay {
+    width: 424px;
+  }
+}

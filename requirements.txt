@@ -8,8 +8,8 @@ openai
 ortools
 polyline
 # TTS (Cường)
-edge-tts
-gTTS
+edge-tts>=7.2,<8
+gTTS>=2.5,<3
 # Embedding (Hiếu) — bỏ comment nếu chọn phương án A (local)
 # sentence-transformers
 # numpy
