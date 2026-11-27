@@ -8,8 +8,8 @@ openai
 ortools
 # TomTom: chỉ dùng thư viện chuẩn (urllib), không cần SDK
 # TTS (Cường)
-edge-tts
-gTTS
+edge-tts>=7.2,<8
+gTTS>=2.5,<3
 # Embedding (Hiếu) — bỏ comment nếu chọn phương án A (local)
 # sentence-transformers
 # numpy
