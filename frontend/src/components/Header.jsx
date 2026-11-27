@@ -2,6 +2,7 @@ import Chip from "@mui/material/Chip";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
 import Icon from "./Icon.jsx";
+import IconButton from "@mui/material/IconButton";
 
 function weatherLabel(weather, preview) {
   if (preview) return "26°C · Có thể mưa chiều (mẫu)";
@@ -15,10 +16,19 @@ export default function Header({
   onLangChange,
   weather,
   preview,
+  onOpenSidebar,
 }) {
   return (
     <header className="top-header">
       <div className="brand">
+        {onOpenSidebar && (
+          <IconButton
+            onClick={onOpenSidebar}
+            aria-label="Mở danh sách phiên chat"
+          >
+            <Icon name="panel" />
+          </IconButton>
+        )}
         <span className="brand-icon">
           <Icon size={23} />
         </span>

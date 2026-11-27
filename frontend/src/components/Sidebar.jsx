@@ -1,5 +1,7 @@
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import Icon from "./Icon.jsx";
+
 export default function Sidebar({
   collapsed,
   onCollapse,
@@ -9,13 +11,19 @@ export default function Sidebar({
   date,
   onDate,
   onHelp,
+  sessions = [],
+  activeId,
+  onSwitch,
+  onClose,
 }) {
   return (
-    <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
+    <aside
+      className={`sidebar ${collapsed ? "collapsed" : ""}`}
+      aria-label="Quản lý phiên chat"
+    >
       <div className="sidebar-top">
         <div className="sidebar-actions">
           <Button
-            type="button"
             variant="contained"
             className="new-chat"
             onClick={onReset}
@@ -24,57 +32,81 @@ export default function Sidebar({
             <Icon name="plus" />
             <span className="sidebar-label">Cuộc trò chuyện mới</span>
           </Button>
-          <Button
-            type="button"
+          <IconButton
             className="icon-button collapse-button"
-            onClick={onCollapse}
-            aria-label={collapsed ? "Mở thanh bên" : "Thu gọn thanh bên"}
+            onClick={onClose || onCollapse}
+            aria-label={
+              onClose
+                ? "Đóng danh sách phiên chat"
+                : collapsed
+                  ? "Mở thanh bên"
+                  : "Thu gọn thanh bên"
+            }
           >
-            <Icon name="panel" />
-          </Button>
+            <Icon name={onClose ? "close" : "panel"} />
+          </IconButton>
         </div>
-        <nav aria-label="Các màn hình xem trước">
-          <p className="nav-label sidebar-label">HÔM NAY</p>
+        <nav aria-label="Danh sách phiên chat">
+          <p className="nav-label sidebar-label">
+            PHIÊN HIỆN TẠI · {sessions.length}
+          </p>
+          <div className="session-list">
+            {sessions.map((session) => (
+              <Button
+                key={session.id}
+                className={`session ${!preview && activeId === session.id ? "active" : ""}`}
+                onClick={() => onSwitch(session.id)}
+                title={session.title}
+                aria-current={
+                  !preview && activeId === session.id ? "page" : undefined
+                }
+              >
+                <Icon name="chat" />
+                <span className="sidebar-label session-title">
+                  {session.title}
+                  <small>
+                    {session.loading
+                      ? "Đang trả lời…"
+                      : session.error
+                        ? "Cần thử lại"
+                        : session.plan
+                          ? `${session.plan.stops?.length || 0} điểm dừng`
+                          : session.messages.length
+                            ? `${session.messages.length} tin nhắn`
+                            : "Bắt đầu hành trình mới"}
+                  </small>
+                </span>
+              </Button>
+            ))}
+          </div>
+        </nav>
+        <div className="preview-session">
+          <p className="nav-label sidebar-label">KHÁM PHÁ GIAO DIỆN</p>
           <Button
-            type="button"
-            className={`session ${!preview ? "active" : ""}`}
-            onClick={onReset}
-            title="Phiên mới"
-          >
-            <Icon name="chat" />
-            <span className="sidebar-label">Phiên mới</span>
-          </Button>
-          <Button
-            type="button"
             className={`session ${preview ? "active" : ""}`}
             onClick={onPreview}
-            title="Một ngày khám phá Hà Nội — mẫu"
+            title="Hành trình mẫu"
           >
             <Icon />
             <span className="sidebar-label">
-              Một ngày khám phá Hà Nội<small>Bản xem trước thiết kế</small>
+              Một ngày khám phá Hà Nội<small>Dữ liệu minh họa</small>
             </span>
           </Button>
-        </nav>
+        </div>
         <label className="date-control sidebar-label">
-          Ngày khám phá
+          Ngày đi
           <input
             type="date"
             value={date}
-            onChange={(e) => onDate(e.target.value)}
+            onChange={(event) => onDate(event.target.value)}
           />
         </label>
-        <div className="sidebar-note sidebar-label">
-          Một hành trình, nhiều điều để khám phá.
-        </div>
+        <p className="sidebar-note sidebar-label">
+          Các phiên chỉ được giữ trong lần mở trang này.
+        </p>
       </div>
       <div className="sidebar-bottom">
-        <Button
-          type="button"
-          className="session"
-          onClick={onHelp}
-          title="Trợ giúp"
-        >
+        <Button className="session" onClick={onHelp} title="Trợ giúp">
           <Icon name="help" />
           <span className="sidebar-label">Trợ giúp</span>
         </Button>

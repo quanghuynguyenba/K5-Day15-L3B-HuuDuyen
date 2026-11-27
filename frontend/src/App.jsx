@@ -1,43 +1,80 @@
+import useChatSessions from "./hooks/useChatSessions.js";
+import Drawer from "@mui/material/Drawer";
+import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "./components/Header.jsx";
 import Button from "@mui/material/Button";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
-import { api, newSessionId } from "./api.js";
+import { api } from "./api.js";
 import Sidebar from "./components/Sidebar.jsx";
 import Chat from "./components/Chat.jsx";
 import PoiCard from "./components/PoiCard.jsx";
 import AfterTrip from "./components/AfterTrip.jsx";
 import Icon from "./components/Icon.jsx";
 import { previewMessages, previewPlan, previewStops } from "./preview.js";
+import useNarration from "./hooks/useNarration.js";
+import NarrationPlayer from "./components/NarrationPlayer.jsx";
 
 const MapView = lazy(() => import("./components/MapView.jsx"));
 
-const tomorrow = () => {
-  const d = new Date();
-  d.setDate(d.getDate() + 1);
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-};
 export default function App() {
-  const [sessionId, setSessionId] = useState(newSessionId);
+  const sessionStore = useChatSessions();
+  const [preview, setPreview] = useState(false);
+  const [previewView, setPreviewView] = useState({
+    selectedPoi: "hn_001",
+    selection: null,
+    tab: "trip",
+    mobilePane: "chat",
+    draft: "",
+  });
+  const {
+    id: sessionId,
+    lang,
+    date,
+    messages,
+    plan,
+    selectedPoi: sessionPoi,
+    selection: sessionSelection,
+    tab: sessionTab,
+    mobilePane: sessionPane,
+    weather,
+    loading,
+    error: chatError,
+    draft: sessionDraft,
+  } = sessionStore.active;
+  const setLang = (value) => sessionStore.setField("lang", value);
+  const setDate = (value) => sessionStore.setField("date", value);
+  const selectedPoi = preview ? previewView.selectedPoi : sessionPoi;
+  const selection = preview ? previewView.selection : sessionSelection;
+  const tab = preview ? previewView.tab : sessionTab;
+  const mobilePane = preview ? previewView.mobilePane : sessionPane;
+  const chatDraft = preview ? previewView.draft : sessionDraft;
+  const setViewField = (name, value) =>
+    preview
+      ? setPreviewView((current) => ({
+          ...current,
+          [name]: typeof value === "function" ? value(current[name]) : value,
+        }))
+      : sessionStore.setField(name, value);
+  const setSelectedPoi = (value) => setViewField("selectedPoi", value);
+  const setSelection = (value) => setViewField("selection", value);
+  const setTab = (value) => setViewField("tab", value);
+  const setMobilePane = (value) => setViewField("mobilePane", value);
+  const setChatDraft = (value) => setViewField("draft", value);
+  const compact = useMediaQuery("(max-width:1100px)");
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const poiPanelRef = useRef(null);
+  useEffect(() => {
+    if (compact && mobilePane === "map" && selectedPoi)
+      poiPanelRef.current?.focus({ preventScroll: true });
+  }, [compact, mobilePane, selectedPoi]);
   const [config, setConfig] = useState({
     mock: true,
     langs: ["vi", "en", "ko", "ja", "zh"],
     center: [21.0285, 105.8542],
   });
-  const [lang, setLang] = useState("vi");
-  const [date, setDate] = useState(tomorrow);
-  const [messages, setMessages] = useState([]);
-  const [plan, setPlan] = useState(null);
-  const [selectedPoi, setSelectedPoi] = useState(null);
-  const [tab, setTab] = useState("trip");
-  const [loading, setLoading] = useState(false);
-  const [preview, setPreview] = useState(false);
+  const [routeViewKey, setRouteViewKey] = useState(0);
   const [collapsed, setCollapsed] = useState(false);
-  const [mobilePane, setMobilePane] = useState("chat");
-  const [weather, setWeather] = useState(null);
   const [notice, setNotice] = useState("");
-  const [chatError, setChatError] = useState(null);
-  const sending = useRef(false);
-  const generation = useRef(0);
   useEffect(() => {
     api
       .config()
@@ -48,85 +85,99 @@ export default function App() {
   }, []);
   useEffect(() => {
     let active = true;
-    setWeather(null);
+    sessionStore.patch(sessionId, { weather: null });
     api
       .weather(date)
       .then((w) => {
-        if (active) setWeather(w);
+        if (active) sessionStore.patch(sessionId, { weather: w });
       })
       .catch(() => {});
     return () => {
       active = false;
     };
-  }, [date]);
+  }, [date, sessionId, sessionStore.patch]);
   const shownPlan = preview ? previewPlan : plan;
-  function select(id) {
+  const {
+    narration,
+    listen,
+    close: closeNarration,
+  } = useNarration({ lang, preview, stops: shownPlan?.stops, sessionId });
+  function select(id, source = "chat") {
     setSelectedPoi(id);
-    setMobilePane("map");
+    setSelection((previous) => ({
+      source,
+      version: (previous?.version || 0) + 1,
+    }));
+    if (source === "chat") setMobilePane("map");
   }
-  function showPreview() {
-    generation.current++;
-    sending.current = false;
-    setChatError(null);
-    setLoading(false);
-    setPreview(true);
-    setSelectedPoi("hn_001");
-    setTab("trip");
-  }
-  async function send(text, retry = false) {
-    if (sending.current) return false;
-    sending.current = true;
-    const current = ++generation.current;
-    const requestDate = retry ? chatError.date : date;
-    const targetSession = preview ? newSessionId() : sessionId;
-    if (preview) setSessionId(targetSession);
-    setPreview(false);
-    setSelectedPoi(null);
-    setLoading(true);
-    setChatError(null);
-    if (preview) {
-      setPlan(null);
-      setMessages([{ role: "user", content: text }]);
-    } else if (!retry)
-      setMessages((m) => [...m, { role: "user", content: text }]);
-    try {
-      const res = await api.chat(targetSession, text, requestDate);
-      if (current !== generation.current) return;
-      if (typeof res?.reply !== "string" || !res.reply.trim())
-        throw new Error(
-          "Máy chủ chưa trả về nội dung phản hồi. Vui lòng thử lại.",
-        );
-      setMessages((m) => [...m, { role: "assistant", content: res.reply }]);
-      setPlan(res.plan);
-      if (res.weather) setWeather(res.weather);
-    } catch (e) {
-      if (current === generation.current)
-        setChatError({ text, date: requestDate, message: e.message });
-    } finally {
-      if (current === generation.current) {
-        sending.current = false;
-        setLoading(false);
-      }
-    }
-    return true;
-  }
-  function reset() {
-    generation.current++;
-    sending.current = false;
-    setChatError(null);
-    api.reset(sessionId).catch(() => {});
-    setSessionId(newSessionId());
-    setMessages([]);
-    setPlan(null);
-    setSelectedPoi(null);
-    setPreview(false);
-    setLoading(false);
-    setTab("trip");
+  function showInChat(id) {
+    select(id, "map");
     setMobilePane("chat");
   }
+  function showRoute() {
+    setSelectedPoi(null);
+    setSelection(null);
+    setRouteViewKey((value) => value + 1);
+    setMobilePane("map");
+  }
+  function narrate(id) {
+    setSelectedPoi(id);
+    listen(id);
+  }
+  function showPreview() {
+    closeNarration();
+    setPreviewView({
+      selectedPoi: "hn_001",
+      selection: null,
+      tab: "trip",
+      mobilePane: "chat",
+      draft: "",
+    });
+    setPreview(true);
+    setDrawerOpen(false);
+  }
+  function send(text, retry = false) {
+    closeNarration();
+    const targetId = preview ? sessionStore.createSession() : sessionId;
+    setPreview(false);
+    return sessionStore.send(text, retry, targetId);
+  }
+  function reset() {
+    closeNarration();
+    sessionStore.createSession();
+    setPreview(false);
+    setDrawerOpen(false);
+  }
+  function switchSession(id) {
+    closeNarration();
+    sessionStore.switchSession(id);
+    setPreview(false);
+    setDrawerOpen(false);
+  }
+  const sidebar = (
+    <Sidebar
+      collapsed={!compact && collapsed}
+      onCollapse={() => setCollapsed(!collapsed)}
+      onReset={reset}
+      onPreview={showPreview}
+      preview={preview}
+      date={date}
+      onDate={setDate}
+      sessions={sessionStore.sessions}
+      activeId={sessionId}
+      onSwitch={switchSession}
+      onClose={compact ? () => setDrawerOpen(false) : undefined}
+      onHelp={() =>
+        setNotice(
+          "M?i phi?n gi? ri?ng h?i tho?i v? l?ch tr?nh trong l?n m? trang n?y. Ch?n ?i?m ??n ?? nghe thuy?t minh ho?c xem v? tr?.",
+        )
+      }
+    />
+  );
   return (
     <div className="app-shell">
       <Header
+        onOpenSidebar={compact ? () => setDrawerOpen(true) : undefined}
         langs={config.langs}
         lang={lang}
         onLangChange={setLang}
@@ -134,20 +185,17 @@ export default function App() {
         preview={preview}
       />
       <div className="workspace">
-        <Sidebar
-          collapsed={collapsed}
-          onCollapse={() => setCollapsed(!collapsed)}
-          onReset={reset}
-          onPreview={showPreview}
-          preview={preview}
-          date={date}
-          onDate={setDate}
-          onHelp={() =>
-            setNotice(
-              "Nhập số người, ngân sách và sở thích để bắt đầu. Chọn “Hành trình mẫu” để xem trước thiết kế mà không cần backend.",
-            )
-          }
-        />
+        {compact ? (
+          <Drawer
+            open={drawerOpen}
+            onClose={() => setDrawerOpen(false)}
+            slotProps={{ paper: { className: "session-drawer" } }}
+          >
+            {sidebar}
+          </Drawer>
+        ) : (
+          sidebar
+        )}
         <main>
           <div className="workspace-toolbar">
             <div className="view-tabs">
@@ -174,7 +222,10 @@ export default function App() {
                     ? "API · Chế độ mock"
                     : "API · Trực tiếp"}
               </span>
-              <Button type="button" onClick={preview ? reset : showPreview}>
+              <Button
+                type="button"
+                onClick={preview ? () => setPreview(false) : showPreview}
+              >
                 {preview ? "Về phiên mới" : "Hành trình mẫu"}
               </Button>
             </div>
@@ -222,8 +273,12 @@ export default function App() {
                     <MapView
                       center={config.center}
                       plan={shownPlan}
-                      onSelect={select}
+                      onSelect={(id) => select(id, "map")}
                       selectedPoi={selectedPoi}
+                      selection={selection}
+                      routeViewKey={routeViewKey}
+                      onShowRoute={showRoute}
+                      onShowInChat={showInChat}
                     />
                   </Suspense>
                   <div className="map-summary">
@@ -253,7 +308,18 @@ export default function App() {
                     </div>
                   )}
                   {selectedPoi && (
-                    <div className="poi-overlay">
+                    <div
+                      className="poi-overlay"
+                      ref={poiPanelRef}
+                      tabIndex={-1}
+                      role="dialog"
+                      aria-modal="false"
+                      aria-label="Th?ng tin ??a ?i?m"
+                      onKeyDown={(event) => {
+                        if (event.key === "Escape") setSelectedPoi(null);
+                      }}
+                    >
+                      <span className="sheet-handle" aria-hidden="true" />
                       <Button
                         type="button"
                         className="icon-button close-poi"
@@ -266,6 +332,12 @@ export default function App() {
                         key={`${preview}-${selectedPoi}-${lang}`}
                         poiId={selectedPoi}
                         lang={lang}
+                        onNarrate={narrate}
+                        narration={narration}
+                        stop={shownPlan?.stops?.find(
+                          (item) => item.poi_id === selectedPoi,
+                        )}
+                        onShowInChat={() => showInChat(selectedPoi)}
                         previewPoi={
                           preview
                             ? previewStops.find((p) => p.poi_id === selectedPoi)
@@ -280,12 +352,18 @@ export default function App() {
                   messages={preview ? previewMessages : messages}
                   loading={loading}
                   onSend={send}
+                  draft={chatDraft}
+                  onDraftChange={setChatDraft}
                   error={chatError}
                   onRetry={() => chatError && send(chatError.text, true)}
                   plan={shownPlan}
                   preview={preview}
                   selectedPoi={selectedPoi}
                   onSelect={select}
+                  selection={selection}
+                  onShowRoute={showRoute}
+                  onNarrate={narrate}
+                  narration={narration}
                 />
               </div>
             </>
@@ -320,6 +398,12 @@ export default function App() {
               lang={lang}
             />
           )}
+          <NarrationPlayer
+            key={`${narration?.poiId}-${narration?.lang}-${narration?.audio_url}`}
+            narration={narration}
+            onClose={closeNarration}
+            onRetry={() => listen(narration.poiId)}
+          />
         </main>
       </div>
     </div>

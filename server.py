@@ -40,7 +40,12 @@ def _enrich(plan: dict | None) -> dict | None:
     stops = []
     for s in plan["stops"]:
         p = get_poi(s["poi_id"]) or {}
-        stops.append({**s, "name": p.get("name"), "lat": p.get("lat"), "lng": p.get("lng")})
+        stops.append({
+            **s,
+            "name": p.get("name"), "lat": p.get("lat"), "lng": p.get("lng"),
+            "description_vi": p.get("description_vi"),
+            "description_en": p.get("description_en"),
+        })
     dropped = [{"poi_id": i, "name": (get_poi(i) or {}).get("name")} for i in plan["dropped"]]
     return {**plan, "stops": stops, "dropped": dropped}
 

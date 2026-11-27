@@ -1,30 +1,39 @@
 // Mọi lời gọi backend nằm ở đây. Hợp đồng: xem server.py
 async function request(path, options = {}) {
-  let res;
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 60000);
   try {
-    res = await fetch(path, {
-      headers: { "Content-Type": "application/json" },
-      ...options,
-    });
-  } catch {
-    throw new Error(
-      "Không kết nối được máy chủ. Hãy kiểm tra mạng hoặc backend rồi thử lại.",
-    );
-  }
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({}));
-    const detail = typeof err.detail === "string" ? err.detail : null;
-    throw new Error(
-      res.status >= 500
-        ? "Máy chủ đang gặp sự cố. Vui lòng thử lại sau ít phút."
-        : detail ||
-            `Yêu cầu chưa được xử lý (HTTP ${res.status}). Vui lòng kiểm tra nội dung rồi thử lại.`,
-    );
-  }
-  try {
-    return await res.json();
-  } catch {
-    throw new Error("Phản hồi từ máy chủ chưa hợp lệ. Vui lòng thử lại.");
+    let res;
+    try {
+      res = await fetch(path, {
+        headers: { "Content-Type": "application/json" },
+        ...options,
+        signal: controller.signal,
+      });
+    } catch {
+      if (controller.signal.aborted)
+        throw new Error("Máy chủ phản hồi quá lâu. Vui lòng thử lại yêu cầu.");
+      throw new Error(
+        "Không kết nối được máy chủ. Hãy kiểm tra mạng hoặc backend rồi thử lại.",
+      );
+    }
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      const detail = typeof err.detail === "string" ? err.detail : null;
+      throw new Error(
+        res.status >= 500
+          ? "Máy chủ đang gặp sự cố. Vui lòng thử lại sau ít phút."
+          : detail ||
+              `Yêu cầu chưa được xử lý (HTTP ${res.status}). Vui lòng kiểm tra nội dung rồi thử lại.`,
+      );
+    }
+    try {
+      return await res.json();
+    } catch {
+      throw new Error("Phản hồi từ máy chủ chưa hợp lệ. Vui lòng thử lại.");
+    }
+  } finally {
+    clearTimeout(timer);
   }
 }
 
