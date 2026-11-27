@@ -1,37 +1,58 @@
-import { useState } from 'react'
-import { api } from '../api.js'
+import Button from "@mui/material/Button";
+import { useState } from "react";
+import { api } from "../api.js";
 
 export default function AfterTrip({ sessionId, plan, lang }) {
-  const [summary, setSummary] = useState(null)
-  const [loading, setLoading] = useState(false)
+  const [summary, setSummary] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  if (!plan || plan.stops.length === 0) return <p className="hint pad">Chưa có lịch trình.</p>
+  if (!plan || plan.stops.length === 0)
+    return <p className="hint pad">Chưa có lịch trình.</p>;
 
   async function load() {
-    setLoading(true)
+    setLoading(true);
     try {
-      setSummary((await api.summary(sessionId, lang)).summary)
+      setSummary((await api.summary(sessionId, lang)).summary);
     } catch (e) {
-      setSummary(`⚠️ ${e.message}`)
+      setSummary(`⚠️ ${e.message}`);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
   return (
     <div className="after pad">
       <div className="metrics">
-        <div><span>Số điểm</span><b>{plan.stops.length}</b></div>
-        <div><span>Tổng chi</span><b>{plan.total_cost.toLocaleString('vi-VN')} VND</b></div>
-        <div><span>Thời gian</span><b>{plan.total_minutes} phút</b></div>
+        <div>
+          <span>Số điểm</span>
+          <b>{plan.stops.length}</b>
+        </div>
+        <div>
+          <span>Tổng chi</span>
+          <b>{plan.total_cost.toLocaleString("vi-VN")} VND</b>
+        </div>
+        <div>
+          <span>Thời gian</span>
+          <b>{plan.total_minutes} phút</b>
+        </div>
       </div>
       <ol>
         {plan.stops.map((s) => (
-          <li key={s.poi_id}>{s.arrive}–{s.depart} {s.name?.vi} ({s.cost.toLocaleString('vi-VN')} VND)</li>
+          <li key={s.poi_id}>
+            {s.arrive}–{s.depart} {s.name?.vi} ({s.cost.toLocaleString("vi-VN")}{" "}
+            VND)
+          </li>
         ))}
       </ol>
-      <button onClick={load} disabled={loading}>{loading ? 'Đang tóm tắt…' : 'Tóm tắt chuyến đi'}</button>
+      <Button
+        type="button"
+        variant="contained"
+        onClick={load}
+        disabled={loading}
+      >
+        {loading ? "Đang tóm tắt…" : "Tóm tắt chuyến đi"}
+      </Button>
       {summary && <pre className="summary">{summary}</pre>}
     </div>
-  )
+  );
 }
