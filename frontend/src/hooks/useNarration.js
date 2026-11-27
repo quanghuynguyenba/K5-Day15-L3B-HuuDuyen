@@ -8,12 +8,13 @@ export default function useNarration({ lang, preview, stops, sessionId }) {
     requestId.current++;
     setNarration(null);
   }, []);
+  const invalidate = useCallback(() => {
+    requestId.current++;
+  }, []);
   useEffect(() => {
     close();
-    return () => {
-      requestId.current++;
-    };
-  }, [lang, preview, sessionId, close]);
+    return invalidate;
+  }, [lang, preview, sessionId, close, invalidate]);
   const listen = useCallback(
     async (poiId) => {
       const version = ++requestId.current;

@@ -53,8 +53,19 @@ Sidebar quản lý nhiều phiên trong bộ nhớ của trang. Mỗi phiên có
 ## Kiểm tra build
 
 ```powershell
+npm run lint
+npm test
 npm run build
 ```
+
+Chạy kiểm tra backend từ thư mục gốc: `python -m unittest discover -s tests -v`.
+
+## Hai entry point trong repo
+
+- Web: `server.py` → `agent/` + `routing/` + `services/` → React. Cấu hình `LLM_API_KEY`, `LLM_MODEL`, `LLM_BASE_URL`, `WEATHER_MODE` trong `.env`.
+- Khung nộp bài/eval từ main: `python run.py` → `codebase/`. Dùng `MODEL_PROVIDER`, `MODEL_NAME`, `API_KEY`; có trace và các lệnh eval/simulate riêng. Không tự động dùng cùng agent hoặc thời tiết thật của web. Xem `README_TEAM.md`.
+
+Không diễn giải kết quả chạy khung eval là số đo của toàn bộ giao diện web khi hai luồng chưa được nhóm thống nhất.
 
 Giao diện dựa trên hai file HTML desktop trong `stitch_hanoi_travel_ai_interface.zip`, dùng font Inter, xanh dương `#0369B2`, cyan nhạt `#E3F8FC`, nền `#FAFCFB` và Leaflet thay cho SVG bản đồ minh họa. Trên màn hình nhỏ, chuyển giữa Trò chuyện và Bản đồ bằng thanh tab.
 

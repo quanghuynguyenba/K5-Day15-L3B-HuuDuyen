@@ -22,6 +22,7 @@ const PoiExplorer = lazy(() => import("./components/PoiExplorer.jsx"));
 export default function App() {
   const density = useDesktopDensity();
   const sessionStore = useChatSessions();
+  const patchSession = sessionStore.patch;
   const catalogue = usePoiCatalogue();
   const [explorerOpen, setExplorerOpen] = useState(false);
   const [preview, setPreview] = useState(false);
@@ -91,17 +92,17 @@ export default function App() {
   }, []);
   useEffect(() => {
     let active = true;
-    sessionStore.patch(sessionId, { weather: null });
+    patchSession(sessionId, { weather: null });
     api
       .weather(date)
       .then((w) => {
-        if (active) sessionStore.patch(sessionId, { weather: w });
+        if (active) patchSession(sessionId, { weather: w });
       })
       .catch(() => {});
     return () => {
       active = false;
     };
-  }, [date, sessionId, sessionStore.patch]);
+  }, [date, sessionId, patchSession]);
   const shownPlan = preview ? previewPlan : plan;
   const {
     narration,
@@ -290,7 +291,6 @@ export default function App() {
                       selection={selection}
                       routeViewKey={routeViewKey}
                       onShowRoute={showRoute}
-                      onShowInChat={showInChat}
                       catalogue={preview ? [] : catalogue.pois}
                       onBrowse={
                         preview ? undefined : () => setExplorerOpen(true)
@@ -336,7 +336,7 @@ export default function App() {
                       tabIndex={-1}
                       role="dialog"
                       aria-modal="false"
-                      aria-label="Th?ng tin ??a ?i?m"
+                      aria-label="Thông tin địa điểm"
                       onKeyDown={(event) => {
                         if (event.key === "Escape") setSelectedPoi(null);
                       }}
@@ -365,7 +365,6 @@ export default function App() {
                               ) + 1
                             : undefined
                         }
-                        onCloseNarration={closeNarration}
                         stop={shownPlan?.stops?.find(
                           (item) => item.poi_id === selectedPoi,
                         )}
@@ -449,7 +448,6 @@ export default function App() {
             <NarrationPlayer
               key={`${narration?.poiId}-${narration?.lang}-${narration?.audio_url}`}
               narration={narration}
-              onClose={closeNarration}
               onRetry={() => listen(narration.poiId)}
             />
           )}

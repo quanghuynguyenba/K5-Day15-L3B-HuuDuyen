@@ -45,14 +45,11 @@ function MapViewport({
   }, [plan, catalogue]);
   const viewport = useRef(null);
   viewport.current = { bounds, selectedPoi, candidates, center };
-  const fit = () => {
+  useEffect(() => {
     if (bounds.length)
       map.fitBounds(bounds, { padding: [55, 55], maxZoom: 15 });
     else map.setView(center, 14);
-  };
-  useEffect(() => {
-    fit();
-  }, [plan, catalogue, center, routeViewKey, map]);
+  }, [bounds, center, routeViewKey, map]);
   useEffect(() => {
     const stop = candidates.find(
       (item) => (item.poi_id || item.id) === selectedPoi,

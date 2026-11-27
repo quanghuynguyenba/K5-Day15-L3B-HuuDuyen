@@ -81,7 +81,7 @@ export default function ItineraryTimeline({
                 </button>
               </h3>
               <p>
-                {stop.description_vi || "Chưa có mô tả địa điểm."} ?{" "}
+                {stop.description_vi || "Chưa có mô tả địa điểm."} ·{" "}
                 <span className="stop-cost">
                   {stop.cost === 0
                     ? "Miễn phí"

@@ -36,7 +36,6 @@ export default function PoiCard({
   onShowInChat,
   stop,
   stopNumber,
-  onCloseNarration,
 }) {
   const [poi, setPoi] = useState(previewPoi || null);
   const [error, setError] = useState("");
@@ -218,7 +217,6 @@ export default function PoiCard({
       {narration?.poiId === poiId && (
         <NarrationPlayer
           narration={narration}
-          onClose={onCloseNarration}
           onRetry={() => onNarrate(poiId)}
         />
       )}

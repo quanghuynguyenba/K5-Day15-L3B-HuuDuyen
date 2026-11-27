@@ -9,7 +9,7 @@ const timestamp = (value) => {
   return `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
 };
 
-export default function NarrationPlayer({ narration, onClose, onRetry }) {
+export default function NarrationPlayer({ narration, onRetry }) {
   const audioRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [failed, setFailed] = useState(false);
