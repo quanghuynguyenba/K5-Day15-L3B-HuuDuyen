@@ -27,6 +27,20 @@ def _clock(minutes):
     return "%02d:%02d" % (minutes // 60, minutes % 60)
 
 
+def _price(poi):
+    raw = poi.get("price_vnd")
+    if raw is None:
+        return None
+    return int(raw)
+
+
+def _label(poi):
+    name = poi.get("name")
+    if isinstance(name, dict):
+        return name.get("vi") or name.get("en") or poi.get("id")
+    return name or poi.get("id")
+
+
 @tool
 def get_weather(date: str, user_says_rain: bool = False) -> dict:
     """Đọc thời tiết ngày đi.
@@ -62,11 +76,14 @@ def search_pois(interests: list, indoor_only: bool, exclude_categories: list,
         tags = set(poi.get("tags") or [])
         if want and not (tags & want):
             continue
-        cost = int(poi["price_vnd"]) * int(n_people)
+        price = _price(poi)
+        if price is None or not poi.get("open") or not poi.get("close"):
+            continue
+        cost = price * int(n_people)
         if cost > int(budget_vnd):
             continue
         found.append(dict(poi))
-    found.sort(key=lambda p: (int(p["price_vnd"]), int(p["visit_minutes"]), p["id"]))
+    found.sort(key=lambda p: (_price(p), int(p["visit_minutes"]), p["id"]))
     return found
 
 
@@ -92,21 +109,25 @@ def plan_route(poi_ids: list, start_time: str, end_time: str,
             continue
         travel = 0 if first else TRANSFER_MINUTES
         arrive = cursor + travel
+        price = _price(poi)
+        if price is None or not poi.get("open") or not poi.get("close"):
+            dropped.append({"poi_id": poi_id, "name": _label(poi), "reason": "không có giờ hoặc giá"})
+            continue
         open_at = _minutes(poi["open"])
         close_at = _minutes(poi["close"])
         if arrive < open_at:
             arrive = open_at
         depart = arrive + int(poi["visit_minutes"])
-        cost = int(poi["price_vnd"]) * int(n_people)
+        cost = price * int(n_people)
         if arrive > end or depart > end or depart > close_at:
-            dropped.append({"poi_id": poi_id, "name": poi["name"], "reason": "hết giờ"})
+            dropped.append({"poi_id": poi_id, "name": _label(poi), "reason": "hết giờ"})
             continue
         if spent + cost > int(budget_vnd):
-            dropped.append({"poi_id": poi_id, "name": poi["name"], "reason": "vượt ngân sách"})
+            dropped.append({"poi_id": poi_id, "name": _label(poi), "reason": "vượt ngân sách"})
             continue
         stops.append({
             "poi_id": poi_id,
-            "name": poi["name"],
+            "name": _label(poi),
             "arrive": _clock(arrive),
             "depart": _clock(depart),
             "cost": cost,
