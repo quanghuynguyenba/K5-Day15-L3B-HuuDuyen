@@ -11,11 +11,11 @@
     "closed_days": [],
     "visit_minutes": 60,
     "suitable_for": ["family", "elderly", "couple", "friends", "solo"],
-    "description_vi": "MẪU — thay bằng nội dung từ Wikipedia.",
-    "description_en": "SAMPLE — replace with Wikipedia content.",
-    "notes_vi": "MẪU — kiểm tra lại.",
-    "notes_en": "SAMPLE — verify.",
-    "source": "TODO — giá/giờ chưa kiểm"
+    "description_vi": "Văn Miếu – Quốc Tử Giám là điểm tham quan văn hóa và lịch sử ở Hà Nội. Du khách có thể dành thời gian quan sát kiến trúc và không gian trong khuôn viên.",
+    "description_en": "The Temple of Literature is a cultural and historical attraction in Hanoi. Visitors can explore its architecture and grounds.",
+    "notes_vi": "Dữ liệu demo: giá vé và giờ mở cửa chỉ là giả lập.",
+    "notes_en": "Demo data: admission price and opening hours are illustrative.",
+    "source": "mock-demo — giá/giờ/toạ độ chưa kiểm chứng"
   },
   {
     "id": "hn_002",
@@ -29,11 +29,11 @@
     "closed_days": [],
     "visit_minutes": 45,
     "suitable_for": ["family", "elderly", "couple", "friends", "solo"],
-    "description_vi": "MẪU — thay bằng nội dung từ Wikipedia.",
-    "description_en": "SAMPLE — replace with Wikipedia content.",
-    "notes_vi": "MẪU — kiểm tra lại.",
-    "notes_en": "SAMPLE — verify.",
-    "source": "TODO — giá/giờ chưa kiểm"
+    "description_vi": "Hồ Hoàn Kiếm và Đền Ngọc Sơn là cụm điểm tham quan ở trung tâm Hà Nội. Lịch trình demo coi đây là một điểm dừng để đi dạo và tham quan.",
+    "description_en": "Hoan Kiem Lake and Ngoc Son Temple are attractions in central Hanoi. The demo itinerary treats them as one stop for a walk and visit.",
+    "notes_vi": "Dữ liệu demo: giá vé và giờ mở cửa chỉ là giả lập.",
+    "notes_en": "Demo data: admission price and opening hours are illustrative.",
+    "source": "mock-demo — giá/giờ/toạ độ chưa kiểm chứng"
   },
   {
     "id": "hn_003",
@@ -47,11 +47,11 @@
     "closed_days": ["mon"],
     "visit_minutes": 90,
     "suitable_for": ["family", "elderly", "couple", "friends", "solo"],
-    "description_vi": "MẪU — thay bằng nội dung từ Wikipedia.",
-    "description_en": "SAMPLE — replace with Wikipedia content.",
-    "notes_vi": "MẪU — kiểm tra lại.",
-    "notes_en": "SAMPLE — verify.",
-    "source": "TODO — giá/giờ chưa kiểm"
+    "description_vi": "Bảo tàng Dân tộc học Việt Nam là điểm dừng phù hợp cho lịch trình quan tâm văn hóa và bảo tàng. Bản demo dùng địa điểm này để thử lọc điểm trong nhà và ngày đóng cửa.",
+    "description_en": "The Vietnam Museum of Ethnology suits an itinerary focused on culture and museums. This demo uses it to exercise indoor and closed-day filters.",
+    "notes_vi": "Dữ liệu demo: giá vé, giờ mở cửa và ngày nghỉ chỉ là giả lập.",
+    "notes_en": "Demo data: admission price, opening hours and closing days are illustrative.",
+    "source": "mock-demo — giá/giờ/toạ độ chưa kiểm chứng"
   },
   {
     "id": "hn_004",
@@ -65,11 +65,11 @@
     "closed_days": [],
     "visit_minutes": 75,
     "suitable_for": ["family", "couple", "friends", "solo"],
-    "description_vi": "MẪU — thay bằng nội dung từ Wikipedia.",
-    "description_en": "SAMPLE — replace with Wikipedia content.",
-    "notes_vi": "MẪU — kiểm tra lại.",
-    "notes_en": "SAMPLE — verify.",
-    "source": "TODO — giá/giờ chưa kiểm"
+    "description_vi": "Hoàng thành Thăng Long là điểm tham quan lịch sử tại Hà Nội. Trong lịch trình demo, đây là lựa chọn cho khách thích lịch sử, kiến trúc và chụp ảnh.",
+    "description_en": "The Imperial Citadel of Thang Long is a historical attraction in Hanoi. The demo recommends it for visitors interested in history, architecture and photography.",
+    "notes_vi": "Dữ liệu demo: giá vé và giờ mở cửa chỉ là giả lập.",
+    "notes_en": "Demo data: admission price and opening hours are illustrative.",
+    "source": "mock-demo — giá/giờ/toạ độ chưa kiểm chứng"
   },
   {
     "id": "hn_005",
@@ -83,10 +83,10 @@
     "closed_days": [],
     "visit_minutes": 45,
     "suitable_for": ["family", "elderly", "couple", "friends", "solo"],
-    "description_vi": "MẪU — thay bằng quán thật.",
-    "description_en": "SAMPLE — replace with a real shop.",
-    "notes_vi": "MẪU — kiểm tra lại.",
-    "notes_en": "SAMPLE — verify.",
-    "source": "TODO — giá/giờ chưa kiểm"
+    "description_vi": "Đây là quán phở giả lập trong khu phố cổ, dùng để minh họa điểm ăn uống trong lịch trình. Không dùng địa điểm này để dẫn đường ngoài đời thực.",
+    "description_en": "This is a fictional pho shop in the Old Quarter, used to demonstrate a food stop. Do not use it for real-world navigation.",
+    "notes_vi": "Địa điểm giả lập; giá, giờ và toạ độ chỉ phục vụ demo.",
+    "notes_en": "Fictional venue; price, hours and coordinates are for demonstration only.",
+    "source": "mock-demo — địa điểm giả lập"
   }
 ]
