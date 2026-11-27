@@ -1,7 +1,7 @@
 # TASK.md — Hackathon #14: Hành trình du lịch cá nhân hoá
 
 **Deadline:** 14:00 thứ 7, 28/11/2026
-**Team:** Huy · Tùng · Hiếu · Cường — tất cả dùng Python + Streamlit
+**Team:** Huy · Tùng · Hiếu · Cường — backend Python (FastAPI) + frontend ReactJS
 
 > **Pitch:** Từ một câu chat, khách có ngay lịch trình tối ưu theo túi tiền & thời gian, xem trên bản đồ, nghe thuyết minh bằng tiếng mẹ đẻ.
 
@@ -27,28 +27,46 @@
 ```
 User chat
   └─► LLM (Huy) tách ràng buộc → JSON {budget, start, end, group_type, n_people, interests, lang}
-        ├─► tool search_pois (Tùng)   : lọc SQLite + vector search
-        ├─► tool plan_route  (Hiếu)   : Distance Matrix + OR-Tools → lịch trình
+        ├─► tool search_pois (Hiếu)   : lọc SQLite + vector search
+        ├─► tool plan_route  (Tùng)   : Distance Matrix + OR-Tools → lịch trình
         ├─► tool get_weather (Cường)  : Open-Meteo → mưa thì ưu tiên POI indoor
         └─► tool narrate     (Huy+Cường): RAG + LLM viết thuyết minh → TTS
-  └─► Streamlit (Cường): khung chat + map (marker đánh số + polyline) + audio
+  └─► FastAPI `server.py` ─► React (Cường): khung chat + map Leaflet (marker đánh số + polyline) + audio
 ```
 
-Cấu trúc repo:
+Cấu trúc repo (khung đã dựng, mọi module có bản MOCK chạy được):
 
 ```
-app.py                 # Streamlit entry (Cường)
-agent/llm.py           # client LLM, prompt, tool calling (Huy)
-agent/tools.py         # đăng ký tool, gọi các module dưới (Huy)
-data/pois.json         # dữ liệu POI (Tùng)
-data/build_db.py       # json → SQLite + embedding (Tùng)
-rag/search.py          # search_pois (Tùng)
-routing/goong.py       # Distance Matrix, Directions, cache (Hiếu)
-routing/optimizer.py   # OR-Tools / greedy (Hiếu)
+server.py              # FastAPI: /api/chat, /api/narrate, /api/summary… cho React (Cường)
+frontend/              # React + Vite + react-leaflet (Cường)
+  src/api.js           #   mọi lời gọi backend
+  src/components/      #   Sidebar, Chat, MapView, PoiCard, AfterTrip
+config.py              # đọc .env, cờ USE_MOCK, hằng số chung (cả nhóm)
+agent/llm.py           # call_llm, chat(): prompt + vòng lặp tool calling, chế độ MOCK (Huy)
+agent/tools.py         # TOOL_SCHEMAS, dispatch, narrate (Huy + Cường)
+data/pois.json         # dữ liệu POI — đang có 5 POI MẪU, giá/giờ chưa kiểm (Hiếu)
+data/build_db.py       # json → SQLite + embedding (Hiếu)
+rag/search.py          # search_pois, get_poi_context (Hiếu)
+routing/goong.py       # Distance Matrix, Directions, cache (Tùng)
+routing/optimizer.py   # plan_route: OR-Tools / greedy (Tùng)
+routing/summary.py     # summarize_trip (Tùng)
 services/weather.py    # Open-Meteo (Cường)
 services/tts.py        # edge-tts / gTTS (Cường)
-.env.example           # LLM_API_KEY, GOONG_API_KEY, (EMBED_API_KEY)
+audio/                 # mp3 thuyết minh pre-generate: <poi_id>_<lang>.mp3
+data/cache/            # matrix, vector (không commit)
+.env.example           # LLM_API_KEY, LLM_MODEL, LLM_BASE_URL, GOONG_API_KEY, (EMBED_API_KEY)
+requirements.txt
 ```
+
+**Chạy:**
+```
+python -m pip install -r requirements.txt
+copy .env.example .env                       # để trống LLM_API_KEY = chạy MOCK
+python -m uvicorn server:app --reload --port 8000    # terminal 1: API
+cd frontend; npm install; npm run dev                # terminal 2: mở http://localhost:5173
+```
+Vite proxy `/api`, `/audio` sang cổng 8000, nên frontend không cần cấu hình CORS khi chạy dev.
+Mỗi người thay phần MOCK trong file của mình (tìm chữ `TODO`), giữ nguyên chữ ký hàm ở mục 3.2.
 
 ---
 
@@ -88,11 +106,12 @@ Category gợi ý: `history`, `museum`, `food`, `cafe`, `nature`, `shopping`, `n
 
 ```python
 search_pois(interests: list[str], group_type: str, max_price: int,
-            indoor_only: bool = False, top_k: int = 15) -> list[dict]
+            indoor_only: bool = False, top_k: int = 15,
+            date: str | None = None) -> list[dict]      # date YYYY-MM-DD để lọc closed_days
 
 plan_route(poi_ids: list[str], start_latlng: tuple, start_time: str,
            end_time: str, budget_vnd: int, n_people: int,
-           vehicle: str = "car") -> dict
+           vehicle: str = "car", date: str | None = None) -> dict
 # trả về: {"stops":[{"poi_id","arrive","depart","cost"}],
 #          "total_cost", "total_minutes", "polyline":[[lat,lng],...], "dropped":[poi_id]}
 
@@ -101,21 +120,21 @@ get_weather(date: str, lat: float, lng: float) -> dict
 
 narrate(poi_id: str, lang: str) -> {"text": str, "audio_path": str}
 
-summarize_trip(plan: dict, lang: str) -> str   # plan = output của plan_route (Hiếu)
+summarize_trip(plan: dict, lang: str) -> str   # plan = output của plan_route (Tùng)
 ```
 
 ---
 
 ## 4. Phân công
 
-### Tùng — Dữ liệu POI + RAG
+### Hiếu — Dữ liệu POI + RAG
 
 **Nguồn dữ liệu:**
 
 | Dữ liệu | Nguồn | Cách lấy |
 |---|---|---|
 | Danh sách POI + toạ độ | OpenStreetMap qua **Overpass API** (miễn phí, không key) | API |
-| Bổ sung / kiểm tra toạ độ | **Goong Geocoding / Places** | API (dùng chung key với Hiếu) |
+| Bổ sung / kiểm tra toạ độ | **Goong Geocoding / Places** | API (dùng chung key với Tùng) |
 | Mô tả, lịch sử, nội dung thuyết minh | **Wikipedia / Wikivoyage** (có sẵn vi, en, ko, ja, zh…), thư viện `wikipedia-api` | API |
 | Giá vé, giờ mở cửa, thời gian tham quan | Website chính thức, trang du lịch Hà Nội | **Tự gom**: LLM tạo bản nháp, người kiểm tra lại từng điểm |
 | `suitable_for`, `indoor`, `tags` | Tự gán | **Tự gom** |
@@ -156,7 +175,7 @@ summarize_trip(plan: dict, lang: str) -> str   # plan = output của plan_route 
 - [ ] Prompt thuyết minh: 60–90 giây, chỉ dùng nội dung RAG trả về, **không bịa số liệu**
 - [ ] Guardrail: LLM **không tự tính** khoảng cách, giờ, tiền — luôn lấy từ `plan_route`
 
-### Hiếu — Map API + tối ưu lộ trình
+### Tùng — Map API + tối ưu lộ trình
 
 **Map API: Goong** (Việt Nam, định dạng giống Google Maps, hiển thị đúng Hoàng Sa – Trường Sa)
 - Distance Matrix: thời gian/quãng đường giữa các POI
@@ -181,17 +200,17 @@ summarize_trip(plan: dict, lang: str) -> str   # plan = output của plan_route 
 
 ### Cường — Giao diện + thuyết minh + thời tiết + demo
 
-**Giao diện:** Streamlit + `streamlit-folium`
-- Layout 2 cột: trái là chat (`st.chat_message`, `st.chat_input`), phải là map
+**Giao diện:** ReactJS (Vite) + `react-leaflet`, gọi API ở `server.py`
+- Layout: sidebar + 2 cột, trái là chat, phải là map (`Chat.jsx`, `MapView.jsx`)
 - Map: tile OpenStreetMap mặc định (miễn phí) hoặc tile Goong; marker đánh số theo thứ tự, polyline đường đi, popup giờ đến + giá
 - Bắt sự kiện click marker → hiện thẻ POI + nút "Nghe thuyết minh"
 - Chọn ngôn ngữ (vi / en / ko / ja / zh) ở sidebar
-- Giữ state bằng `st.session_state` (lịch sử chat, lịch trình hiện tại)
+- State: lịch sử chat + lịch trình giữ ở server theo `session_id` (frontend sinh); React chỉ giữ state hiển thị
 
 **Thuyết minh (TTS):**
 - Chính: **`edge-tts`** — miễn phí, giọng tự nhiên, nhiều ngôn ngữ (ví dụ `vi-VN-HoaiMyNeural`, `en-US-AriaNeural`, `ko-KR-SunHiNeural`, `ja-JP-NanamiNeural`, `zh-CN-XiaoxiaoNeural`). Đây là thư viện không chính thức, cần mạng
 - Dự phòng: **`gTTS`**
-- **Pre-generate** audio cho các POI trong kịch bản demo, lưu file mp3 → phát bằng `st.audio`
+- **Pre-generate** audio cho các POI trong kịch bản demo, lưu file mp3 → server phục vụ ở `/audio/…`, phát bằng thẻ `<audio>`
 
 **Thời tiết: Open-Meteo** (miễn phí, không cần key)
 - Lấy `precipitation_probability` theo giờ + nhiệt độ cho Hà Nội
@@ -199,10 +218,10 @@ summarize_trip(plan: dict, lang: str) -> str   # plan = output của plan_route 
 - Hiện widget thời tiết nhỏ trên giao diện
 
 **Task:**
-- [ ] Khung Streamlit chạy với dữ liệu giả → **trước 14:00**
+- [ ] Khung React + API chạy với dữ liệu giả → **trước 14:00**
 - [ ] Map marker + polyline + click marker
 - [ ] `services/tts.py`, `services/weather.py`
-- [ ] Màn hình "Sau chuyến đi" (gọi `summarize_trip` của Hiếu)
+- [ ] Màn hình "Sau chuyến đi" (gọi `summarize_trip` của Tùng)
 - [ ] Kịch bản demo + slide + quay video dự phòng
 
 ---
@@ -212,10 +231,10 @@ summarize_trip(plan: dict, lang: str) -> str   # plan = output của plan_route 
 | Mốc | Việc | Ai |
 |---|---|---|
 | Hôm nay 11:30 | Chốt schema, tool contract, tạo repo + `.env.example` | Cả nhóm |
-| 12:00 | 5 POI mẫu lên repo | Tùng |
+| 12:00 | 5 POI mẫu lên repo | Hiếu |
 | 14:00 | UI khung chạy dữ liệu giả; agent gọi được tool giả | Cường, Huy |
-| 16:00 | ≥30 POI sạch + DB + vector | Tùng |
-| 18:00 | Greedy route chạy với Goong thật | Hiếu |
+| 16:00 | ≥30 POI sạch + DB + vector | Hiếu |
+| 18:00 | Greedy route chạy với Goong thật | Tùng |
 | 21:00 | **Tích hợp lần 1:** chat → lịch trình → map end-to-end | Cả nhóm |
 | 22:00 | **Khoá tính năng.** Sau mốc này không thêm tính năng mới | Cả nhóm |
 | 22:00–01:00 | OR-Tools, thuyết minh, thời tiết, sửa lịch trình qua chat | Theo phân công |
