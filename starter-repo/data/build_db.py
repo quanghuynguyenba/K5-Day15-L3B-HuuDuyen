@@ -7,10 +7,8 @@ Hiện mới dựng bảng SQLite. TODO (Hiếu):
 import json
 import os
 import sqlite3
-import sys
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from config import DATA_DIR  # noqa: E402
+DATA_DIR = os.path.dirname(os.path.abspath(__file__))
 
 DB_PATH = os.path.join(DATA_DIR, "pois.db")
 

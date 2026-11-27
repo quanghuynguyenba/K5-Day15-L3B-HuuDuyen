@@ -8,7 +8,7 @@ import json
 import os
 from functools import lru_cache
 
-from config import DATA_DIR
+DATA_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
 
 WEEKDAYS = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"]
 
