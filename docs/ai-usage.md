@@ -7,6 +7,7 @@ README của nhóm có mục "Dùng AI vào việc gì" (2–3 dòng, bắt bu�
 | Việc | Công cụ AI | AI làm gì | Người kiểm/sửa gì | Ai phụ trách |
 |---|---|---|---|---|
 | Code bản chạy thử | | | | |
+| Viết canvas CP2, spec, bộ câu thử, data synthetic và khung agent | Cursor | Soạn bản thảo từ lát cắt đã chốt và bài báo nhóm đưa | Nhóm đọc lại trước khi nộp. Không bịa người phỏng vấn | Cả nhóm |
 | Prompt / thiết kế lời gọi mô hình | | | | |
 | Đào data (viết script đếm, gợi ý nhãn) | | | Kiểm tay __ dòng, khớp __ | |
 | Rà câu hỏi phỏng vấn / khảo sát | | Chỉ rà câu dẫn dắt | | |
