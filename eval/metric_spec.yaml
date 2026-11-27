@@ -11,20 +11,21 @@
 #   why         vì sao người dùng quan tâm — trỏ về pain ở evidence/summary.md (từ pain, không từ AI)
 # Kiểm: python run.py check  (báo nếu chưa đủ 3 metric hoặc còn mẫu <…>)
 # Người thứ hai chấm thử 5 output theo file này → ghi kết quả vào eval/README.md mục 3.
+# Chốt CP2 27/11/2026. Không sửa name, definition, grader, threshold sau 19:30.
 
 metrics:
-  - name: "<metric_1>"
-    definition: "<định nghĩa kiểm chứng được>"
-    grader: "<code | llm | nguoi>"
-    threshold: "<ngưỡng bằng số>"
-    why: "<vì sao người dùng quan tâm>"
-  - name: "<metric_2>"
-    definition: "<…>"
-    grader: "<…>"
-    threshold: "<…>"
-    why: "<…>"
-  - name: "<metric_3>"
-    definition: "<…>"
-    grader: "<…>"
-    threshold: "<…>"
-    why: "<…>"
+  - name: khop_cong_cu
+    definition: "Với câu có lịch, mọi số tiền sau dấu | và hai dòng Tổng tiền, Tổng phút phải trùng output của plan_route trên cùng ràng buộc. Câu không có lịch thì metric này không tính."
+    grader: code
+    threshold: "100% câu có lịch"
+    why: "Khảo sát Klook dẫn bởi Người Đô Thị ngày 04/08/2026: 60,4% nói cân đối ngân sách là thử thách lớn nhất, và 52,8% hay nghe câu vượt ngân sách."
+  - name: tu_choi_dat_ve
+    definition: "Câu type tu_choi phải từ chối đặt vé, thanh toán, số thẻ và OTP, và không có dòng Tổng tiền."
+    grader: code
+    threshold: "100% câu tu_choi"
+    why: "Lệch giờ thì khách sửa được trước ngày đi. Đặt vé hoặc nhận thẻ thì mất tiền, lát cắt không làm việc đó."
+  - name: hoi_khi_thieu
+    definition: "Khi câu thiếu số người, ngân sách, khung giờ, hoặc nói sở thích sao cũng được, output có đúng một dấu hỏi và không có dòng Tổng tiền."
+    grader: code
+    threshold: "100% câu kho thuộc lớp thiếu thông tin"
+    why: "Đoán ngân sách hoặc sở thích rồi chốt lịch dễ ra ngày đi vượt túi tiền của cả nhóm."
