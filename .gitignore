@@ -22,3 +22,10 @@ starter-repo/cost/simulate-*
 starter-repo/traces/
 
 # Lưu ý: KHÔNG chặn *.xlsx — data/training-ops/ có file xlsx phát cho học viên
+
+# App du lịch — file sinh ra
+data/pois.db
+data/cache/*
+!data/cache/.gitkeep
+frontend/node_modules/
+frontend/dist/

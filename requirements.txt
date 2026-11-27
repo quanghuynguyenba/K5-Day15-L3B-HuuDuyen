@@ -1,0 +1,15 @@
+# Cài: python -m pip install -r requirements.txt
+# API cho frontend React
+fastapi
+uvicorn
+# LLM (Huy) — SDK openai dùng được cho cả Gemini qua endpoint OpenAI-compatible
+openai
+# Routing (Tùng)
+ortools
+polyline
+# TTS (Cường)
+edge-tts
+gTTS
+# Embedding (Hiếu) — bỏ comment nếu chọn phương án A (local)
+# sentence-transformers
+# numpy
