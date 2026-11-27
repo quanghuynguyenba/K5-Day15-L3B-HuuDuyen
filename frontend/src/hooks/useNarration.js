@@ -25,6 +25,9 @@ export default function useNarration({ lang, preview, stops, sessionId }) {
           ? {
               text: "Đây là hành trình minh họa. Bắt đầu phiên mới để nghe thuyết minh từ API.",
               audio_url: null,
+              mock: true,
+              source: "preview",
+              tts_status: "disabled",
             }
           : await api.narrate(poiId, lang);
         if (

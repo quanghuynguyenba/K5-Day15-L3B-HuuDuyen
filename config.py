@@ -1,6 +1,7 @@
 """Cấu hình chung (cả nhóm). Đọc .env, không cần python-dotenv.
 
-USE_MOCK = True  → mọi module trả dữ liệu giả, không gọi API ngoài (mặc định khi chưa có LLM_API_KEY).
+USE_MOCK = True → agent dùng dữ liệu giả khi chưa có LLM_API_KEY.
+Thời tiết dùng WEATHER_MODE=real|mock riêng, mặc định real.
 """
 import os
 

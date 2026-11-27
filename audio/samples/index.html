@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Nghe thử TTS · Hanoi Travel AI</title>
+  <style>
+    *{box-sizing:border-box}body{font:16px/1.6 system-ui,sans-serif;background:#fafcfb;color:#171c1f;margin:0;padding:24px}main{max-width:720px;margin:auto}h1{font-size:28px;color:#0369b2}article{border:1px solid #b3ccd8;background:#fff;padding:18px;border-radius:12px;margin:16px 0}h2{font-size:18px;margin:0}p{color:#33414a}audio{display:block;width:100%;margin-top:12px}.notice{padding:16px;background:#e3f8fc;border-radius:12px}small{color:#5a7382}
+  </style>
+</head>
+<body><main><h1>Nghe thử TTS · 5 ngôn ngữ</h1><p class="notice">Đây là lời chào để kiểm tra giọng nói, không phải audio thuyết minh địa điểm. Bấm Phát để nghe từng ngôn ngữ.</p><div id="samples" role="status">Đang tải danh sách…</div></main>
+<script type="module">
+  const names={vi:'Tiếng Việt',en:'English',ko:'한국어 · Tiếng Hàn',ja:'日本語 · Tiếng Nhật',zh:'中文 · Tiếng Trung'};
+  const container=document.querySelector('#samples');
+  try{
+    const response=await fetch('./manifest.json');if(!response.ok)throw new Error();
+    const samples=await response.json();container.replaceChildren();container.removeAttribute('role');
+    for(const sample of samples){
+      const card=document.createElement('article');const title=document.createElement('h2');title.textContent=names[sample.lang]||sample.lang;
+      const text=document.createElement('p');text.textContent=sample.text;text.lang=sample.lang;
+      const source=document.createElement('small');source.textContent=`Giọng: ${sample.provider||'Chưa tạo được'}`;
+      card.append(title,text,source);
+      if(sample.status==='ready'){const audio=document.createElement('audio');audio.controls=true;audio.preload='metadata';audio.src=`./${sample.lang}.mp3`;audio.addEventListener('play',()=>document.querySelectorAll('audio').forEach(other=>{if(other!==audio)other.pause()}));card.append(audio);}
+      container.append(card);
+    }
+  }catch{container.textContent='Chưa tải được danh sách audio. Vui lòng tải lại trang.';}
+</script></body></html>

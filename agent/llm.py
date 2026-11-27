@@ -23,6 +23,7 @@ SYSTEM = """Bạn là trợ lý du lịch Hà Nội.
   Điểm trong "dropped" thì giải thích ngắn vì sao bỏ (hết giờ, vượt ngân sách, đóng cửa).
 - Khách sửa lịch ("bỏ bảo tàng", "bớt 200k"): gọi lại tool với ràng buộc mới, dựa trên lịch hiện tại.
 - Hỏi về mưa: gọi get_weather; is_rainy thì tìm lại với indoor_only=true cho khung giờ mưa.
+- Nếu thời tiết unavailable hoặc is_rainy=null: nói chưa có dự báo, không kết luận không mưa. mock=true là dữ liệu minh họa, phải nói rõ.
 - Khách báo đang ở đâu / bị trễ giữa chuyến: gọi plan_route cho phần còn lại của ngày với start_lat/start_lng
   = vị trí hiện tại, start_time = giờ hiện tại, bỏ các điểm đã đi.
 - Hỏi về một điểm (giờ mở, giá, lưu ý): chỉ trả lời theo dữ liệu tool; không có thì nói không có.
@@ -149,6 +150,10 @@ def _chat_mock(text: str, state: dict) -> str:
                                    "budget_vnd": c["budget_vnd"], "n_people": c["n_people"]}, state)
     lines = ["[MOCK — chưa nối LLM] lang=%s · %d người · ngân sách %s VND%s" % (
         c["lang"], c["n_people"], f"{c['budget_vnd']:,}", " · trời mưa → chỉ điểm trong nhà" if indoor else "")]
+    if (state.get("weather") or {}).get("status") == "unavailable":
+        lines.append("Thời tiết: chưa có dự báo — " + state["weather"].get("error", "vui lòng thử lại sau"))
+    if (state.get("weather") or {}).get("mock"):
+        lines.append("Thời tiết đang dùng dữ liệu MẪU, không phải dự báo thật.")
     for i, s in enumerate(plan["stops"], 1):
         lines.append("%d. %s–%s %s (%s VND)" % (i, s["arrive"], s["depart"],
                                                  get_poi(s["poi_id"])["name"]["vi"], f"{s['cost']:,}"))

@@ -7,7 +7,17 @@ import IconButton from "@mui/material/IconButton";
 function weatherLabel(weather, preview) {
   if (preview) return "26°C · Có thể mưa chiều (mẫu)";
   if (!weather) return "Chưa có dữ liệu thời tiết";
-  return `${Math.round(weather.temp_max)}°C · ${weather.is_rainy ? "Có thể có mưa" : "Không mưa"}${weather.mock ? " (mẫu)" : ""}`;
+  if (weather.status === "unavailable") return "Chưa có dự báo thời tiết";
+  const temperature = Number.isFinite(weather.temp_max)
+    ? `${Math.round(weather.temp_max)}°C`
+    : "Thiếu nhiệt độ";
+  const rain =
+    weather.is_rainy === true
+      ? "Có thể có mưa"
+      : weather.is_rainy === false
+        ? "Xác suất mưa dưới 60%"
+        : "Chưa rõ khả năng mưa";
+  return `${temperature} · ${rain} · ${weather.mock ? "Mẫu" : weather.status === "partial" ? "Dữ liệu thiếu" : "Open-Meteo"}`;
 }
 
 export default function Header({
@@ -45,6 +55,13 @@ export default function Header({
           className="weather-pill"
           icon={<Icon name="cloud" size={18} />}
           label={weatherLabel(weather, preview)}
+          title={
+            preview
+              ? "Dữ liệu minh họa thiết kế"
+              : weather?.error ||
+                weather?.warning ||
+                `${weather?.date || ""} · ${weather?.source || "Chưa có nguồn"}`
+          }
           size="small"
           variant="outlined"
         />

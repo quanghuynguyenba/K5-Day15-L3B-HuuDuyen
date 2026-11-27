@@ -9,6 +9,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
+from typing import Literal
 
 from agent.llm import chat, new_state
 from agent.tools import narrate
@@ -58,7 +59,7 @@ class ChatIn(BaseModel):
 
 class NarrateIn(BaseModel):
     poi_id: str
-    lang: str = "vi"
+    lang: Literal["vi", "en", "ko", "ja", "zh"] = "vi"
 
 
 class SummaryIn(BaseModel):
@@ -104,9 +105,18 @@ def weather(date: str):
 
 @app.post("/api/narrate")
 def post_narrate(body: NarrateIn):
-    n = narrate(body.poi_id, body.lang)
+    if not get_poi(body.poi_id):
+        raise HTTPException(404, "Không tìm thấy địa điểm để thuyết minh.")
+    try:
+        n = narrate(body.poi_id, body.lang)
+    except ValueError as error:
+        raise HTTPException(400, str(error)) from error
+    except Exception as error:
+        raise HTTPException(503, "Chưa tạo được thuyết minh. Vui lòng thử lại sau.") from error
     url = "/audio/" + os.path.basename(n["audio_path"]) if n.get("audio_path") else None
-    return {"text": n["text"], "audio_url": url}
+    if url and n.get("audio_version"):
+        url += "?v=" + n["audio_version"]
+    return {**{key: value for key, value in n.items() if key != "audio_path"}, "audio_url": url}
 
 
 @app.post("/api/summary")

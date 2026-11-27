@@ -29,6 +29,18 @@ export default function NarrationPlayer({ narration, onClose, onRetry }) {
           <Icon name="close" size={18} />
         </Button>
       </div>
+      {!narration.loading && (
+        <p className="narration-provenance">
+          {narration.mock
+            ? "Nội dung minh họa"
+            : narration.source === "prepared"
+              ? "Audio đã chuẩn bị và duyệt trước"
+              : "Nội dung từ API"}
+          {narration.tts_provider ? ` · ${narration.tts_provider}` : ""}
+          {narration.tts_status === "cached" ? " · Đã lưu sẵn" : ""}
+        </p>
+      )}
+      {narration.warning && <p role="status">{narration.warning}</p>}
       {narration.loading ? (
         <p role="status">Đang tạo thuyết minh…</p>
       ) : narration.error ? (
@@ -70,6 +82,9 @@ export default function NarrationPlayer({ narration, onClose, onRetry }) {
             <p role="status">Nhấn nút Phát trên trình phát để bắt đầu nghe.</p>
           )}
           {audioError && <Button onClick={onRetry}>Tạo lại audio</Button>}
+          {!audioError && narration.tts_status === "unavailable" && (
+            <Button onClick={onRetry}>Thử tạo lại audio</Button>
+          )}
           {narration.text && (
             <details>
               <summary>Đọc nội dung thuyết minh</summary>
