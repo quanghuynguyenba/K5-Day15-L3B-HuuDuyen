@@ -27,7 +27,7 @@
 ```
 User chat
   └─► LLM (Huy) tách ràng buộc → JSON {budget, start, end, group_type, n_people, interests, lang}
-        ├─► tool search_pois (Hiếu)   : lọc SQLite + vector search
+        ├─► tool search_pois (Hiếu)   : lọc JSON + xếp hạng theo tag (MVP)
         ├─► tool plan_route  (Tùng)   : Distance Matrix + OR-Tools → lịch trình
         ├─► tool get_weather (Cường)  : Open-Meteo → mưa thì ưu tiên POI indoor
         └─► tool narrate     (Huy+Cường): RAG + LLM viết thuyết minh → TTS
@@ -44,8 +44,8 @@ frontend/              # React + Vite + react-leaflet (Cường)
 config.py              # đọc .env, cờ USE_MOCK, hằng số chung (cả nhóm)
 agent/llm.py           # call_llm, chat(): prompt + vòng lặp tool calling, chế độ MOCK (Huy)
 agent/tools.py         # TOOL_SCHEMAS, dispatch, narrate (Huy + Cường)
-data/pois.json         # dữ liệu POI — đang có 5 POI MẪU, giá/giờ chưa kiểm (Hiếu)
-data/build_db.py       # json → SQLite + embedding (Hiếu)
+data/pois.json         # 50 POI; một số điểm mới chưa đủ giá/giờ cho bộ lập lịch (Hiếu)
+data/build_db.py       # json → SQLite; MVP hiện đọc JSON trực tiếp (Hiếu)
 rag/search.py          # search_pois, get_poi_context (Hiếu)
 routing/goong.py       # Distance Matrix, Directions, cache (Tùng)
 routing/optimizer.py   # plan_route: OR-Tools / greedy (Tùng)
@@ -129,6 +129,17 @@ summarize_trip(plan: dict, lang: str) -> str   # plan = output của plan_route 
 
 ### Hiếu — Dữ liệu POI + RAG
 
+**Checklist dữ liệu (50 POI trong `data/pois.json`, 27/11):**
+- [x] JSON đọc được; có 50 ID khác nhau và đủ tên trường theo schema.
+- [x] POI thiếu giá/giờ được bỏ qua khi tìm và lập lịch; phần nội dung chi tiết hiển thị “chưa có dữ liệu”.
+- [x] Kiểm tra trên bộ 50 POI: 32 điểm đủ giá/giờ để lập lịch, 18 điểm thiếu dữ liệu được bỏ qua an toàn.
+- [x] `search_pois` lọc theo giá, nhóm khách, trong nhà và ngày đóng cửa; xếp hạng theo tag và bỏ điểm không khớp sở thích.
+- [x] `get_poi_context` trả nội dung tiếng Việt/Anh và fallback cho ngôn ngữ khác.
+- [x] Smoke test trước khi mở rộng (bộ 20 POI): truy vấn bảo tàng trong nhà trả 9 POI; bộ lập lịch chọn được 7 điểm.
+- [x] Đối chiếu từng giá vé, giờ mở cửa, ngày nghỉ và tọa độ với nguồn tương ứng trước khi công bố là thông tin đã xác minh.
+
+Phạm vi MVP dùng JSON và xếp hạng theo tag; SQLite/vector/embedding được hoãn. Trong 50 POI, 32 điểm đủ giá/giờ để lập lịch; 18 điểm còn lại chỉ dùng để xem thông tin.
+
 **Nguồn dữ liệu:**
 
 | Dữ liệu | Nguồn | Cách lấy |
@@ -139,9 +150,9 @@ summarize_trip(plan: dict, lang: str) -> str   # plan = output của plan_route 
 | Giá vé, giờ mở cửa, thời gian tham quan | Website chính thức, trang du lịch Hà Nội | **Tự gom**: LLM tạo bản nháp, người kiểm tra lại từng điểm |
 | `suitable_for`, `indoor`, `tags` | Tự gán | **Tự gom** |
 
-→ Overpass/Wikipedia cho số lượng; giá & giờ phải tự gom vì không có API đáng tin. Ưu tiên **30 POI sạch** (làm trước các điểm trên tuyến demo) hơn 200 POI bẩn; còn giờ mới bổ sung. Ghi `source` cho từng điểm.
+→ `data/pois.json` hiện có 50 POI với URL trong `source`. Dữ liệu đã được Hiếu đối chiếu; điểm thiếu giá/giờ không được đưa vào lịch trình.
 
-**Embedding — 2 phương án, chọn 1 trước 13h:**
+**Embedding — phương án mở rộng, chưa cần cho MVP:**
 
 | | **A. Local** (sentence-transformers) | **B. API nhà cung cấp** |
 |---|---|---|
@@ -154,13 +165,14 @@ summarize_trip(plan: dict, lang: str) -> str   # plan = output của plan_route 
 
 **Lưu trữ:** SQLite cho dữ liệu cấu trúc (lọc giá, giờ, nhóm khách, indoor) + numpy cosine hoặc ChromaDB cho vector. 100 POI không cần vector DB nặng.
 
-**Task:**
-- [ ] Viết `pois.json` mẫu 5 POI theo schema → push **trước 12:00** để mọi người test
-- [ ] Script Overpass + Wikipedia lấy dữ liệu thô
-- [ ] Hoàn thiện ≥30 POI sạch (giá, giờ, `closed_days`, `notes`, tag, indoor, suitable_for), ưu tiên điểm trên tuyến demo → **trước 16:00**. Còn giờ thì bổ sung lên 50
-- [ ] `build_db.py`: json → SQLite + vector
-- [ ] `search_pois`: lọc cứng (giá, nhóm, indoor, `closed_days` theo ngày đi) rồi xếp hạng bằng vector similarity theo interests
-- [ ] Hàm `get_poi_context(poi_id, lang)` trả đoạn nội dung cho thuyết minh
+**Task MVP của Hiếu:**
+- [x] Mở rộng `pois.json` lên 50 POI, ID không trùng; đối chiếu nguồn.
+- [x] Xử lý giá/giờ `null` và kiểm tra tích hợp với bộ lập lịch trên 50 POI; không đoán giá/giờ còn thiếu.
+- [x] `search_pois`: lọc giá, nhóm khách, trong nhà, ngày đóng cửa; xếp hạng theo tag và bỏ điểm không khớp sở thích.
+- [x] `get_poi_context(poi_id, lang)` trả mô tả, lưu ý, giá và giờ cho thuyết minh.
+- [ ] Kiểm thử hỏi đáp về POI với LLM thật sau khi Huy kết nối model: giá, giờ, lưu ý và trường hợp không có thông tin; sửa phần truy xuất nếu kết quả sai.
+
+Script thu thập tự động, vector/embedding và tìm kiếm ngữ nghĩa là việc mở rộng, không thuộc phạm vi MVP đã chốt.
 
 ### Huy — Agent LLM + đa ngôn ngữ
 
@@ -231,9 +243,9 @@ summarize_trip(plan: dict, lang: str) -> str   # plan = output của plan_route 
 | Mốc | Việc | Ai |
 |---|---|---|
 | Hôm nay 11:30 | Chốt schema, tool contract, tạo repo + `.env.example` | Cả nhóm |
-| 12:00 | 5 POI mẫu lên repo | Hiếu |
+| 12:00 | Bộ POI mẫu ban đầu; file hiện có 50 POI | Hiếu |
 | 14:00 | UI khung chạy dữ liệu giả; agent gọi được tool giả | Cường, Huy |
-| 16:00 | ≥30 POI sạch + DB + vector | Hiếu |
+| 16:00 | File đã tăng lên 50 POI đọc JSON; điểm thiếu giá/giờ được bỏ qua khi lập lịch | Hiếu |
 | 18:00 | Greedy route chạy với Goong thật | Tùng |
 | 21:00 | **Tích hợp lần 1:** chat → lịch trình → map end-to-end | Cả nhóm |
 | 22:00 | **Khoá tính năng.** Sau mốc này không thêm tính năng mới | Cả nhóm |

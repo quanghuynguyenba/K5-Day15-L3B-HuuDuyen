@@ -35,12 +35,21 @@ def is_open_on(poi: dict, date: str | None) -> bool:
     return wd is None or wd not in poi.get("closed_days", [])
 
 
+def is_schedulable(poi: dict) -> bool:
+    """Chỉ lập lịch khi biết giá và khoảng giờ; không đoán dữ liệu còn thiếu."""
+    return (isinstance(poi.get("price_vnd"), int) and poi["price_vnd"] >= 0
+            and isinstance(poi.get("open"), str) and isinstance(poi.get("close"), str)
+            and poi["open"] < poi["close"])
+
+
 def search_pois(interests: list[str], group_type: str, max_price: int,
                 indoor_only: bool = False, top_k: int = 15, date: str | None = None) -> list[dict]:
     """Lọc cứng (giá / người, nhóm khách, indoor, ngày đóng cửa) rồi xếp hạng theo interests."""
     interests = [i.lower() for i in interests or []]
     out = []
     for p in load_pois():
+        if not is_schedulable(p):
+            continue
         if p["price_vnd"] > max_price:
             continue
         if group_type and group_type not in p["suitable_for"]:
@@ -51,6 +60,8 @@ def search_pois(interests: list[str], group_type: str, max_price: int,
             continue
         # MOCK ranking — thay bằng cosine similarity
         score = sum(1 for t in p["tags"] + [p["category"]] if t in interests)
+        if interests and score == 0:
+            continue
         out.append((score, p))
     out.sort(key=lambda x: -x[0])
     return [p for _, p in out[:top_k]]
@@ -65,6 +76,7 @@ def get_poi_context(poi_id: str, lang: str) -> str:
         desc = p.get("description_%s" % l)
         if desc:
             notes = p.get("notes_%s" % l, "")
-            return "%s\n%s\nGiá vé: %d VND · Giờ mở: %s–%s" % (
-                desc, notes, p["price_vnd"], p["open"], p["close"])
+            price = f"{p['price_vnd']} VND" if p.get("price_vnd") is not None else "chưa có dữ liệu"
+            hours = f"{p['open']}–{p['close']}" if p.get("open") and p.get("close") else "chưa có dữ liệu"
+            return f"{desc}\n{notes}\nGiá vé: {price} · Giờ mở: {hours}"
     return ""

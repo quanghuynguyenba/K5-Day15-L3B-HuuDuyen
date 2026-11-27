@@ -20,7 +20,7 @@
 
 ## Chuẩn bị audio demo
 
-Hiện `data/pois.json` có 5 POI mẫu, mô tả `MẪU/SAMPLE` và nguồn `TODO`. **Chưa tạo audio demo địa điểm từ các placeholder này.**
+Sau khi nhập `main`, `data/pois.json` có 50 POI với mô tả Việt/Anh và URL nguồn; 32 điểm đủ giá/giờ để lập lịch. Chưa có mô tả Hàn/Nhật/Trung. Một số ghi chú vẫn nêu giới hạn kiểm chứng nguồn/tọa độ; kiểm tra cấu trúc không thay cho duyệt nội dung. Các mô tả ngắn này dùng được làm căn cứ RAG nhưng chưa phải kịch bản thuyết minh 60–90 giây đã duyệt. **Chưa tạo sẵn audio demo địa điểm.**
 
 1. Sao chép `audio/demo-scripts.example.json` thành `audio/demo-scripts.json`.
 2. Điền `text` đúng ngôn ngữ (mục tiêu 60–90 giây), `source` là URL căn cứ. Kiểm tra nội dung rồi đặt `approved: true`. Mỗi POI/ngôn ngữ một dòng; thêm dòng cho điểm khác.

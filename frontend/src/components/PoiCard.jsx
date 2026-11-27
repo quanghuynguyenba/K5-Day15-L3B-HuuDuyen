@@ -18,7 +18,7 @@ const CATEGORIES = {
 };
 function sourceUrl(value) {
   try {
-    const url = new URL(value);
+    const url = new URL(value.trim());
     return ["https:", "http:"].includes(url.protocol) ? url.href : null;
   } catch {
     return null;
@@ -91,7 +91,10 @@ export default function PoiCard({
   const description =
     poi[`description_${lang}`] || poi.description_vi || poi.description_en;
   const busy = narration?.loading && narration.poiId === poiId;
-  const source = sourceUrl(poi.source);
+  const sources =
+    typeof poi.source === "string"
+      ? [...new Set(poi.source.split("|").map(sourceUrl).filter(Boolean))]
+      : [];
   return (
     <article className="poi-card">
       <div className="poi-cover">
@@ -128,12 +131,18 @@ export default function PoiCard({
             Giờ mở cửa
           </dt>
           <dd>
-            {poi.open || "—"} – {poi.close || "—"}
+            {poi.open && poi.close
+              ? `${poi.open} – ${poi.close}`
+              : "Chưa có giờ mở cửa"}
           </dd>
         </div>
         <div>
           <dt>Giá vé / người</dt>
-          <dd>{formatMoney(poi.price_vnd)}</dd>
+          <dd>
+            {poi.price_vnd == null
+              ? "Chưa có giá vé"
+              : formatMoney(poi.price_vnd)}
+          </dd>
         </div>
         {Number.isFinite(poi.visit_minutes) && (
           <div>
@@ -149,15 +158,18 @@ export default function PoiCard({
         )}
       </dl>
       {notes && <p className="notes">{notes}</p>}
-      {source ? (
-        <a
-          className="poi-source"
-          href={source}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Nguồn thông tin
-        </a>
+      {sources.length ? (
+        sources.map((source, index) => (
+          <a
+            className="poi-source"
+            key={source}
+            href={source}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Nguồn thông tin {sources.length > 1 ? index + 1 : ""}
+          </a>
+        ))
       ) : (
         <small className="poi-source">
           {previewPoi
