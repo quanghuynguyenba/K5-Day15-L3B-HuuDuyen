@@ -7,14 +7,15 @@ Kết quả ghi vào data/cache/maps_cache.json → commit file này để máy 
 import sys
 
 from config import DEFAULT_START, USE_TOMTOM
-from rag.search import load_pois
+from rag.search import is_schedulable, load_pois
 from routing import maps
 
 
 def main(vehicle: str = "car"):
     if not USE_TOMTOM:
         sys.exit("Chưa có TOMTOM_API_KEY trong .env (hoặc USE_TOMTOM=0) — không có gì để tính sẵn.")
-    points = [DEFAULT_START] + [(p["lat"], p["lng"]) for p in load_pois()]
+    # Chỉ POI lập lịch được (đủ giá + giờ) — điểm thiếu dữ liệu không bao giờ vào ma trận, tính cũng phí quota
+    points = [DEFAULT_START] + [(p["lat"], p["lng"]) for p in load_pois() if is_schedulable(p)]
     maps.distance_matrix(points, vehicle)
     n = len(points)
     print("%d điểm · %d cặp · %d lần gọi TomTom · %d cặp vẫn phải dùng Haversine" % (

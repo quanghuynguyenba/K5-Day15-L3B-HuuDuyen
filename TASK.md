@@ -48,7 +48,9 @@ data/pois.json         # 50 POI; một số điểm mới chưa đủ giá/giờ
 data/build_db.py       # json → SQLite; MVP hiện đọc JSON trực tiếp (Hiếu)
 rag/search.py          # search_pois, get_poi_context (Hiếu)
 routing/maps.py        # TomTom: Matrix, Calculate Route, cache, fallback (Tùng)
-routing/optimizer.py   # plan_route: OR-Tools / greedy (Tùng)
+routing/optimizer.py   # plan_route: OR-Tools → kiểm → greedy dự phòng (Tùng)
+routing/ortools_solver.py # VRP 1 xe: time windows, ngân sách, disjunction (Tùng)
+routing/validate.py    # validate_plan: kiểm lịch bằng code, dùng cho eval (Tùng)
 routing/summary.py     # summarize_trip (Tùng)
 routing/warm_cache.py  # tính sẵn ma trận TomTom cho mọi POI → data/cache/maps_cache.json (Tùng)
 services/weather.py    # Open-Meteo (Cường)
@@ -202,19 +204,22 @@ Script thu thập tự động, vector/embedding và tìm kiếm ngữ nghĩa l�
 
 **Tối ưu: Google OR-Tools** (`pip install ortools`)
 - Mô hình: TSP/VRP 1 xe, **time windows** (giờ mở/đóng cửa), **service time** (`visit_minutes`)
-- **Disjunction có penalty** cho từng POI → solver được phép bỏ bớt điểm nếu không kịp giờ; POI phù hợp sở thích hơn thì penalty cao hơn
-- Ngân sách: lọc trước + chọn tập POI theo điểm ưu tiên / giá (greedy kiểu knapsack) trước khi đưa vào solver; `total_cost = Σ price × n_people` (+ ước tính di chuyển nếu kịp)
+- **Disjunction có penalty** cho từng POI → solver được phép bỏ bớt điểm. Phạt cơ bản > cả ngày di chuyển (ưu tiên đi được nhiều điểm nhất), cộng 10 phút cho mỗi bậc hạng sở thích (`PRIORITY_STEP`)
+- Ngân sách: **chiều "Cost" ngay trong solver** (tổng giá vé × số người ≤ ngân sách), không cần lọc knapsack trước; `total_cost = Σ price × n_people`
 - Giới hạn thời gian solver ~2 giây
-- **Fallback:** greedy nearest-neighbor + kiểm tra giờ mở cửa → viết **trước**, OR-Tools làm sau
+- **Kiểm + fallback:** kết quả OR-Tools qua `validate_plan`; có vi phạm / lỗi / chưa cài ortools → greedy nearest-neighbor
+- `plan_route` trả thêm `solver` (`ortools` | `greedy`) và `dropped_reasons` (`not_found`, `missing_data`, `closed`, `budget`, `time`, `low_priority`) để LLM giải thích đúng vì sao bỏ điểm
+- Đo 27/11 trên 8 kịch bản (ma trận TomTom thật): OR-Tools 78 điểm vs greedy 64, cả hai 0 vi phạm; OR-Tools đi nhiều phút hơn vì nhiều điểm hơn; ~2 giây/lần
 
 **Task:**
 - [ ] Đăng ký TomTom key, điền `TOMTOM_API_KEY` vào `.env`, gọi thử matrix + calculateRoute cho 2 điểm ở Hà Nội
 - [x] `routing/maps.py`: Matrix + Calculate Route + cache + fallback Haversine (khung đã viết, chờ test key thật)
 - [ ] Kiểm: matrix v2 có nhận `travelMode` xe máy không; số ô tối đa mỗi lần gọi → chỉnh `MATRIX_MODE`, `MAX_CELLS`
 - [ ] Chạy `python -m routing.warm_cache` trước demo, commit `data/cache/maps_cache.json`
-- [ ] Greedy fallback chạy được → **trước 18:00**
-- [ ] OR-Tools có time windows + disjunction
-- [ ] Trả đúng output `plan_route` (kèm `dropped` để LLM giải thích vì sao bỏ điểm); loại POI có `closed_days` trùng ngày đi
+- [x] Greedy fallback chạy được → **trước 18:00**
+- [x] OR-Tools có time windows + disjunction + ngân sách
+- [x] Trả đúng output `plan_route` (kèm `dropped` + `dropped_reasons`); loại POI có `closed_days` trùng ngày đi
+- [x] `validate_plan` kiểm lịch bằng code → dùng làm metric "0 vi phạm" trong `eval/metric_spec.yaml`
 - [ ] Hàm tóm tắt "Sau chuyến đi" `summarize_trip(plan, lang) -> str`: tổng chi và tổng thời gian **tính bằng code** từ `stops`, LLM chỉ viết lời tóm tắt + gợi ý lần sau (dùng lại client LLM của Huy)
 
 ### Cường — Giao diện + thuyết minh + thời tiết + demo

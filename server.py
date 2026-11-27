@@ -13,9 +13,10 @@ from pydantic import BaseModel
 from agent.llm import chat, new_state
 from agent.tools import narrate
 from config import AUDIO_DIR, DEFAULT_END_TIME, DEFAULT_START, DEFAULT_START_TIME, SUPPORTED_LANGS, USE_MOCK, USE_TOMTOM
-from rag.search import get_poi, load_pois
+from rag.search import get_poi, load_pois, search_pois
 from routing import maps
 from routing.optimizer import plan_route
+from routing.validate import validate_plan
 from routing.summary import summarize_trip, trip_facts
 from services.weather import get_weather
 
@@ -43,7 +44,8 @@ def _enrich(plan: dict | None) -> dict | None:
     for s in plan["stops"]:
         p = get_poi(s["poi_id"]) or {}
         stops.append({**s, "name": p.get("name"), "lat": p.get("lat"), "lng": p.get("lng")})
-    dropped = [{"poi_id": i, "name": (get_poi(i) or {}).get("name")} for i in plan["dropped"]]
+    reasons = plan.get("dropped_reasons", {})
+    dropped = [{"poi_id": i, "name": (get_poi(i) or {}).get("name"), "reason": reasons.get(i)} for i in plan["dropped"]]
     return {**plan, "stops": stops, "dropped": dropped}
 
 
@@ -116,7 +118,11 @@ def post_summary(body: SummaryIn):
 
 # ---------------------------------------------------------------- trang xem bản đồ (frontend/maps.html) — gọi thẳng plan_route, không qua LLM
 class RouteIn(BaseModel):
-    poi_ids: list[str]
+    poi_ids: list[str] = []
+    # poi_ids rỗng → tự tìm ứng viên bằng search_pois (giống agent): interests, group_type, indoor_only
+    interests: list[str] = []
+    group_type: str = "friends"
+    indoor_only: bool = False
     start: tuple[float, float] = DEFAULT_START
     start_time: str = DEFAULT_START_TIME
     end_time: str = DEFAULT_END_TIME
@@ -124,15 +130,25 @@ class RouteIn(BaseModel):
     n_people: int = 1
     vehicle: str = "car"
     date: str | None = None
+    solver: str = "auto"  # auto | greedy
 
 
 @app.post("/api/route")
 def post_route(body: RouteIn):
+    import time as _t
     before = dict(maps.stats)
-    plan = plan_route(body.poi_ids, body.start, body.start_time, body.end_time,
-                      body.budget_vnd, body.n_people, body.vehicle, body.date)
+    ids = body.poi_ids or [p["id"] for p in search_pois(body.interests, body.group_type, 10**9,
+                                                         body.indoor_only, 15, body.date)]
+    t0 = _t.perf_counter()
+    plan = plan_route(ids, body.start, body.start_time, body.end_time,
+                      body.budget_vnd, body.n_people, body.vehicle, body.date, body.solver)
+    elapsed = round(_t.perf_counter() - t0, 2)
+    violations = validate_plan(plan, body.start_time, body.end_time, body.budget_vnd, body.n_people, body.date)
     return {
         "plan": _enrich(plan),
+        "candidates": len(ids),
+        "violations": violations,
+        "seconds": elapsed,
         "routing": {
             "provider": "tomtom" if USE_TOMTOM else "haversine",
             "api_calls": maps.stats["api_calls"] - before["api_calls"],
