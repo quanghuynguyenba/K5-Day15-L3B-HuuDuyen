@@ -212,10 +212,10 @@ Script thu thập tự động, vector/embedding và tìm kiếm ngữ nghĩa l�
 - Đo 27/11 trên 8 kịch bản (ma trận TomTom thật): OR-Tools 78 điểm vs greedy 64, cả hai 0 vi phạm; OR-Tools đi nhiều phút hơn vì nhiều điểm hơn; ~2 giây/lần
 
 **Task:**
-- [ ] Đăng ký TomTom key, điền `TOMTOM_API_KEY` vào `.env`, gọi thử matrix + calculateRoute cho 2 điểm ở Hà Nội
+- [x] Đăng ký TomTom key, điền `TOMTOM_API_KEY` vào `.env`, gọi thử matrix + calculateRoute cho 2 điểm ở Hà Nội (27/11: ô tô, xe máy, đi bộ đều trả kết quả)
 - [x] `routing/maps.py`: Matrix + Calculate Route + cache + fallback Haversine (khung đã viết, chờ test key thật)
-- [ ] Kiểm: matrix v2 có nhận `travelMode` xe máy không; số ô tối đa mỗi lần gọi → chỉnh `MATRIX_MODE`, `MAX_CELLS`
-- [ ] Chạy `python -m routing.warm_cache` trước demo, commit `data/cache/maps_cache.json`
+- [x] Kiểm: matrix v2 có nhận `travelMode` xe máy không; số ô tối đa mỗi lần gọi → chỉnh `MATRIX_MODE`, `MAX_CELLS` (matrix từ chối xe máy → dùng ô tô; tối đa 200 ô)
+- [x] Chạy `python -m routing.warm_cache` trước demo, commit `data/cache/maps_cache.json` (33 POI lập lịch được; chạy lại nếu `pois.json` đổi)
 - [x] Greedy fallback chạy được → **trước 18:00**
 - [x] OR-Tools có time windows + disjunction + ngân sách
 - [x] Trả đúng output `plan_route` (kèm `dropped` + `dropped_reasons`); loại POI có `closed_days` trùng ngày đi
