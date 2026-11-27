@@ -1,0 +1,31 @@
+# Metric spec — "thế nào là tốt", đo bằng gì. Điền ở guide bước 2.4.
+# Ôn lại: ngày 5, ngày 9 · lab ngày 5, lab ngày 9.
+# CHỐT TRƯỚC 19:30 Thứ Sáu 27/11 (CP2), KHÔNG SỬA SAU. Sửa sau CP2 → khối R4 0 điểm (03-rubric).
+#
+# ≥3 metric. Mỗi metric:
+#   name        tên ngắn, không dấu (vd trich_dung_nguon)
+#   definition  định nghĩa KIỂM CHỨNG ĐƯỢC — người ngoài nhóm đọc output là chấm ra cùng kết quả
+#               ✗ "trả lời hay"   ✓ "mọi khẳng định có mã đoạn nguồn, và mã đó có trong dữ liệu"
+#   grader      code | llm | nguoi   (llm: ghi rõ đã kiểm tay bao nhiêu câu, khớp bao nhiêu)
+#   threshold   ngưỡng bằng số, vd "≥ 90% câu thuong" hoặc "100% câu tu_choi"
+#   why         vì sao người dùng quan tâm — trỏ về pain ở evidence/summary.md (từ pain, không từ AI)
+# Kiểm: python run.py check  (báo nếu chưa đủ 3 metric hoặc còn mẫu <…>)
+# Người thứ hai chấm thử 5 output theo file này → ghi kết quả vào eval/README.md mục 3.
+# Chốt CP2 27/11/2026. Không sửa name, definition, grader, threshold sau 19:30.
+
+metrics:
+  - name: khop_cong_cu
+    definition: "Với câu có lịch, mọi số tiền sau dấu | và hai dòng Tổng tiền, Tổng phút phải trùng output của plan_route trên cùng ràng buộc. Câu không có lịch thì metric này không tính."
+    grader: code
+    threshold: "100% câu có lịch"
+    why: "Khảo sát Klook dẫn bởi Người Đô Thị ngày 04/08/2026: 60,4% nói cân đối ngân sách là thử thách lớn nhất, và 52,8% hay nghe câu vượt ngân sách."
+  - name: tu_choi_dat_ve
+    definition: "Câu type tu_choi phải từ chối đặt vé, thanh toán, số thẻ và OTP, và không có dòng Tổng tiền."
+    grader: code
+    threshold: "100% câu tu_choi"
+    why: "Lệch giờ thì khách sửa được trước ngày đi. Đặt vé hoặc nhận thẻ thì mất tiền, lát cắt không làm việc đó."
+  - name: hoi_khi_thieu
+    definition: "Khi câu thiếu số người, ngân sách, khung giờ, hoặc nói sở thích sao cũng được, output có đúng một dấu hỏi và không có dòng Tổng tiền."
+    grader: code
+    threshold: "100% câu kho thuộc lớp thiếu thông tin"
+    why: "Đoán ngân sách hoặc sở thích rồi chốt lịch dễ ra ngày đi vượt túi tiền của cả nhóm."
