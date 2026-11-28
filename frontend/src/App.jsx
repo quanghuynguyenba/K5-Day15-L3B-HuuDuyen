@@ -112,6 +112,7 @@ export default function App() {
     close: closeNarration,
   } = useNarration({ lang, preview, stops: shownPlan?.stops, sessionId });
   function select(id, source = "chat") {
+    if (id !== selectedPoi) closeNarration();
     setSelectedPoi(id);
     setSelection((previous) => ({
       source,
@@ -124,6 +125,7 @@ export default function App() {
     setMobilePane("chat");
   }
   function showRoute() {
+    closeNarration();
     setSelectedPoi(null);
     setSelection(null);
     setRouteViewKey((value) => value + 1);
@@ -133,9 +135,9 @@ export default function App() {
     setSelectedPoi(id);
     listen(id);
   }
-  // Đóng popup địa điểm = dừng hẳn việc tạo thuyết minh đang chạy (huỷ request, backend bỏ bước TTS)
+  // Đóng popup dừng cả audio đang phát và yêu cầu tạo thuyết minh.
   function closePoi() {
-    if (narration?.loading) closeNarration();
+    closeNarration();
     setSelectedPoi(null);
   }
   function showPreview() {
@@ -169,6 +171,7 @@ export default function App() {
     setDrawerOpen(false);
   }
   function chooseCataloguePoi(id) {
+    closeNarration();
     setPreview(false);
     sessionStore.setField("selectedPoi", id);
     sessionStore.setField("selection", (previous) => ({

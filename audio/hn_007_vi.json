@@ -1,0 +1,11 @@
+{
+  "text": "Bảo tàng Mỹ thuật Việt Nam giới thiệu hành trình sáng tạo của người Việt qua nhiều thời kỳ và chất liệu. Những tác phẩm điêu khắc, tranh sơn mài và hội họa cho thấy sự biến đổi trong cách nghệ sĩ nhìn con người, thiên nhiên và cuộc sống. Sức hấp dẫn của bộ sưu tập không chỉ nằm ở đề tài, mà còn ở đường nét, màu sắc và kỹ thuật thể hiện. Giữa các phòng trưng bày, người xem có thể nhận ra sự tiếp nối của truyền thống cùng những tìm tòi mới, tạo nên diện mạo phong phú của mỹ thuật Việt Nam.",
+  "text_sha256": "da795088f5ebae2b5e909296d4bfb794f33a50e163bac1c68e5b430546b8a2c2",
+  "audio_sha256": "2bbd796264a35dd28486290a331b0323fb5de70a9520c26ccc703df7d0e5c9c2",
+  "lang": "vi",
+  "provider": "gtts",
+  "source": "https://vnfam.vn/vi/tham-quan",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "4136248d5fdaa5cbb326590340d4641060a148e8a6806783e7e315eae5f8ba04"
+}

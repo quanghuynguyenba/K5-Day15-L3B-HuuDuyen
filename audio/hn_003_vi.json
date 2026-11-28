@@ -1,0 +1,11 @@
+{
+  "text": "Bảo tàng Dân tộc học Việt Nam mở ra bức tranh đa dạng về đời sống các dân tộc trên đất nước Việt Nam. Trang phục, đồ dùng và những ngôi nhà truyền thống cho thấy cách mỗi cộng đồng thích ứng với môi trường, tổ chức gia đình và gìn giữ bản sắc. Điểm hấp dẫn của bảo tàng nằm ở những chi tiết gần gũi: hoa văn trên vải, vật dụng lao động hay cách bố trí không gian sống. Qua đó, văn hóa hiện lên như một phần sinh động của đời thường, với những nét riêng cùng góp nên sự phong phú của cộng đồng Việt Nam.",
+  "text_sha256": "e311a0fbae9834bd0dec8e5ec146bed8f1c157d600c5e530dc0d55bf0a2616fc",
+  "audio_sha256": "9986ff32febba9b43f2f277c61e583326d56a5f3912e40f476ac6ab483f8e859",
+  "lang": "vi",
+  "provider": "gtts",
+  "source": "https://vietnam.travel/things-to-do/best-museums-vietnam/",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "d6ac5014538feee238635ab08c480d506e57da98f2616a3a2020a841a084d1ff"
+}

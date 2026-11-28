@@ -1,0 +1,11 @@
+{
+  "text": "Bảo tàng Hồ Chí Minh giới thiệu cuộc đời và sự nghiệp của Chủ tịch Hồ Chí Minh trong mối liên hệ với lịch sử Việt Nam hiện đại. Tư liệu, hình ảnh và hiện vật được kết hợp với những không gian mang tính biểu tượng, giúp câu chuyện được tiếp cận từ nhiều góc nhìn. Các phần trưng bày nối những dấu mốc hoạt động với bối cảnh xã hội và con người đương thời. Điểm đáng chú ý là cách bảo tàng sử dụng ngôn ngữ tạo hình để bổ sung cho thông tin lịch sử, đem lại trải nghiệm vừa tìm hiểu tư liệu vừa cảm nhận ý nghĩa của chúng.",
+  "text_sha256": "4a9181436807a7bafa593e89737fbd1829adb7c8f15533c7379e09a4375413cd",
+  "audio_sha256": "835388de58630b784e290dd8c05a96df9d048445c9a7ae1149d0fb646a04087e",
+  "lang": "vi",
+  "provider": "gtts",
+  "source": "https://baotanghochiminh.vn/",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "c3c5b1733ee8c0b5ec99b90996b75b6a7fa5eaaf809d2f9e7be6511868834f10"
+}
