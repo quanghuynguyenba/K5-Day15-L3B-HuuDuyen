@@ -1,10 +1,10 @@
 {
-  "text": "Chào mừng quý khách đến với Bảo tàng Mỹ thuật Việt Nam, nơi lưu giữ và giới thiệu vẻ đẹp của nghệ thuật Việt Nam qua nhiều thế kỷ. Tại đây, quý khách sẽ được chiêm ngưỡng các tác phẩm điêu khắc, tranh sơn mài, hội họa và nhiều chất liệu truyền thống khác.\n\nBảo tàng mở cửa từ 8 giờ 30 đến 17 giờ hàng ngày, và giá vé vào cổng là 40.000 VND. Một lưu ý nhỏ là vào thứ Hai, quý khách cần xác nhận lịch mở cửa nếu đi vào các dịp lễ, để tránh những bất tiện không đáng có.\n\nKhi tham quan, quý khách sẽ thấy được sự phong phú trong nghệ thuật và văn hóa Việt Nam, cũng như sự sáng tạo của các nghệ sĩ qua từng tác phẩm. Nếu quý khách cần thêm thông tin hoặc muốn có một hướng dẫn viên thuyết minh, đừng quên hỏi thêm nhé!\n\nHãy cùng khám phá Bảo tàng Mỹ thuật Việt Nam và cảm nhận những giá trị nghệ thuật đặc sắc của đất nước chúng ta!",
-  "text_sha256": "8e74ac0b83b46349e47229a9f2a1253960dac16b87353a56f72bb6c37ff76c33",
-  "audio_sha256": "b0d0abc99b6092b00780b1f92c2bf7160994d74ad2f76406cfd9020a3c30788c",
+  "text": "Bảo tàng Mỹ thuật Việt Nam giới thiệu hành trình sáng tạo của người Việt qua nhiều thời kỳ và chất liệu. Những tác phẩm điêu khắc, tranh sơn mài và hội họa cho thấy sự biến đổi trong cách nghệ sĩ nhìn con người, thiên nhiên và cuộc sống. Sức hấp dẫn của bộ sưu tập không chỉ nằm ở đề tài, mà còn ở đường nét, màu sắc và kỹ thuật thể hiện. Giữa các phòng trưng bày, người xem có thể nhận ra sự tiếp nối của truyền thống cùng những tìm tòi mới, tạo nên diện mạo phong phú của mỹ thuật Việt Nam.",
+  "text_sha256": "da795088f5ebae2b5e909296d4bfb794f33a50e163bac1c68e5b430546b8a2c2",
+  "audio_sha256": "64d9fa73f9e14475f0acaa6b06a585473cde8d7707a2ce8ca9957d5bd8e7d93f",
   "lang": "vi",
   "provider": "edge-tts",
-  "source": "https://vnfam.vn/vi/tham-quan | https://cityguide.vn/vn/hanoi/dia-diem/bao-tang-my-thuat-viet-nam | https://tourshoponhopoff.com/hanoi-tourist-map/",
+  "source": "https://vnfam.vn/vi/tham-quan",
   "approved": true,
   "prepared": true,
   "context_sha256": "4136248d5fdaa5cbb326590340d4641060a148e8a6806783e7e315eae5f8ba04"

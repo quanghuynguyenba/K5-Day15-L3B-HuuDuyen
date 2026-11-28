@@ -1,10 +1,10 @@
 {
-  "text": "Chào mừng quý vị đến với Bảo tàng Hà Nội (Hanoi Museum), một công trình kiến trúc độc đáo hình kim tự tháp ngược. Nơi đây trưng bày những hiện vật quý giá, phản ánh quá trình phát triển và di sản văn hóa phong phú của Thăng Long – Hà Nội.\n\nBảo tàng mở cửa từ 09:00 đến 17:00 hàng ngày, và đặc biệt vào thứ Sáu, thứ Bảy, chúng tôi mở cửa thêm từ 17:00 đến 21:00, để quý vị có thể khám phá và trải nghiệm không gian văn hóa trong ánh đèn lung linh buổi tối. Giá vé tham quan hiện tại là 50.000 đồng, nhưng xin lưu ý rằng mức giá có thể chưa được xác nhận trực tiếp tại quầy. Vì vậy, quý vị cũng có thể kiểm tra trước khi vào, để không bị bất ngờ.\n\nĐến đây, quý vị sẽ có cơ hội khám phá những tác phẩm nghệ thuật, các hiện vật lịch sử và hiểu rõ hơn về nền văn hóa lâu đời của Hà Nội. Chúc quý vị có một chuyến tham quan thú vị và đáng nhớ tại Bảo tàng Hà Nội!",
-  "text_sha256": "fec5c643007aa0e6756e919ff998d74c354ea9b485383a165c497cbe3536e696",
-  "audio_sha256": "ac1becf90f88173da036e7a8685cd4711a85513f49cf1cd421cebe2127da8312",
+  "text": "Bảo tàng Hà Nội là nơi tìm hiểu những lớp ký ức của Thăng Long và cuộc sống đô thị qua các thời kỳ. Hình dáng kim tự tháp ngược tạo cho công trình một diện mạo dễ nhận biết, khác với những không gian di tích truyền thống. Bên trong, hiện vật và tư liệu giúp kết nối lịch sử với văn hóa, nghề nghiệp và sinh hoạt của cư dân. Câu chuyện về Hà Nội vì thế không chỉ thuộc về những sự kiện lớn, mà còn hiện diện trong những vật dụng và dấu tích quen thuộc, góp phần định hình bản sắc của thành phố.",
+  "text_sha256": "4056e575ffd05d7cfacbe39d3061e85021f2eff47a463f7ac8aaf773702b0570",
+  "audio_sha256": "596ad3015034afe5573b1d5e2469e50efad4e92b93fe8cd9d582ec8d56535bbd",
   "lang": "vi",
   "provider": "edge-tts",
-  "source": "https://baotanghanoi.com.vn/en/thong-bao/ | https://baotanghanoi.com.vn/bao-tang-ha-noi-mo-cua-buoi-toi-danh-thuc/ | https://xaydungchinhsach.chinhphu.vn/muc-thu-phi-2-di-tich-pho-co-ha-noi-va-bao-tang-ha-noi-tu-1-1-2025-119241211120724374.htm | https://cityguide.vn/vn/hanoi/dia-diem/bao-tang-ha-noi | https://tourshoponhopoff.com/hanoi-tourist-map/",
+  "source": "https://baotanghanoi.com.vn/",
   "approved": true,
   "prepared": true,
   "context_sha256": "5a23046f232f444f87818f3e65f5a1b69480326d21684bdf47e1ea807ea5b4ff"
