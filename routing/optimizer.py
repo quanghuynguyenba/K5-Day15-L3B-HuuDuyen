@@ -21,13 +21,19 @@ log = logging.getLogger("optimizer")
 USE_ORTOOLS = True
 
 
-def _greedy(pois, matrix, start_min, end_min, budget_vnd, n_people):
-    """Nearest-neighbor theo giờ đến sớm nhất. → [(poi, arrive, depart, cost)]"""
+def _greedy(pois, matrix, start_min, end_min, budget_vnd, n_people, must=(), first=None, max_stops=None):
+    """Nearest-neighbor theo giờ đến sớm nhất. → [(poi, arrive, depart, cost)]
+    first: đi điểm này trước nếu kịp. must: còn điểm bắt buộc kịp đi thì chọn trong số đó trước. max_stops: dừng."""
     remaining = list(enumerate(pois, 1))  # (chỉ số trong matrix, poi)
     now, cur, spent, out = start_min, 0, 0, []
-    while remaining:
+    while remaining and (not max_stops or len(out) < max_stops):
         best = None
-        for node, p in remaining:
+        pool = remaining
+        if not out and first:
+            pool = [x for x in remaining if x[1]["id"] == first] or remaining
+        elif must:
+            pool = [x for x in remaining if x[1]["id"] in must] or remaining
+        for node, p in pool:
             arrive = max(now + matrix[cur][node], to_min(p["open"]))  # tới sớm thì chờ mở cửa
             depart = arrive + p["visit_minutes"]
             cost = p["price_vnd"] * n_people
@@ -59,11 +65,17 @@ def _reason(p, matrix_row_from_start, node, start_min, end_min, budget_vnd, n_pe
 
 def plan_route(poi_ids: list[str], start_latlng: tuple, start_time: str,
                end_time: str, budget_vnd: int, n_people: int,
-               vehicle: str = "car", date: str | None = None, solver: str = "auto") -> dict:
-    """solver: "auto" (OR-Tools → greedy) | "greedy" (bỏ qua OR-Tools — để so sánh / debug)."""
+               vehicle: str = "car", date: str | None = None, solver: str = "auto",
+               must_ids: list | None = None, first_id: str | None = None, max_stops: int | None = None) -> dict:
+    """solver: "auto" (OR-Tools → greedy) | "greedy" (bỏ qua OR-Tools — để so sánh / debug).
+    must_ids: điểm khách chỉ đích danh (luôn được đưa vào danh sách, gần như bắt buộc).
+    first_id: điểm phải đi đầu tiên (điểm đến khách hỏi đường). max_stops: số điểm tối đa."""
+    must = [m for m in (must_ids or []) if m]
+    if first_id and first_id not in must:
+        must.insert(0, first_id)
     reasons = {}
     pois = []
-    for pid in dict.fromkeys(poi_ids):  # bỏ id trùng, giữ thứ tự ưu tiên
+    for pid in dict.fromkeys(must + list(poi_ids)):  # bỏ id trùng; điểm bắt buộc đứng đầu
         p = get_poi(pid)
         if not p:
             reasons[pid] = "not_found"
@@ -91,10 +103,13 @@ def plan_route(poi_ids: list[str], start_latlng: tuple, start_time: str,
     plan = None
     if USE_ORTOOLS and solver != "greedy":
         try:
-            order = ortools_solver.solve(pois, matrix, start_min, end_min, budget_vnd, n_people)
+            order = ortools_solver.solve(pois, matrix, start_min, end_min, budget_vnd, n_people,
+                                         must=set(must), first=first_id, max_stops=max_stops)
             if order is not None:
                 plan = build(order, "ortools")
                 bad = validate_plan(plan, start_time, end_time, budget_vnd, n_people, date, travel)
+                if first_id in node_of and plan["stops"] and plan["stops"][0]["poi_id"] != first_id:
+                    bad.append("điểm đến %s không phải điểm đầu tiên" % first_id)
                 if bad:
                     log.warning("OR-Tools ra lịch vi phạm %s — dùng greedy", bad)
                     plan = None
@@ -102,10 +117,14 @@ def plan_route(poi_ids: list[str], start_latlng: tuple, start_time: str,
             log.warning("OR-Tools lỗi, dùng greedy: %s", e)
             plan = None
     if plan is None:
-        plan = build(_greedy(pois, matrix, start_min, end_min, budget_vnd, n_people), "greedy")
+        plan = build(_greedy(pois, matrix, start_min, end_min, budget_vnd, n_people,
+                             must=set(must), first=first_id, max_stops=max_stops), "greedy")
 
     in_plan = {s["poi_id"] for s in plan["stops"]}
+    full = bool(max_stops) and len(plan["stops"]) >= max_stops
     for p in pois:
+        if full and p["id"] not in must:
+            continue  # đủ số điểm khách xin — ứng viên dư không phải "bị bỏ", không báo lý do
         if p["id"] not in in_plan:
             reasons[p["id"]] = _reason(p, matrix[0], node_of[p["id"]], start_min, end_min, budget_vnd, n_people,
                                        plan["total_cost"])

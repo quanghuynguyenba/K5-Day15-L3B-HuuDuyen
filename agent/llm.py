@@ -14,6 +14,7 @@ from config import (DEFAULT_END_TIME, DEFAULT_START, DEFAULT_START_TIME, LLM_API
                     LLM_MODEL, USE_MOCK)
 
 MAX_STEPS = 6  # số vòng tool calling tối đa mỗi lượt chat
+DEFAULT_BUDGET = 1_000_000  # ngân sách giả định khi khách chỉ hỏi đường / gợi ý quanh một điểm
 
 SYSTEM = """Bạn là trợ lý du lịch Hà Nội.
 - Trả lời đúng ngôn ngữ khách đang dùng. Tên điểm luôn kèm tên tiếng Việt trong ngoặc.
@@ -39,6 +40,13 @@ SYSTEM = """Bạn là trợ lý du lịch Hà Nội.
   khu vực này còn thiếu, kể tên điểm trong missing_data và thiếu gì; không lấp bằng điểm ở trung tâm.
   Không tìm được khu vực → hỏi lại khách. Không hứa "tìm thêm thông tin" ngoài dữ liệu — chỉ có các tool ở trên;
   có thể gợi ý khu vực lân cận có đủ dữ liệu (vd Ba Vì, Hoàn Kiếm) để khách chọn.
+- Có trip_intent_from_code (khách muốn đến một điểm / gợi ý quanh một điểm): KHÔNG hỏi lại ngân sách hay số người
+  (dùng budget_vnd đang có, mặc định 2 người; có assumed_budget_vnd thì nói một câu đã giả định ngân sách đó). Gọi
+  search_pois rồi plan_route như thường — code đã tự đặt điểm đến làm điểm đầu tiên, xếp gợi ý theo khoảng cách
+  và giới hạn số điểm. Trả lời theo route_facts: câu đầu chỉ đường tới điểm đến — chép NGUYÊN VĂN route_facts.
+  destination.from làm nơi xuất phát, "khoảng minutes_from_start phút", đường đã vẽ trên bản đồ; rồi kể tên từng
+  điểm trong route_facts.nearby kèm km — TRƯỜNG HỢP NÀY được liệt kê tên điểm. directions_only=true: chỉ chỉ đường,
+  không gợi ý thêm điểm.
 - Hỏi về một điểm (giờ mở, giá, lưu ý): LUÔN gọi lookup_poi trước, chỉ trả lời theo kết quả đó — KHÔNG dùng trí nhớ.
   Trường nào null hoặc không tìm thấy thì nói "chưa có dữ liệu", không đoán.
 - budget_vnd trong trạng thái là ngân sách hiện tại do code giữ. Nếu replanned_by_code=true: lịch trong current_plan
@@ -83,11 +91,12 @@ def chat(user_text: str, state: dict) -> tuple[str, dict]:
 
 # ---------------------------------------------------------------- LLM thật
 def _chat_llm(user_text: str, state: dict) -> str:
-    from agent.tools import TOOL_SCHEMAS, dispatch, dumps, plan_summary
+    from agent.tools import TOOL_SCHEMAS, dispatch, dumps, plan_summary, route_facts
     lang = session_lang(user_text, state)
     plan_before = state.get("plan")
     replanned = apply_budget_from_text(user_text, state)
     named = apply_named_start(user_text, state)  # "Tôi đang ở Hồ Gươm" → code đặt điểm xuất phát
+    intent = apply_trip_intent(user_text, state)  # "muốn đến Văn Miếu… gợi ý 5 điểm lân cận" → code đặt ràng buộc
     removed = apply_exclusion_from_text(user_text, state)  # "bỏ Văn Miếu" → code loại điểm + lập lại lịch
     replanned = replanned or bool(removed)
     loc = state.get("location")
@@ -95,6 +104,7 @@ def _chat_llm(user_text: str, state: dict) -> str:
            "reply_language": lang,
            "budget_vnd": state.get("budget_vnd"),
            "replanned_by_code": replanned,
+           "trip_intent_from_code": intent,
            "start_from_code": named and {"name": named["name"], "lat": named["lat"], "lng": named["lng"],
                                          "note": "khách vừa nói đang ở đây — lập lịch xuất phát từ điểm này"},
            "current_location": loc and {"lat": loc["lat"], "lng": loc["lng"], "source": "GPS của khách",
@@ -141,7 +151,8 @@ def _chat_llm(user_text: str, state: dict) -> str:
         return None
 
     state["hallucination_blocked"] = False
-    reply = run(force_tool=False)
+    # Khách nêu điểm muốn đến → bắt buộc gọi tool ngay (model hay trả lời "chờ một chút…" mà không làm gì)
+    reply = run(force_tool=bool(intent))
     # Chặn bịa lịch: model mô tả một lịch (số điểm / tiền) mà KHÔNG gọi tool nào và không khớp lịch đang có
     # → chạy lại, buộc gọi tool. Vẫn không ra lịch thật → không trả câu bịa, hỏi ngân sách.
     if reply is not None and not used and not replanned and claims_itinerary(reply):
@@ -158,11 +169,44 @@ def _chat_llm(user_text: str, state: dict) -> str:
     plan = state.get("plan")
     if plan is not None and plan is not plan_before:
         ps = plan_summary(plan)
+        directions = directions_sentence(route_facts(plan, state), lang)
         if not numbers_match(reply, ps):
             state["reply_replaced"] = True
-            return facts_sentence(ps, lang, state.get("budget_vnd"))
+            return (directions + " " if directions else "") + facts_sentence(ps, lang, state.get("budget_vnd"))
+        # Khách hỏi đường mà câu trả lời thiếu số phút tới điểm đến hoặc sót điểm lân cận → câu do code viết
+        facts = route_facts(plan, state) or {}
+        mins = (facts.get("destination") or {}).get("minutes_from_start")
+        has_mins = re.search(r"(?<![\d:.,])%s(?![\d:])" % mins, reply)  # "11 phút", không khớp "08:11"
+        if directions and (not has_mins or any(r["name"] not in reply for r in facts.get("nearby") or [])):
+            state["reply_replaced"] = True
+            return directions + " " + facts_sentence(ps, lang, state.get("budget_vnd"))
     state["reply_replaced"] = False
     return reply
+
+
+_DIRECTIONS = {
+    "vi": ("Từ {frm} đến {dest} mất khoảng {m} phút — đường đi đã vẽ trên bản đồ.", " Điểm gần {a}: {items}.",
+           "{name} ({km} km)"),
+    "en": ("From {frm} to {dest} takes about {m} minutes — the route is drawn on the map.", " Nearby {a}: {items}.",
+           "{name} ({km} km)"),
+}
+
+
+def directions_sentence(facts: dict | None, lang: str) -> str:
+    """Câu chỉ đường viết sẵn từ route_facts (số phút, km do code tính). Tên địa điểm giữ tiếng Việt."""
+    if not facts or "minutes_from_start" not in (facts.get("destination") or {}):
+        return ""
+    head, near, item = _DIRECTIONS.get(lang, _DIRECTIONS["en"])
+    d = facts["destination"]
+    frm = d["from"] if lang == "vi" else d["from"].split(" (")[0]
+    text = head.format(frm=frm, dest=d["name"], m=d["minutes_from_start"])
+    rows = facts.get("nearby") or []
+    if rows:
+        key = next(k for k in rows[0] if k.startswith("km_from_"))
+        km = (lambda v: str(v).replace(".", ",")) if lang == "vi" else str
+        text += near.format(a=key[len("km_from_"):], items=", ".join(item.format(name=r["name"], km=km(r[key]))
+                                                                      for r in rows))
+    return text
 
 
 NO_PLAN_REPLY = {
@@ -178,6 +222,84 @@ _STOP_WORDS = r"(?:điểm|địa điểm|chỗ|stops?|places?|attractions?|곳|
 def claims_itinerary(reply: str) -> bool:
     """Câu trả lời có mô tả một lịch trình cụ thể không (vd "4 điểm", "6곳", "5 stops")."""
     return bool(re.search(r"\d+\s*" + _STOP_WORDS, reply.lower()))
+
+
+_GO_WORDS = re.compile(r"(?:đến|tới|ghé|thăm|tham quan|chơi ở|qua|đi\s+(?!\d)|chỉ đường|đường (?:đi|tới|đến)|"
+                       r"go to|visit|directions? to|take me to|how to get to|가고|방문|行きたい|去)", re.I)
+_NEAR_WORDS = re.compile(r"lân cận|gần đó|gần đấy|xung quanh|quanh đó|gần\s|nearby|around|close to|near\s|근처|周辺|附近", re.I)
+_ROUTE_ONLY = re.compile(r"chỉ đường|đường (?:đi|tới|đến)|đi (?:tới|đến) .* (?:thế nào|ra sao|bằng cách nào)|"
+                         r"directions?|how (?:do i|to) get|route to|길|行き方|怎么去", re.I)
+_COUNT = re.compile(r"(\d+)\s*(?:địa điểm|điểm|chỗ|nơi|places?|spots?|stops?|attractions?|곳|か所|个地方|个景点)", re.I)
+
+
+def _poi_aliases(p: dict) -> list:
+    from agent.tools import _fold
+    names = [p["name"].get("vi", ""), p["name"].get("en", "")]
+    out = set()
+    for n in names:
+        for part in re.split(r"\s+[–-]\s+|\s*\(", n):
+            f = _fold(part.strip(" )"))
+            if len(f) >= 6:
+                out.add(f)
+    return sorted(out, key=len, reverse=True)
+
+
+def apply_trip_intent(text: str, state: dict) -> dict | None:
+    """Khách nêu đích danh điểm muốn đến ("muốn đến Văn Miếu", "chỉ đường tới Hỏa Lò") → điểm đó bắt buộc và
+    đi đầu; "lân cận / gần" → gợi ý xếp theo khoảng cách tới điểm đó; "5 địa điểm" → giới hạn số điểm.
+    Tên điểm khớp theo tên POI (bỏ dấu). Câu bỏ điểm ("bỏ X", "không đi X") không tính."""
+    from agent.tools import _fold
+    from rag.search import load_pois
+    if re.search(r"(?:^|\s)(?:bỏ(?!\s+qua)|xoá|xóa|loại|không\s+đi|remove|skip|drop)\s", text, re.I):
+        return None
+    folded = _fold(text)
+    hits = []
+    for p in load_pois():
+        for alias in _poi_aliases(p):
+            pos = folded.find(alias)
+            if pos >= 0:
+                hits.append((pos, p))
+                break
+    if not _GO_WORDS.search(text):
+        return None
+    if not hits:  # tên viết tắt ("Hỏa Lò", "Lăng Bác") → lấy cụm sau "đến / tới / thăm…" rồi tra theo tên
+        from agent.tools import lookup_poi
+        from rag.search import get_poi
+        m = re.search(r"(?:đến|tới|ghé|thăm|tham quan|chỉ đường(?:\s+(?:tới|đến))?|go to|visit|directions? to|"
+                      r"take me to|get to)\s+(.+?)(?=\s*(?:[,.;!?]|\s(?:chơi|và|rồi|nhé|thì|xong|and|then)\b|$))",
+                      text, re.I)
+        found = (lookup_poi(m.group(1)).get("found") or [None])[0] if m else None
+        if not found:
+            return None
+        hits = [(0, get_poi(found["id"]))]
+    hits.sort(key=lambda x: x[0])
+    dest = hits[0][1]
+    state["destination_id"] = dest["id"]
+    state["must_ids"] = [p["id"] for _, p in hits]
+    intent = {"destination": dest["name"]["vi"], "must": [p["name"]["vi"] for _, p in hits]}
+    if _NEAR_WORDS.search(text):
+        state["anchor"] = {"name": dest["name"]["vi"].split(" –")[0], "lat": dest["lat"], "lng": dest["lng"]}
+        intent["nearby_of"] = state["anchor"]["name"]
+    else:
+        state["anchor"] = None
+    if state.get("budget_vnd") is None and budget_absolute(text) is None:
+        # Hỏi đường / gợi ý quanh một điểm không cần hỏi ngân sách: giả định mặc định, nói rõ với khách
+        state["budget_vnd"] = DEFAULT_BUDGET
+        intent["assumed_budget_vnd"] = DEFAULT_BUDGET
+    m = _COUNT.search(text)
+    if m:
+        n = int(m.group(1))
+        # "đến Văn Miếu … gợi ý 5 địa điểm lân cận" = Văn Miếu + 5 điểm
+        state["max_stops"] = n + (len(hits) if state.get("anchor") else 0)
+        intent["max_stops"] = state["max_stops"]
+    elif not state.get("anchor") and _ROUTE_ONLY.search(text):
+        # chỉ hỏi đường ("chỉ đường tới Hỏa Lò"), không xin gợi ý thêm → chỉ xếp đúng điểm khách nêu
+        state["max_stops"] = len(hits)
+        intent["max_stops"] = state["max_stops"]
+        intent["directions_only"] = True
+    else:
+        state["max_stops"] = None
+    return intent
 
 
 def apply_named_start(text: str, state: dict) -> dict | None:
