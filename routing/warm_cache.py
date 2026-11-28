@@ -17,6 +17,9 @@ def main(vehicle: str = "car"):
     # Chỉ POI lập lịch được (đủ giá + giờ) — điểm thiếu dữ liệu không bao giờ vào ma trận, tính cũng phí quota
     points = [DEFAULT_START] + [(p["lat"], p["lng"]) for p in load_pois() if is_schedulable(p)]
     maps.distance_matrix(points, vehicle)
+    # Quận / phường của mọi POI (để lọc "lịch ở Sơn Tây / Tây Hồ" theo đúng ranh giới hành chính)
+    for p in load_pois():
+        maps.poi_admin(p["lat"], p["lng"])
     n = len(points)
     print("%d điểm · %d cặp · %d lần gọi TomTom · %d cặp vẫn phải dùng Haversine" % (
         n, n * (n - 1), maps.stats["api_calls"], maps.stats["fallback_pairs"]))

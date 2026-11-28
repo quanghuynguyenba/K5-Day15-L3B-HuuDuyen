@@ -81,7 +81,7 @@ export default function useChatSessions() {
     [patch],
   );
   const send = useCallback(
-    async (text, retry = false, targetId = snapshot.current.activeId) => {
+    async (text, retry = false, targetId = snapshot.current.activeId, location = null) => {
       const session = snapshot.current.sessions.find(
         (item) => item.id === targetId,
       );
@@ -100,7 +100,7 @@ export default function useChatSessions() {
         title: session.messages.length ? session.title : text.slice(0, 46),
       });
       try {
-        const result = await api.chat(targetId, text, requestDate);
+        const result = await api.chat(targetId, text, requestDate, location);
         if (typeof result?.reply !== "string" || !result.reply.trim())
           throw new Error(
             "Máy chủ chưa trả về nội dung phản hồi. Vui lòng thử lại.",

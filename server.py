@@ -3,16 +3,19 @@
 Chưa có LLM_API_KEY trong .env → chạy MOCK (agent luật đơn giản, dữ liệu giả).
 Session (lịch sử chat + lịch trình hiện tại) giữ trong RAM theo session_id do frontend sinh.
 """
+import asyncio
+import logging
 import os
+import threading
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import Literal
 
 from agent.llm import chat, new_state
-from agent.tools import narrate
+from agent.tools import NarrationCancelled, narrate
 from config import AUDIO_DIR, DEFAULT_END_TIME, DEFAULT_START, DEFAULT_START_TIME, SUPPORTED_LANGS, USE_MOCK, USE_TOMTOM
 from rag.search import get_poi, load_pois, is_schedulable, search_pois
 from routing import maps
@@ -55,10 +58,33 @@ def _enrich(plan: dict | None) -> dict | None:
     return {**plan, "stops": stops, "dropped": dropped}
 
 
+class Location(BaseModel):
+    lat: float
+    lng: float
+    accuracy: float | None = None
+
+
 class ChatIn(BaseModel):
     session_id: str
     message: str
     date: str | None = None
+    location: Location | None = None  # GPS trình duyệt; None = chưa có / bị từ chối
+
+
+# Chỉ dùng GPS làm điểm xuất phát khi khách đang ở quanh Hà Nội (dữ liệu POI chỉ có Hà Nội)
+MAX_START_KM = 40
+
+
+def _accept_location(loc: "Location | None"):
+    """→ (location dict hoặc None, ghi chú). Ngoài vùng Hà Nội thì bỏ qua, xuất phát từ Hồ Gươm."""
+    if loc is None:
+        return None, "Chưa có vị trí — xuất phát từ Hồ Gươm."
+    if not (-90 <= loc.lat <= 90 and -180 <= loc.lng <= 180):
+        return None, "Toạ độ không hợp lệ — xuất phát từ Hồ Gươm."
+    km = maps._haversine_km((loc.lat, loc.lng), DEFAULT_START)
+    if km > MAX_START_KM:
+        return None, "Bạn đang cách Hà Nội ~%d km — lịch trình xuất phát từ Hồ Gươm." % km
+    return {"lat": loc.lat, "lng": loc.lng, "accuracy": loc.accuracy}, "Xuất phát từ vị trí hiện tại của bạn."
 
 
 class NarrateIn(BaseModel):
@@ -82,11 +108,17 @@ def get_config():
 @app.post("/api/chat")
 def post_chat(body: ChatIn):
     state = _session(body.session_id, body.date)
+    state["location"], location_note = _accept_location(body.location)
     reply, state = chat(body.message, state)
     plan = _enrich(state.get("plan"))
     if plan is not None:
         plan["n_people"] = state.get("constraints", {}).get("n_people")
-    return {"reply": reply, "plan": plan, "weather": state.get("weather")}
+        start = state.get("plan_start") or DEFAULT_START
+        plan["start"] = {"lat": start[0], "lng": start[1],
+                         "source": "gps" if state["location"] and tuple(start) == (state["location"]["lat"], state["location"]["lng"])
+                         else "default" if tuple(start) == tuple(DEFAULT_START) else "chat"}
+    return {"reply": reply, "plan": plan, "weather": state.get("weather"),
+            "location": {"used": state["location"] is not None, "note": location_note}}
 
 
 @app.post("/api/reset")
@@ -124,11 +156,24 @@ def weather(date: str):
 
 
 @app.post("/api/narrate")
-def post_narrate(body: NarrateIn):
+async def post_narrate(body: NarrateIn, request: Request):
+    """Chạy narrate trong thread; cứ ~0,3 giây kiểm client còn kết nối không. Người dùng đóng popup
+    (frontend abort fetch) → báo narrate dừng trước bước LLM / TTS và trả 499, không tạo file audio."""
     if not get_poi(body.poi_id):
         raise HTTPException(404, "Không tìm thấy địa điểm để thuyết minh.")
+    cancel = threading.Event()
+    job = asyncio.get_running_loop().run_in_executor(None, narrate, body.poi_id, body.lang, cancel)
+    while not job.done():
+        if await request.is_disconnected():
+            cancel.set()
+            logging.getLogger("uvicorn.error").info("Client huỷ thuyết minh %s/%s — dừng", body.poi_id, body.lang)
+            job.add_done_callback(lambda f: f.exception())  # nuốt lỗi của job đã bị huỷ
+            return Response(status_code=499)
+        await asyncio.wait({job}, timeout=0.3)
     try:
-        n = narrate(body.poi_id, body.lang)
+        n = job.result()
+    except NarrationCancelled:
+        return Response(status_code=499)
     except ValueError as error:
         raise HTTPException(400, str(error)) from error
     except Exception as error:

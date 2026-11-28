@@ -45,9 +45,11 @@ def _greedy(pois, matrix, start_min, end_min, budget_vnd, n_people):
     return out
 
 
-def _reason(p, matrix_row_from_start, node, start_min, end_min, budget_vnd, n_people):
-    """Vì sao một POI hợp lệ không vào lịch — tính bằng code để LLM giải thích đúng."""
-    if p["price_vnd"] * n_people > budget_vnd:
+def _reason(p, matrix_row_from_start, node, start_min, end_min, budget_vnd, n_people, spent=0):
+    """Vì sao một POI hợp lệ không vào lịch — tính bằng code để LLM giải thích đúng.
+    spent = tổng tiền lịch đã chọn: thêm điểm này mà vượt ngân sách thì lý do là budget, không phải thời gian."""
+    cost = p["price_vnd"] * n_people
+    if cost > budget_vnd or (cost > 0 and spent + cost > budget_vnd):
         return "budget"
     earliest = max(start_min + matrix_row_from_start[node], to_min(p["open"]))
     if earliest + p["visit_minutes"] > min(to_min(p["close"]), end_min):
@@ -105,7 +107,8 @@ def plan_route(poi_ids: list[str], start_latlng: tuple, start_time: str,
     in_plan = {s["poi_id"] for s in plan["stops"]}
     for p in pois:
         if p["id"] not in in_plan:
-            reasons[p["id"]] = _reason(p, matrix[0], node_of[p["id"]], start_min, end_min, budget_vnd, n_people)
+            reasons[p["id"]] = _reason(p, matrix[0], node_of[p["id"]], start_min, end_min, budget_vnd, n_people,
+                                       plan["total_cost"])
 
     path = [points[0]] + [points[node_of[s["poi_id"]]] for s in plan["stops"]]
     plan["polyline"] = directions(path, vehicle)

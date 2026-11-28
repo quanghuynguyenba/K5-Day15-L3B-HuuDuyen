@@ -20,7 +20,18 @@ def _load_env(path=os.path.join(ROOT, ".env")):
             if not line or line.startswith("#") or "=" not in line:
                 continue
             k, v = line.split("=", 1)
-            os.environ.setdefault(k.strip(), v.strip().strip('"').strip("'"))
+            k, v = k.strip(), v.strip().strip('"').strip("'")
+            # Dòng trống không được che dòng có giá trị phía sau (.env chép từ bản có khối trùng tên).
+            # Biến môi trường đặt sẵn ngoài .env vẫn được ưu tiên.
+            if v and (k not in os.environ or k in _from_file):
+                os.environ[k] = v
+                _from_file.add(k)
+            elif k not in os.environ:
+                os.environ[k] = v
+                _from_file.add(k)
+
+
+_from_file = set()
 
 
 _load_env()

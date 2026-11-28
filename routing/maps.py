@@ -217,3 +217,82 @@ def directions(points: list[tuple], vehicle: str = "car") -> list[list[float]]:
             leg = legs.get(_key(a, b, vehicle)) or [list(a), list(b)]
             path.extend(leg[1:] if leg[0] == path[-1] else leg)
         return path
+
+
+# ---------------------------------------------------------------- địa danh → toạ độ (cho "lịch ở Sơn Tây")
+def geocode(query: str) -> dict | None:
+    """Tên khu vực / địa danh ở Hà Nội → {"name", "lat", "lng", "radius_km"} qua TomTom Search (cache theo tên).
+    radius_km lấy từ khung bao (viewport) của kết quả, kẹp trong [3, 20] km. Không có key / lỗi / không ra kết quả
+    ở quanh Hà Nội → None (không đoán)."""
+    import urllib.parse
+    q = " ".join((query or "").split())
+    if not q:
+        return None
+    key = q.casefold()
+    with _lock:
+        geo = _load_cache().setdefault("geocode", {})
+        if key in geo:
+            return geo[key] or None  # {} = đã tra, không có kết quả hợp lệ
+    if not _ready():
+        return None
+    try:
+        res = _request("GET", "search/2/geocode/%s.json" % urllib.parse.quote(q + ", Hà Nội"),
+                       params={"countrySet": "VN", "limit": 1, "language": "vi-VN"})
+    except Exception as e:
+        _mark_down(e, "geocode")
+        return None
+    hit = (res.get("results") or [None])[0]
+    # Chỉ nhận đơn vị hành chính (quận / huyện / thị xã / phường). Kết quả kiểu Street là TomTom "ép" tên gần giống
+    # (vd "phố cổ" → "Phố Cồ Tấn", chữ vô nghĩa → một con phố bất kỳ); kết quả cả "Hà Nội" khi khách không hỏi
+    # cả thành phố là do ", Hà Nội" nối thêm vào truy vấn — bỏ cả hai, để không lập lịch nhầm chỗ.
+    whole_city = hit and (hit.get("address") or {}).get("freeformAddress", "").strip().casefold() in ("hà nội", "hanoi")
+    asked_city = key.replace(" ", "") in ("hànội", "hanoi")
+    if not hit or hit.get("type") != "Geography" or (whole_city and not asked_city):
+        with _lock:
+            _load_cache()["geocode"][key] = {}
+            _save_cache()
+        return None
+    lat, lng = hit["position"]["lat"], hit["position"]["lon"]
+    if _haversine_km((lat, lng), (21.0285, 105.8542)) > 80:  # ngoài vùng Hà Nội → bỏ
+        return None
+    vp = hit.get("viewport") or {}
+    tl, br = vp.get("topLeftPoint"), vp.get("btmRightPoint")
+    half_diag = _haversine_km((tl["lat"], tl["lon"]), (br["lat"], br["lon"])) / 2 if tl and br else 5
+    out = {"name": (hit.get("address") or {}).get("freeformAddress") or q, "lat": lat, "lng": lng,
+           "radius_km": round(min(20.0, max(3.0, half_diag * 1.5)), 1)}
+    addr = hit.get("address") or {}
+    level = {"Municipality": "municipality", "MunicipalitySubdivision": "subdivision"}.get(hit.get("entityType"))
+    if level:  # khớp theo đúng tên đơn vị hành chính của từng POI (poi_admin) — chính xác hơn mọi hình bao
+        out["level"] = level
+        out["admin"] = addr.get("municipality") if level == "municipality" else addr.get("municipalitySubdivision")
+    if tl and br:  # khung bao thật của đơn vị hành chính, nới ~0,5 km — dùng khi POI chưa có tên quận
+        m = 0.0045
+        out["bbox"] = [min(tl["lat"], br["lat"]) - m, min(tl["lon"], br["lon"]) - m,
+                       max(tl["lat"], br["lat"]) + m, max(tl["lon"], br["lon"]) + m]
+    with _lock:
+        _load_cache()["geocode"][key] = out
+        _save_cache()
+    return out
+
+
+def poi_admin(lat: float, lng: float) -> dict | None:
+    """Toạ độ → {"municipality": quận / thị xã / huyện, "subdivision": phường / xã} qua TomTom reverse geocode.
+    Cache theo toạ độ (POI đổi toạ độ thì tự tra lại). Lỗi / chưa có key → None."""
+    key = "%.5f,%.5f" % (lat, lng)
+    with _lock:
+        adm = _load_cache().setdefault("admin", {})
+        if key in adm:
+            return adm[key]
+    if not _ready():
+        return None
+    try:
+        res = _request("GET", "search/2/reverseGeocode/%s.json" % key, params={"language": "vi-VN"})
+    except Exception as e:
+        _mark_down(e, "reverseGeocode")
+        return None
+    a = ((res.get("addresses") or [{}])[0]).get("address") or {}
+    out = {"municipality": a.get("municipality"), "subdivision": a.get("municipalitySubdivision")}
+    with _lock:
+        _load_cache()["admin"][key] = out
+        _save_cache()
+    return out

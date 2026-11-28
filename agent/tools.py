@@ -16,9 +16,19 @@ GROUP_TYPES = ["family", "elderly", "couple", "friends", "solo"]
 
 TOOL_SCHEMAS = [
     {"type": "function", "function": {
-        "name": "search_pois",
-        "description": "Tìm điểm tham quan ở Hà Nội đã lọc theo giá vé/người, nhóm khách, trong nhà, ngày đóng cửa.",
+        "name": "lookup_poi",
+        "description": "Tra cứu một địa điểm theo tên (Việt / Anh, có hoặc không dấu): giá vé, giờ mở, ngày nghỉ, "
+                       "lưu ý, mô tả. BẮT BUỘC gọi trước khi nói về giá / giờ / lưu ý của một điểm.",
         "parameters": {"type": "object", "properties": {
+            "name": {"type": "string", "description": "tên địa điểm khách hỏi, vd 'Văn Miếu'"},
+        }, "required": ["name"]}}},
+    {"type": "function", "function": {
+        "name": "search_pois",
+        "description": "Tìm điểm tham quan ở Hà Nội đã lọc theo giá vé/người, nhóm khách, trong nhà, ngày đóng cửa. "
+                       "Khách nhắc một khu vực / địa danh (Sơn Tây, Ba Vì, Tây Hồ, phố cổ, Đường Lâm…) thì PHẢI truyền "
+                       "area — kết quả chỉ gồm điểm trong khu vực đó, kèm area_info về độ đủ dữ liệu.",
+        "parameters": {"type": "object", "properties": {
+            "area": {"type": "string", "description": "tên khu vực / địa danh khách nhắc, vd 'Sơn Tây'"},
             "interests": {"type": "array", "items": {"type": "string"},
                           "description": "vd history, food, museum, cafe, nature, shopping, night, art"},
             "group_type": {"type": "string", "enum": GROUP_TYPES},
@@ -58,7 +68,18 @@ NARRATE_SYSTEM = ("Bạn là hướng dẫn viên. Viết lời thuyết minh 60
                   "CHỈ dùng nội dung được cung cấp, không bịa năm, số liệu hay giai thoại.")
 
 
-def narrate(poi_id: str, lang: str) -> dict:
+class NarrationCancelled(Exception):
+    """Người dùng đã huỷ (đóng popup) — dừng, không gọi TTS, không ghi file."""
+
+
+def _check(cancel):
+    if cancel is not None and cancel.is_set():
+        raise NarrationCancelled()
+
+
+def narrate(poi_id: str, lang: str, cancel=None) -> dict:
+    """cancel: threading.Event tuỳ chọn. Được set khi client ngắt kết nối → dừng ở điểm kiểm tra kế tiếp
+    (trước khi gọi LLM, trước khi gọi TTS). Lời gọi LLM đang chạy dở không ngắt được, nhưng kết quả bị bỏ."""
     from agent.llm import call_llm  # import trễ để tránh vòng import
     validate_language(lang)
     ctx = get_poi_context(poi_id, lang)
@@ -76,15 +97,154 @@ def narrate(poi_id: str, lang: str) -> dict:
         return {"text": "[MOCK — chưa nối LLM] " + ctx, "audio_path": None, "mock": True,
                 "source": "mock", "tts_status": "disabled",
                 "warning": "Chưa có model dịch/viết thuyết minh. Có thể dùng audio đã chuẩn bị và duyệt trước."}
+    _check(cancel)
     text = call_llm(NARRATE_SYSTEM % lang, ctx)
     if not isinstance(text, str) or not text.strip():
         raise ValueError("Model chưa trả về nội dung thuyết minh.")
+    _check(cancel)  # huỷ trong lúc LLM đang viết → không tạo audio
     try:
         audio = get_audio_result(poi_id, lang, text)
     except OSError:
         audio = {"audio_path": None, "tts_status": "unavailable",
                  "warning": "Chưa lưu được audio. Bạn vẫn có thể đọc nội dung thuyết minh."}
     return {"text": text, "mock": False, "source": "rag-llm", **audio}
+
+
+def default_start(state: dict) -> tuple:
+    """Điểm xuất phát khi khách không nói vị trí khác:
+    - đang lập lịch cho một khu vực (vd Sơn Tây): GPS nếu khách đang ở trong khu vực đó, không thì trung tâm khu vực
+    - còn lại: GPS của khách (server đã kiểm nằm trong vùng Hà Nội), không có thì Hồ Gươm."""
+    loc, area = state.get("location"), state.get("area")
+    if area:
+        if loc and in_area(loc["lat"], loc["lng"], area, use_admin=False):  # GPS đổi liên tục — không tra quận
+            return (loc["lat"], loc["lng"])
+        return (area["lat"], area["lng"])
+    return (loc["lat"], loc["lng"]) if loc else DEFAULT_START
+
+
+# 30 quận / huyện / thị xã của Hà Nội trước đợt sắp xếp 2025. TomTom còn trả tên này cho một phần POI; phần khác đã
+# theo tên phường / xã mới (vd "Cửa Nam", "Văn Miếu-Quốc Tử Giám") — với phần đó phải dùng khung bao.
+OLD_DISTRICTS = {_d for _d in (
+    "Hoàn Kiếm", "Ba Đình", "Tây Hồ", "Đống Đa", "Hai Bà Trưng", "Cầu Giấy", "Thanh Xuân", "Hoàng Mai", "Long Biên",
+    "Nam Từ Liêm", "Bắc Từ Liêm", "Từ Liêm", "Hà Đông", "Sơn Tây", "Ba Vì", "Phúc Thọ", "Đan Phượng", "Hoài Đức",
+    "Quốc Oai", "Thạch Thất", "Chương Mỹ", "Thanh Oai", "Thường Tín", "Phú Xuyên", "Ứng Hòa", "Mỹ Đức", "Thanh Trì",
+    "Gia Lâm", "Đông Anh", "Sóc Sơn", "Mê Linh")}
+
+
+def in_area(lat: float, lng: float, area: dict, use_admin: bool = True, name: str = "",
+            district: str | None = None) -> bool:
+    """Điểm có thuộc khu vực không. Thứ tự:
+    (0) POI có trường "district" trong pois.json (quận / huyện, do nhóm dữ liệu điền) → so đúng tên, chắc chắn nhất;
+    (1) tên POI chứa tên khu vực khách nói (vd "Vườn quốc gia Ba Vì" ∈ "Ba Vì");
+    (2) POI còn mang tên quận / huyện CŨ (reverse geocode, có cache) → so đúng tên quận với khu vực;
+    (3) còn lại (tên phường mới / không rõ) → khung bao của khu vực; (4) không có khung → vòng tròn quanh tâm."""
+    from routing.maps import _haversine_km, poi_admin
+    q = _fold(area.get("query") or "")
+    if district and area.get("level") == "municipality" and area.get("admin"):
+        return _fold(district) == _fold(area["admin"]) or bool(q and q in _fold(name))
+    if name and q and q in _fold(name):
+        return True
+    if use_admin and area.get("level") == "municipality" and area.get("admin") in OLD_DISTRICTS:
+        adm = poi_admin(lat, lng)
+        if adm and adm.get("municipality") in OLD_DISTRICTS:
+            return _fold(adm["municipality"]) == _fold(area["admin"])
+    box = area.get("bbox")
+    if box:
+        return box[0] <= lat <= box[2] and box[1] <= lng <= box[3]
+    return _haversine_km((lat, lng), (area["lat"], area["lng"])) <= area["radius_km"]
+
+
+def resolve_area(name: str) -> dict | None:
+    """Tên khu vực → {"name", "lat", "lng", "radius_km", "source"}.
+    1) Đơn vị hành chính qua TomTom (Sơn Tây, Ba Vì, Tây Hồ…)  2) Tên một POI có sẵn (Đường Lâm, phố cổ…), bán kính 3 km."""
+    from rag.search import load_pois
+    from routing.maps import geocode
+    g = geocode(name)
+    if g:
+        return {**g, "source": "tomtom", "query": name}
+    q = _fold(name)
+    for p in load_pois():
+        if q and q in _fold(p["name"].get("vi", "") + " " + p["name"].get("en", "")):
+            return {"name": p["name"]["vi"], "lat": p["lat"], "lng": p["lng"], "radius_km": 1.5, "source": "poi",
+                    "query": name}
+    return None
+
+
+def search_in_area(args: dict, date: str | None, state: dict) -> dict:
+    """search_pois giới hạn trong khu vực. Không loại điểm vì lệch sở thích (khu vực ít điểm) — chỉ xếp hạng.
+    area_info nói thẳng khu vực có bao nhiêu điểm, bao nhiêu xếp lịch được, điểm nào thiếu dữ liệu."""
+    from rag.search import is_schedulable, load_pois
+    from routing.maps import _haversine_km
+    area = resolve_area(args["area"])
+    state["area"] = area
+    if not area:
+        return {"pois": [], "area_info": {"query": args["area"], "found": False,
+                "note": "Không xác định được khu vực này ở Hà Nội — hỏi lại khách, không tự chọn nơi khác."}}
+    def dist(p):
+        return _haversine_km((p["lat"], p["lng"]), (area["lat"], area["lng"]))
+    inside = [p for p in load_pois()
+              if in_area(p["lat"], p["lng"], area, name=p["name"].get("vi", ""), district=p.get("district"))]
+    ok = {p["id"] for p in search_pois([], args.get("group_type", "friends"), int(args.get("max_price", 10**9)),
+                                       bool(args.get("indoor_only", False)), 200, date)}
+    interests = {i.lower() for i in args.get("interests", [])}
+    picked = sorted((p for p in inside if p["id"] in ok),
+                    key=lambda p: (-len(interests & set(p.get("tags", []) + [p.get("category")])), dist(p)))
+    missing = [{"name": p["name"]["vi"], "missing": [f for f, bad in (("giá vé", p.get("price_vnd") is None),
+                ("giờ mở cửa", not p.get("open") or not p.get("close"))) if bad]}
+               for p in inside if not is_schedulable(p)]
+    return {"pois": [_slim_poi(p) for p in picked[:int(args.get("top_k", 15))]],
+            "area_info": {"query": args["area"], "found": True, "name": area["name"], "radius_km": area["radius_km"],
+                          "n_in_area": len(inside), "n_schedulable": len(picked), "missing_data": missing,
+                          "note": None if len(picked) >= 3 else
+                          "Dữ liệu khu vực này còn ít điểm xếp lịch được — nói rõ với khách, KHÔNG thêm điểm nơi khác."}}
+
+
+REASON_VI = {"not_found": "không có dữ liệu", "missing_data": "thiếu giá / giờ mở cửa", "closed": "đóng cửa ngày đi",
+             "budget": "vượt ngân sách", "time": "không kịp giờ", "low_priority": "hết thời gian trong ngày"}
+
+
+def plan_summary(plan: dict) -> dict:
+    """Số liệu tóm tắt TÍNH BẰNG CODE để LLM chép lại — model hay đếm / cộng sai khi tự đọc danh sách điểm."""
+    from rag.search import get_poi
+    stops = plan.get("stops", [])
+    minutes = int(plan.get("total_minutes") or 0)
+    reasons = plan.get("dropped_reasons") or {}
+    dropped = [{"name": (get_poi(i) or {}).get("name", {}).get("vi", i),
+                "reason": REASON_VI.get(reasons.get(i), reasons.get(i))}
+               for i in plan.get("dropped", []) if reasons.get(i) not in ("not_found", "missing_data")]
+    return {"n_stops": len(stops),
+            "total_cost_vnd": int(plan.get("total_cost") or 0),
+            "total_time": "%d giờ %d phút" % (minutes // 60, minutes % 60),
+            "first_arrive": stops[0]["arrive"] if stops else None,
+            "last_depart": stops[-1]["depart"] if stops else None,
+            "stop_names": [(get_poi(s["poi_id"]) or {}).get("name", {}).get("vi", s["poi_id"]) for s in stops],
+            "dropped": dropped}
+
+
+def _fold(text: str) -> str:
+    import unicodedata
+    text = unicodedata.normalize("NFD", (text or "").lower().replace("đ", "d"))
+    return " ".join("".join(ch for ch in text if unicodedata.category(ch) != "Mn").replace("–", " ").split())
+
+
+def lookup_poi(name: str, limit: int = 3) -> dict:
+    """Tìm POI theo tên (bỏ dấu, không phân biệt hoa thường). Giá / giờ thiếu thì trả None — không đoán."""
+    from rag.search import load_pois
+    q = _fold(name)
+    if not q:
+        return {"found": [], "note": "Chưa có tên địa điểm."}
+    words = set(q.split())
+    scored = []
+    for p in load_pois():
+        hay = _fold(p["name"].get("vi", "") + " " + p["name"].get("en", ""))
+        score = 3 if q in hay else len(words & set(hay.split())) / max(1, len(words))
+        if score >= 0.75:
+            scored.append((score, p))
+    scored.sort(key=lambda x: -x[0])
+    keys = ["id", "name", "price_vnd", "open", "close", "closed_days", "visit_minutes", "indoor",
+            "notes_vi", "notes_en", "description_vi", "description_en", "source"]
+    found = [{k: p.get(k) for k in keys} for _, p in scored[:limit]]
+    return {"found": found, "note": None if found else "Không có địa điểm này trong dữ liệu — nói rõ là không có."}
 
 
 def _slim_poi(p: dict) -> dict:
@@ -96,18 +256,33 @@ def _slim_poi(p: dict) -> dict:
 def dispatch(name: str, args: dict, state: dict):
     """Chạy tool, cập nhật state, trả kết quả gọn để đưa lại cho LLM."""
     date = args.get("date") or state.get("date")
+    if name == "lookup_poi":
+        return lookup_poi(args.get("name", ""))
+    if name == "search_pois" and args.get("area"):
+        return search_in_area(args, date, state)
     if name == "search_pois":
+        state["area"] = None  # tìm không theo khu vực → bỏ khu vực cũ
         res = search_pois(args.get("interests", []), args.get("group_type", "friends"),
                           int(args.get("max_price", 10**9)), bool(args.get("indoor_only", False)),
                           int(args.get("top_k", 15)), date)
         return [_slim_poi(p) for p in res]
     if name == "plan_route":
-        start = (args.get("start_lat", DEFAULT_START[0]), args.get("start_lng", DEFAULT_START[1]))
+        fallback = default_start(state)
+        start = (args.get("start_lat", fallback[0]), args.get("start_lng", fallback[1]))
+        state["plan_start"] = start
+        # Ngân sách do code giữ (agent.llm.apply_budget_from_text) thắng số LLM tự đưa vào.
+        # Lần lập lịch đầu chưa có thì lấy số LLM tách từ câu khách rồi giữ lại.
+        if state.get("budget_vnd") is None:
+            state["budget_vnd"] = int(args["budget_vnd"])
+        budget = int(state["budget_vnd"])
         plan = plan_route(args["poi_ids"], start, args.get("start_time", DEFAULT_START_TIME),
-                          args.get("end_time", DEFAULT_END_TIME), int(args["budget_vnd"]),
+                          args.get("end_time", DEFAULT_END_TIME), budget,
                           int(args["n_people"]), args.get("vehicle", "car"), date)
+        state["route_args"] = {**args, "budget_vnd": budget}
         state["plan"] = plan
-        return {k: v for k, v in plan.items() if k != "polyline"}  # polyline dài, LLM không cần
+        out = {k: v for k, v in plan.items() if k != "polyline"}  # polyline dài, LLM không cần
+        out["summary"] = plan_summary(plan)  # số đã tính sẵn — LLM chép đúng các số này
+        return out
     if name == "get_weather":
         w = get_weather(date or args["date"], *DEFAULT_START)
         state["weather"] = w

@@ -49,8 +49,38 @@ def call_model(system: str, user: str) -> dict:
         last = (user.strip().splitlines() or [""])[-1]
         return {"text": "[câu trả lời giả — chưa nối model] " + last[:60], "model": "fake", "tokens_in": 0, "tokens_out": 0}
 
-    # NHÓM VIẾT: gọi model thật ở đây (theo MODEL_PROVIDER, MODEL_NAME, API_KEY) rồi trả đúng 4 khoá.
-    # Ví dụ chép được cho từng nhà cung cấp: docs/connect-model.md mục 2.
-    raise NotImplementedError(
-        "chưa viết phần gọi model thật cho MODEL_PROVIDER=%s trong codebase/ai.py — xem docs/connect-model.md"
-        % MODEL_PROVIDER)
+    if MODEL_PROVIDER not in OPENAI_COMPATIBLE:
+        raise NotImplementedError(
+            "MODEL_PROVIDER=%s chưa hỗ trợ trong codebase/ai.py (đang có: fake, %s) — xem docs/connect-model.md"
+            % (MODEL_PROVIDER, ", ".join(OPENAI_COMPATIBLE)))
+    if not API_KEY or not MODEL_NAME:
+        raise RuntimeError("Thiếu API_KEY hoặc MODEL_NAME trong .env cho MODEL_PROVIDER=%s" % MODEL_PROVIDER)
+    r = call_openai_compatible(OPENAI_COMPATIBLE[MODEL_PROVIDER], system, user)
+    return {"text": r["text"], "model": r["model"], "tokens_in": int(r["tokens_in"]), "tokens_out": int(r["tokens_out"])}
+
+
+# Nhà cung cấp có API dạng OpenAI Chat Completions (theo docs/connect-model.md mục 2.1 · 2.4)
+OPENAI_COMPATIBLE = {
+    "openai": "https://api.openai.com/v1/chat/completions",
+    "gemini": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+}
+
+
+def call_openai_compatible(url, system, user):
+    """Chỉ dùng thư viện chuẩn. Token lấy từ trường usage của API — không ước lượng."""
+    import json
+    import urllib.error
+    import urllib.request
+    messages = ([{"role": "system", "content": system}] if system else []) + [{"role": "user", "content": user}]
+    body = json.dumps({"model": MODEL_NAME, "messages": messages}).encode("utf-8")
+    req = urllib.request.Request(url, data=body, method="POST", headers={
+        "Content-Type": "application/json", "Authorization": "Bearer " + API_KEY})
+    try:
+        with urllib.request.urlopen(req, timeout=60) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:  # để lỗi bay ra cho khung ghi vào cột error, không lộ key
+        raise RuntimeError("HTTP %d từ %s: %s" % (e.code, MODEL_PROVIDER, e.read().decode("utf-8", "replace")[:300]))
+    u = data.get("usage") or {}
+    return {"text": data["choices"][0]["message"].get("content") or "",
+            "model": data.get("model") or MODEL_NAME,
+            "tokens_in": u.get("prompt_tokens", 0), "tokens_out": u.get("completion_tokens", 0)}

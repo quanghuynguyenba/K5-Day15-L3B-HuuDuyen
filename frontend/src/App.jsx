@@ -15,6 +15,7 @@ import { previewMessages, previewPlan, previewStops } from "./preview.js";
 import useNarration from "./hooks/useNarration.js";
 import NarrationPlayer from "./components/NarrationPlayer.jsx";
 import usePoiCatalogue from "./hooks/usePoiCatalogue.js";
+import useGeolocation from "./hooks/useGeolocation.js";
 
 const MapView = lazy(() => import("./components/MapView.jsx"));
 const PoiExplorer = lazy(() => import("./components/PoiExplorer.jsx"));
@@ -22,6 +23,7 @@ const PoiExplorer = lazy(() => import("./components/PoiExplorer.jsx"));
 export default function App() {
   const density = useDesktopDensity();
   const sessionStore = useChatSessions();
+  const geo = useGeolocation(); // vị trí hiện tại → gửi kèm chat, hiện trên bản đồ
   const patchSession = sessionStore.patch;
   const catalogue = usePoiCatalogue();
   const [explorerOpen, setExplorerOpen] = useState(false);
@@ -131,6 +133,11 @@ export default function App() {
     setSelectedPoi(id);
     listen(id);
   }
+  // Đóng popup địa điểm = dừng hẳn việc tạo thuyết minh đang chạy (huỷ request, backend bỏ bước TTS)
+  function closePoi() {
+    if (narration?.loading) closeNarration();
+    setSelectedPoi(null);
+  }
   function showPreview() {
     closeNarration();
     setPreviewView({
@@ -147,7 +154,7 @@ export default function App() {
     closeNarration();
     const targetId = preview ? sessionStore.createSession() : sessionId;
     setPreview(false);
-    return sessionStore.send(text, retry, targetId);
+    return sessionStore.send(text, retry, targetId, geo.location);
   }
   function reset() {
     closeNarration();
@@ -193,6 +200,7 @@ export default function App() {
         onLangChange={setLang}
         weather={weather}
         preview={preview}
+        geo={geo}
       />
       <div className="workspace">
         {compact ? (
@@ -291,6 +299,7 @@ export default function App() {
                       selection={selection}
                       routeViewKey={routeViewKey}
                       onShowRoute={showRoute}
+                      userLocation={preview ? null : geo.location}
                       catalogue={preview ? [] : catalogue.pois}
                       onBrowse={
                         preview ? undefined : () => setExplorerOpen(true)
@@ -338,14 +347,14 @@ export default function App() {
                       aria-modal="false"
                       aria-label="Thông tin địa điểm"
                       onKeyDown={(event) => {
-                        if (event.key === "Escape") setSelectedPoi(null);
+                        if (event.key === "Escape") closePoi();
                       }}
                     >
                       <span className="sheet-handle" aria-hidden="true" />
                       <Button
                         type="button"
                         className="icon-button close-poi"
-                        onClick={() => setSelectedPoi(null)}
+                        onClick={closePoi}
                         aria-label="Đóng thông tin địa điểm"
                       >
                         <Icon name="close" size={16} />

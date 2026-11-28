@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef } from "react";
 import Button from "@mui/material/Button";
 import L from "leaflet";
 import {
+  Circle,
   MapContainer,
   Marker,
   Polyline,
@@ -88,6 +89,37 @@ function MapViewport({
   return null;
 }
 
+const userIcon = L.divIcon({
+  className: "user-location-marker",
+  html: "<span></span>",
+  iconSize: [18, 18],
+  iconAnchor: [9, 9],
+});
+
+// Vị trí hiện tại của người dùng: chấm xanh + vòng sai số (bỏ vòng khi sai số quá lớn để khỏi che bản đồ)
+function UserLocation({ location }) {
+  if (!hasCoordinates(location)) return null;
+  return (
+    <>
+      {location.accuracy > 0 && location.accuracy < 1500 && (
+        <Circle
+          center={[location.lat, location.lng]}
+          radius={location.accuracy}
+          pathOptions={{ color: "#1a73e8", weight: 1, fillOpacity: 0.12 }}
+          interactive={false}
+        />
+      )}
+      <Marker
+        position={[location.lat, location.lng]}
+        icon={userIcon}
+        title="Bạn đang ở đây"
+        alt="Bạn đang ở đây"
+        zIndexOffset={1000}
+      />
+    </>
+  );
+}
+
 function StopMarker({ stop, index, selected, onSelect }) {
   return (
     <Marker
@@ -110,6 +142,7 @@ export default function MapView({
   onShowRoute,
   catalogue = [],
   onBrowse,
+  userLocation = null,
 }) {
   const stops = plan?.stops || [];
   const geometry = routePoints(plan);
@@ -161,6 +194,7 @@ export default function MapView({
             dashArray={geometry.length > 1 ? undefined : "8 7"}
           />
         )}
+        <UserLocation location={userLocation} />
         <MapViewport
           plan={plan}
           selectedPoi={selectedPoi}
