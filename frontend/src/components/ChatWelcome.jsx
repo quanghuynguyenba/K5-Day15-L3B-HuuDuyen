@@ -34,9 +34,6 @@ const STARTERS = [
 export default function ChatWelcome({ onChoose, onBrowse, poiCount }) {
   return (
     <div className="welcome">
-      <div className="welcome-icon">
-        <Icon name="museum" size={28} />
-      </div>
       <span className="eyebrow">HÀ NỘI THEO CÁCH CỦA BẠN</span>
       <h1>Xin chào! Hôm nay bạn muốn khám phá Hà Nội thế nào?</h1>
       <p>

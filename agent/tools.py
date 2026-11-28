@@ -64,8 +64,21 @@ TOOL_SCHEMAS = [
         }, "required": ["poi_id", "lang"]}}},
 ]
 
-NARRATE_SYSTEM = ("Bạn là hướng dẫn viên. Viết lời thuyết minh 60–90 giây bằng ngôn ngữ mã '%s'. "
-                  "CHỈ dùng nội dung được cung cấp, không bịa năm, số liệu hay giai thoại.")
+NARRATE_LANGS = {"vi": "tiếng Việt", "en": "English", "ko": "한국어 (tiếng Hàn)", "ja": "日本語 (tiếng Nhật)",
+                 "zh": "简体中文 (tiếng Trung giản thể)"}
+NARRATE_SYSTEM = ("Bạn là hướng dẫn viên du lịch đang nói với du khách tại chỗ. Viết lời thuyết minh 60–90 giây, "
+                  "VIẾT TOÀN BỘ bằng %s (kể cả khi nội dung được cung cấp là tiếng Việt / tiếng Anh — hãy dịch). "
+                  "CHỈ dùng nội dung được cung cấp, không bịa năm, số liệu hay giai thoại. "
+                  "Phần ghi chú có câu dành cho người làm dữ liệu (toạ độ, nguồn, kiểm chứng, gợi ý thời lượng, "
+                  "nhóm khách, \"bản ghi kế thừa\"…) — KHÔNG đọc những câu đó; chỉ giữ thông tin có ích cho khách "
+                  "(giá vé, giờ mở, lưu ý khi tham quan). Không xưng là ban quản lý địa điểm. Nhắc tên địa điểm, "
+                  "kèm tên tiếng Việt gốc; không tự phiên âm tên riêng sang chữ khác. Nói như hướng dẫn viên tại chỗ: "
+                  "không nhắc tới bản đồ, toạ độ, dữ liệu, nguồn hay việc 'chưa kiểm chứng'; nếu thiếu giờ / giá thì "
+                  "chỉ khuyên khách hỏi tại chỗ.")
+
+
+def narrate_system(lang: str) -> str:
+    return NARRATE_SYSTEM % NARRATE_LANGS.get(lang, lang)
 
 
 class NarrationCancelled(Exception):
@@ -98,7 +111,8 @@ def narrate(poi_id: str, lang: str, cancel=None) -> dict:
                 "source": "mock", "tts_status": "disabled",
                 "warning": "Chưa có model dịch/viết thuyết minh. Có thể dùng audio đã chuẩn bị và duyệt trước."}
     _check(cancel)
-    text = call_llm(NARRATE_SYSTEM % lang, ctx)
+    named = "Địa điểm: %s (%s)\n%s" % (poi.get("name", {}).get("vi", poi_id), poi.get("name", {}).get("en", ""), ctx)
+    text = call_llm(narrate_system(lang), named)  # có tên điểm — model gọi đúng tên, giữ tên tiếng Việt
     if not isinstance(text, str) or not text.strip():
         raise ValueError("Model chưa trả về nội dung thuyết minh.")
     _check(cancel)  # huỷ trong lúc LLM đang viết → không tạo audio
@@ -114,7 +128,9 @@ def default_start(state: dict) -> tuple:
     """Điểm xuất phát khi khách không nói vị trí khác:
     - đang lập lịch cho một khu vực (vd Sơn Tây): GPS nếu khách đang ở trong khu vực đó, không thì trung tâm khu vực
     - còn lại: GPS của khách (server đã kiểm nằm trong vùng Hà Nội), không có thì Hồ Gươm."""
-    loc, area = state.get("location"), state.get("area")
+    loc, area, named = state.get("location"), state.get("area"), state.get("named_start")
+    if named:  # khách tự nói "tôi đang ở X" — tin lời khách hơn GPS / khu vực
+        return (named["lat"], named["lng"])
     if area:
         if loc and in_area(loc["lat"], loc["lng"], area, use_admin=False):  # GPS đổi liên tục — không tra quận
             return (loc["lat"], loc["lng"])
@@ -262,19 +278,25 @@ def dispatch(name: str, args: dict, state: dict):
         return search_in_area(args, date, state)
     if name == "search_pois":
         state["area"] = None  # tìm không theo khu vực → bỏ khu vực cũ
-        res = search_pois(args.get("interests", []), args.get("group_type", "friends"),
-                          int(args.get("max_price", 10**9)), bool(args.get("indoor_only", False)),
-                          int(args.get("top_k", 15)), date)
+        res = search_balanced(args.get("interests", []), args.get("group_type", "friends"),
+                              int(args.get("max_price", 10**9)), bool(args.get("indoor_only", False)),
+                              int(args.get("top_k", 15)), date)
         return [_slim_poi(p) for p in res]
     if name == "plan_route":
         fallback = default_start(state)
         start = (args.get("start_lat", fallback[0]), args.get("start_lng", fallback[1]))
+        if state.get("named_start_turn"):  # lượt khách vừa nói "đang ở X": dùng đúng X, bỏ toạ độ LLM tự đoán
+            start = fallback
         state["plan_start"] = start
         # Ngân sách do code giữ (agent.llm.apply_budget_from_text) thắng số LLM tự đưa vào.
         # Lần lập lịch đầu chưa có thì lấy số LLM tách từ câu khách rồi giữ lại.
         if state.get("budget_vnd") is None:
             state["budget_vnd"] = int(args["budget_vnd"])
         budget = int(state["budget_vnd"])
+        # Điểm khách đã bảo bỏ (agent.llm.apply_exclusion_from_text) không bao giờ quay lại lịch
+        excluded = set(state.get("excluded_ids") or [])
+        if excluded:
+            args = {**args, "poi_ids": [i for i in args["poi_ids"] if i not in excluded]}
         plan = plan_route(args["poi_ids"], start, args.get("start_time", DEFAULT_START_TIME),
                           args.get("end_time", DEFAULT_END_TIME), budget,
                           int(args["n_people"]), args.get("vehicle", "car"), date)
@@ -290,6 +312,23 @@ def dispatch(name: str, args: dict, state: dict):
     if name == "narrate":
         return narrate(args["poi_id"], args.get("lang", "vi"))
     return {"error": "tool không tồn tại: %s" % name}
+
+
+def search_balanced(interests: list, group_type: str, max_price: int, indoor_only: bool, top_k: int,
+                    date: str | None) -> list:
+    """Nhiều sở thích (vd lịch sử + ẩm thực): lấy kết quả RIÊNG cho từng sở thích rồi xen kẽ, để sở thích nào cũng
+    có mặt trong top_k. Xếp chung một danh sách thì điểm lịch sử (rất nhiều) chiếm hết chỗ, quán ăn bị cắt."""
+    interests = [i for i in (interests or []) if i]
+    if len(interests) <= 1:
+        return search_pois(interests, group_type, max_price, indoor_only, top_k, date)
+    lists = [search_pois([i], group_type, max_price, indoor_only, top_k, date) for i in interests]
+    out, seen = [], set()
+    for rank in range(max((len(x) for x in lists), default=0)):
+        for lst in lists:
+            if rank < len(lst) and lst[rank]["id"] not in seen:
+                seen.add(lst[rank]["id"])
+                out.append(lst[rank])
+    return out[:top_k]
 
 
 def dumps(obj) -> str:

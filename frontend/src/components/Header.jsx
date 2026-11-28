@@ -46,10 +46,8 @@ export default function Header({
             <Icon name="panel" />
           </IconButton>
         )}
-        <span className="brand-icon">
-          <Icon size={23} />
-        </span>
-        <strong>Hanoi Travel AI</strong>
+        <img className="brand-logo" src="/brand/emblem.png" alt="" width="38" height="38" />
+        <strong>Hữu Duyên</strong>
         <Chip
           className={`location-pill ${located ? "located" : ""}`}
           icon={<Icon name="pin" size={14} />}

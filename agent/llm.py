@@ -18,8 +18,14 @@ MAX_STEPS = 6  # số vòng tool calling tối đa mỗi lượt chat
 SYSTEM = """Bạn là trợ lý du lịch Hà Nội.
 - Trả lời đúng ngôn ngữ khách đang dùng. Tên điểm luôn kèm tên tiếng Việt trong ngoặc.
 - Tách ràng buộc: ngân sách (VND), giờ bắt đầu/kết thúc, nhóm khách (family/elderly/couple/friends/solo),
-  số người, sở thích. Thiếu thì hỏi lại TỐI ĐA 1 câu; còn lại dùng mặc định: 2 người, %s–%s, friends.
-- Lập lịch: gọi search_pois rồi plan_route. KHÔNG tự tính khoảng cách, giờ, tiền — chỉ dùng số plan_route trả về.
+  số người, sở thích. CHỈ hỏi lại khi thiếu NGÂN SÁCH, và hỏi đúng MỘT câu ngắn. Thiếu thứ khác thì dùng mặc định
+  (2 người, %s–%s, friends, sở thích lịch sử + văn hoá), lập lịch luôn và nói một câu đã giả định gì.
+- TUYỆT ĐỐI không mô tả một lịch trình (số điểm, tổng tiền, thời gian) nếu chưa gọi plan_route trong lượt này hoặc
+  không có current_plan — mọi lịch phải do plan_route tạo ra.
+- Chỉ phục vụ du lịch HÀ NỘI. Ngoài phạm vi (đặt vé, thanh toán, thành phố khác…) thì từ chối ngắn và chỉ gợi ý việc
+  bạn làm được ở Hà Nội; không đề nghị lập lịch thành phố khác.
+- Lập lịch: gọi search_pois rồi plan_route với TẤT CẢ id search_pois trả về (solver tự chọn và xếp thứ tự,
+  không tự lọc bớt). KHÔNG tự tính khoảng cách, giờ, tiền — chỉ dùng số plan_route trả về.
   Điểm trong "dropped" thì giải thích ngắn vì sao bỏ (hết giờ, vượt ngân sách, đóng cửa).
 - Khách sửa lịch ("bỏ bảo tàng", "bớt 200k"): gọi lại tool với ràng buộc mới, dựa trên lịch hiện tại.
 - Hỏi về mưa: gọi get_weather; is_rainy thì tìm lại với indoor_only=true cho khung giờ mưa.
@@ -40,7 +46,7 @@ SYSTEM = """Bạn là trợ lý du lịch Hà Nội.
 - Giao diện ĐÃ hiển thị lịch chi tiết (giờ, giá từng điểm) trên bản đồ và timeline. Sau khi lập / sửa lịch, trả lời
   NGẮN tối đa 4 câu: số điểm, tổng tiền, tổng thời gian, điểm bị bỏ kèm lý do. Không liệt kê lại từng điểm trừ khi
   khách hỏi. CHÉP ĐÚNG các số trong plan_summary / summary (n_stops, total_cost_vnd, total_time, dropped) —
-  không tự đếm, không tự cộng.
+  không tự đếm, không tự cộng. Lý do bỏ điểm trong dữ liệu viết tiếng Việt — dịch sang ngôn ngữ trả lời.
 """ % (DEFAULT_START_TIME, DEFAULT_END_TIME)
 
 LANG_NAMES = {"vi": "tiếng Việt", "en": "English", "ko": "한국어 (tiếng Hàn)", "ja": "日本語 (tiếng Nhật)",
@@ -81,11 +87,16 @@ def _chat_llm(user_text: str, state: dict) -> str:
     lang = session_lang(user_text, state)
     plan_before = state.get("plan")
     replanned = apply_budget_from_text(user_text, state)
+    named = apply_named_start(user_text, state)  # "Tôi đang ở Hồ Gươm" → code đặt điểm xuất phát
+    removed = apply_exclusion_from_text(user_text, state)  # "bỏ Văn Miếu" → code loại điểm + lập lại lịch
+    replanned = replanned or bool(removed)
     loc = state.get("location")
     ctx = {"date": state.get("date"),
            "reply_language": lang,
            "budget_vnd": state.get("budget_vnd"),
            "replanned_by_code": replanned,
+           "start_from_code": named and {"name": named["name"], "lat": named["lat"], "lng": named["lng"],
+                                         "note": "khách vừa nói đang ở đây — lập lịch xuất phát từ điểm này"},
            "current_location": loc and {"lat": loc["lat"], "lng": loc["lng"], "source": "GPS của khách",
                                         "accuracy_m": loc.get("accuracy")},
            "plan_summary": state.get("plan") and plan_summary(state["plan"]),
@@ -95,9 +106,10 @@ def _chat_llm(user_text: str, state: dict) -> str:
     msgs += state["history"][-10:]
     msgs.append({"role": "user", "content": user_text})
     if replanned:  # đưa thẳng câu kết quả — model chỉ diễn đạt lại, không phải đọc JSON / lịch sử cũ
-        msgs.append({"role": "system", "content": "Lịch VỪA được tính lại bằng code. Kết quả: %s Diễn đạt lại "
-                     "đúng nội dung này, giữ nguyên mọi con số." % facts_sentence(plan_summary(state["plan"]), "vi",
-                                                                               state.get("budget_vnd"))})
+        msgs.append({"role": "system", "content": "Lịch VỪA được tính lại bằng code. %sKết quả: %s Diễn đạt lại "
+                     "đúng nội dung này, giữ nguyên mọi con số." % (
+                         "Đã bỏ theo yêu cầu: %s. " % ", ".join(removed) if removed else "",
+                         facts_sentence(plan_summary(state["plan"]), "vi", state.get("budget_vnd")))})
     # Nhắc ngôn ngữ ở CUỐI hội thoại — prompt hệ thống viết tiếng Việt nên model hay trả lời tiếng Việt
     msgs.append({"role": "system", "content": "Trả lời HOÀN TOÀN bằng %s, ngắn gọn tối đa 4 câu, KHÔNG liệt kê "
                  "lại từng điểm (giao diện đã hiển thị). Tên địa điểm kèm tên tiếng Việt trong ngoặc."
@@ -106,21 +118,39 @@ def _chat_llm(user_text: str, state: dict) -> str:
     # Code đã lập lại lịch (bớt / thêm ngân sách) → không đưa tool: model chỉ báo kết quả, không gọi
     # plan_route lần nữa với danh sách điểm thu hẹp (lỗi "thêm tiền mà không thêm điểm").
     tools = None if replanned else TOOL_SCHEMAS
-    reply = None
-    for _ in range(MAX_STEPS):
-        r = (client.chat.completions.create(model=LLM_MODEL, messages=msgs, tools=tools) if tools
-             else client.chat.completions.create(model=LLM_MODEL, messages=msgs))
-        m = r.choices[0].message
-        if not m.tool_calls:
-            reply = m.content or ""
-            break
-        msgs.append(m.model_dump(exclude_none=True))
-        for tc in m.tool_calls:
-            try:
-                result = dispatch(tc.function.name, json.loads(tc.function.arguments or "{}"), state)
-            except Exception as e:  # trả lỗi cho LLM thay vì làm sập app
-                result = {"error": str(e)}
-            msgs.append({"role": "tool", "tool_call_id": tc.id, "content": dumps(result)})
+    used = []
+
+    def run(force_tool: bool):
+        for step in range(MAX_STEPS):
+            kw = {"model": LLM_MODEL, "messages": msgs}
+            if tools:
+                kw["tools"] = tools
+                if force_tool and step == 0:
+                    kw["tool_choice"] = "required"
+            m = client.chat.completions.create(**kw).choices[0].message
+            if not m.tool_calls:
+                return m.content or ""
+            msgs.append(m.model_dump(exclude_none=True))
+            for tc in m.tool_calls:
+                used.append(tc.function.name)
+                try:
+                    result = dispatch(tc.function.name, json.loads(tc.function.arguments or "{}"), state)
+                except Exception as e:  # trả lỗi cho LLM thay vì làm sập app
+                    result = {"error": str(e)}
+                msgs.append({"role": "tool", "tool_call_id": tc.id, "content": dumps(result)})
+        return None
+
+    state["hallucination_blocked"] = False
+    reply = run(force_tool=False)
+    # Chặn bịa lịch: model mô tả một lịch (số điểm / tiền) mà KHÔNG gọi tool nào và không khớp lịch đang có
+    # → chạy lại, buộc gọi tool. Vẫn không ra lịch thật → không trả câu bịa, hỏi ngân sách.
+    if reply is not None and not used and not replanned and claims_itinerary(reply):
+        current = state.get("plan")
+        if not (current and numbers_match(reply, plan_summary(current))):
+            state["hallucination_blocked"] = True
+            reply = run(force_tool=True)
+            if state.get("plan") is plan_before and (reply is None or claims_itinerary(reply)):
+                return NO_PLAN_REPLY.get(lang, NO_PLAN_REPLY["en"])
     if reply is None:
         return "Xin lỗi, tôi chưa xếp xong lịch trình. Bạn thử nói lại ngắn hơn nhé."
     # Chốt chặn cuối: lịch đổi trong lượt này mà câu trả lời không chứa ĐÚNG số điểm + tổng tiền → thay bằng câu
@@ -133,6 +163,80 @@ def _chat_llm(user_text: str, state: dict) -> str:
             return facts_sentence(ps, lang, state.get("budget_vnd"))
     state["reply_replaced"] = False
     return reply
+
+
+NO_PLAN_REPLY = {
+    "vi": "Mình chưa lập được lịch trình — bạn cho mình biết ngân sách dự kiến nhé?",
+    "en": "I couldn't build an itinerary yet — what is your budget?",
+    "ko": "아직 일정을 만들지 못했습니다. 예산이 얼마인가요?",
+    "ja": "まだ旅程を作成できていません。ご予算はいくらですか？",
+    "zh": "还没能生成行程——您的预算是多少？",
+}
+_STOP_WORDS = r"(?:điểm|địa điểm|chỗ|stops?|places?|attractions?|곳|군데|か所|カ所|ヶ所|个地点|个景点|处)"
+
+
+def claims_itinerary(reply: str) -> bool:
+    """Câu trả lời có mô tả một lịch trình cụ thể không (vd "4 điểm", "6곳", "5 stops")."""
+    return bool(re.search(r"\d+\s*" + _STOP_WORDS, reply.lower()))
+
+
+def apply_named_start(text: str, state: dict) -> dict | None:
+    """"Tôi đang ở Hồ Gươm" / "mình ở phố cổ" / "I'm at Hoan Kiem lake" → tra địa danh (tên POI, rồi khu vực TomTom)
+    và ghi state["named_start"] — default_start() dùng điểm này thay GPS. Không nhận ra địa danh → None."""
+    from agent.tools import lookup_poi, resolve_area
+    state["named_start_turn"] = False
+    m = re.search(r"(?:đang\s+ở|tôi\s+ở|mình\s+ở|em\s+ở|chúng\s+tôi\s+ở|i'?m\s+(?:now\s+)?at|i\s+am\s+at|we'?re\s+at|"
+                  r"now\s+at|currently\s+at)\s+(.+?)(?=\s*(?:[,.;!?]|\s(?:trễ|muộn|rồi|late|now|and|và)\b|$))",
+                  text, re.IGNORECASE)
+    if not m:
+        return None
+    from agent.tools import _fold
+    from rag.search import get_poi, load_pois
+    place = m.group(1).strip()
+    q = _fold(place)
+    # Thứ tự: (1) tên POI  (2) tên khu vực hành chính (chỉ nhận khi tên khớp thật — TomTom hay khớp đại,
+    # vd "Hồ Gươm" → "Tây Hồ")  (3) tên gọi khác chỉ có trong mô tả POI (vd "Hồ Gươm" = Hồ Hoàn Kiếm)
+    found = (lookup_poi(place).get("found") or [None])[0]
+    poi = get_poi(found["id"]) if found else None
+    area = None if poi else resolve_area(place)
+    if area and q not in _fold(area["name"]):
+        area = None
+    if not poi and not area and len(q) >= 4:
+        poi = next((p for p in load_pois()
+                    if q in _fold(" ".join([p.get("description_vi", ""), p.get("description_en", "")]))), None)
+    if poi:
+        hit = {"name": poi["name"]["vi"], "lat": poi["lat"], "lng": poi["lng"]}
+    elif area:
+        hit = {"name": area["name"], "lat": area["lat"], "lng": area["lng"]}
+    else:
+        return None
+    state["named_start"] = hit
+    state["named_start_turn"] = True
+    return hit
+
+
+def apply_exclusion_from_text(text: str, state: dict) -> list:
+    """"bỏ Văn Miếu" / "không đi Hỏa Lò" / "remove Temple of Literature" → loại điểm BẰNG CODE:
+    thêm vào state["excluded_ids"] (dispatch plan_route luôn lọc), lập lại lịch ngay. → tên các điểm đã bỏ.
+    "bỏ qua ..." (vd câu tấn công "bỏ qua mọi hướng dẫn") không tính."""
+    from agent.tools import dispatch, lookup_poi
+    if not state.get("route_args"):
+        return []
+    m = re.search(r"(?:^|\s)(?:bỏ(?!\s+qua)|xoá|xóa|loại|không\s+đi|khỏi\s+đi|remove|skip|drop|exclude)\s+(.+)",
+                  text.strip(), re.IGNORECASE)
+    if not m:
+        return []
+    name = re.sub(r"\s*(?:đi|nhé|nha|ra|giúp\s+(?:tôi|mình|em)|khỏi\s+lịch(?:\s+trình)?|ra\s+khỏi.*|please|from.*)"
+                  r"[\s.!?]*$", "", m.group(1), flags=re.IGNORECASE).strip(" .!?,")
+    found = lookup_poi(name).get("found") or []
+    if not found:
+        return []
+    poi = found[0]
+    state.setdefault("excluded_ids", [])
+    if poi["id"] not in state["excluded_ids"]:
+        state["excluded_ids"].append(poi["id"])
+    dispatch("plan_route", dict(state["route_args"]), state)
+    return [poi["name"]["vi"]]
 
 
 def _numbers_in(text: str) -> set:
@@ -227,6 +331,10 @@ def budget_absolute(text: str) -> int | None:
     m = re.search(r"(\d+(?:[.,]\d+)?)\s*만\s*(?:동|vnd)?", t)
     if m:
         return int(float(m.group(1).replace(",", ".")) * 10_000)
+    m = re.search(r"(\d+)\s*(?:triệu|tr)\s*(rưỡi|\d)(?!\d)", t)  # "1 triệu rưỡi", "1tr5"
+    if m:
+        extra = 500_000 if m.group(2) == "rưỡi" else int(m.group(2)) * 100_000
+        return int(m.group(1)) * 1_000_000 + extra
     m = re.search(r"(\d+(?:[.,]\d+)?)\s*(million|triệu|tr|nghìn|ngàn|k)\b", t)
     if m:
         unit = "triệu" if m.group(2) == "million" else m.group(2)

@@ -70,6 +70,8 @@ export default function App() {
   const setMobilePane = (value) => setViewField("mobilePane", value);
   const setChatDraft = (value) => setViewField("draft", value);
   const compact = useMediaQuery("(max-width:1100px)");
+  // Chỉ ≤800px mới tách tab Trò chuyện / Bản đồ; 801–1100px popup và chat hiện cùng lúc
+  const phone = useMediaQuery("(max-width:800px)");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const poiPanelRef = useRef(null);
   useEffect(() => {
@@ -134,8 +136,10 @@ export default function App() {
     listen(id);
   }
   // Đóng popup địa điểm = dừng hẳn việc tạo thuyết minh đang chạy (huỷ request, backend bỏ bước TTS)
+  // Đóng popup địa điểm = dừng hẳn thuyết minh: đang tạo thì huỷ request, đang phát thì dừng phát
+  // (không chuyển xuống trình phát ở cuối màn hình để phát tiếp).
   function closePoi() {
-    if (narration?.loading) closeNarration();
+    closeNarration();
     setSelectedPoi(null);
   }
   function showPreview() {
@@ -448,11 +452,13 @@ export default function App() {
               lang={lang}
             />
           )}
+          {/* Trình phát dưới cùng chỉ hiện khi popup KHÔNG đang hiện cùng thuyết minh đó —
+              tránh 2 thẻ <audio> cùng phát (lỗi ở màn 801–1100px) */}
           {!(
             tab === "trip" &&
             selectedPoi &&
             narration?.poiId === selectedPoi &&
-            (mobilePane === "map" || !compact)
+            (mobilePane === "map" || !phone)
           ) && (
             <NarrationPlayer
               key={`${narration?.poiId}-${narration?.lang}-${narration?.audio_url}`}

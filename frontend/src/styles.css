@@ -1842,3 +1842,16 @@ main {
 .location-pill.MuiChip-clickable {
   cursor: pointer;
 }
+
+/* Logo Hữu Duyên (frontend/public/brand/emblem.png) */
+.brand-logo {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+@media (max-width: 380px) {
+  .top-header .brand-logo {
+    display: none;
+  }
+}

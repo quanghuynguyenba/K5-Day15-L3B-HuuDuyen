@@ -762,9 +762,9 @@
       "nature"
     ],
     "indoor": false,
-    "price_vnd": null,
-    "open": null,
-    "close": null,
+    "price_vnd": 40000,
+    "open": "08:00",
+    "close": "11:00",
     "closed_days": [],
     "visit_minutes": 60,
     "suitable_for": [
@@ -776,8 +776,8 @@
     ],
     "description_vi": "Khu vườn lịch sử gồm nhà sàn, ao cá và đường đi trong khuôn viên Phủ Chủ tịch; tìm hiểu nếp sống và nơi làm việc của Chủ tịch Hồ Chí Minh.",
     "description_en": "The historic grounds include the stilt house, fish pond and paths associated with Ho Chi Minh’s daily life and work.",
-    "notes_vi": "Không đồng nhất với lễ viếng Lăng. Tòa Phủ Chủ tịch không mở tự do vào nội thất; lịch khu di tích và chính sách vé theo đối tượng riêng. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý.",
-    "notes_en": "Separate from the mausoleum visit. The palace interior is not generally accessible; the grounds have their own schedule and admission categories. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free. Null hours mean no verified fixed schedule; contact the operator.",
+    "notes_vi": "Không đồng nhất với lễ viếng Lăng. Tòa Phủ Chủ tịch không mở tự do vào nội thất; lịch khu di tích và chính sách vé theo đối tượng riêng. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý. Khách Việt miễn phí, khách quốc tế 40.000đ. Mùa hè (1/4–31/10) 7:30–11:00 & 13:30–16:00; mùa đông (1/11–31/3) 8:00–11:00 & 13:30–16:00; nghỉ chiều thứ Hai và chiều thứ Sáu. Lịch chỉ dùng ca sáng. Giá / giờ: bảng tổng hợp nhóm cung cấp 28/11/2026 (nguồn Google, chưa đối chiếu trang chính thức) — kiểm lại trước khi đi.",
+    "notes_en": "Separate from the mausoleum visit. The palace interior is not generally accessible; the grounds have their own schedule and admission categories. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free. Null hours mean no verified fixed schedule; contact the operator. Free for Vietnamese, 40,000 VND for international visitors. Summer (1/4–31/10) 7:30–11:00 & 13:30–16:00; winter (1/11–31/3) 8:00–11:00 & 13:30–16:00; closed Monday and Friday afternoons. Planner uses the morning session. Price / hours: team-compiled table 28/11/2026 (Google listings, not yet checked against official sites) — re-check before visiting.",
     "source": "https://cityguide.vn/vn/hanoi/dia-diem/phu-chu-tich-nha-san-bac-ho | https://www.vietnamtourism.com/en/places/hanoi | https://vtv.vn/lang-bac-mo-cua-tro-lai-100261103190708835.htm"
   },
   {
@@ -833,13 +833,15 @@
       "education"
     ],
     "indoor": true,
-    "price_vnd": null,
+    "price_vnd": 0,
     "open": "08:30",
-    "close": "16:30",
+    "close": "11:30",
     "closed_days": [
       "mon",
       "tue",
-      "sun"
+      "wed",
+      "thu",
+      "fri"
     ],
     "visit_minutes": 60,
     "suitable_for": [
@@ -851,8 +853,8 @@
     ],
     "description_vi": "Phòng trưng bày trong khuôn viên Viện Hàn lâm Khoa học và Công nghệ Việt Nam, 18 Hoàng Quốc Việt, giới thiệu mẫu vật sinh học và tiến hóa sự sống.",
     "description_en": "A compact exhibition inside the Vietnam Academy of Science and Technology campus at 18 Hoang Quoc Viet, featuring specimens and the evolution of life.",
-    "notes_vi": "Trang bảo tàng ghi mở thứ Tư–thứ Bảy; giờ tham khảo từ danh bạ: 08:30–11:30, 13:30–16:30. Thông tin giá vé giữa các nguồn không thống nhất. Hỏi cổng số 2 và xác nhận lịch đoàn. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí.",
-    "notes_en": "Official site lists Wednesday–Saturday; directory hours are 08:30–11:30 and 13:30–16:30. Admission reports conflict. Ask for gate 2 and confirm group arrangements. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free.",
+    "notes_vi": "Trang bảo tàng ghi mở thứ Tư–thứ Bảy; giờ tham khảo từ danh bạ: 08:30–11:30, 13:30–16:30. Thông tin giá vé giữa các nguồn không thống nhất. Hỏi cổng số 2 và xác nhận lịch đoàn. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí. Miễn phí. Mở 8:30–11:30 & 13:30–16:30; thứ Ba–Sáu chỉ phục vụ đoàn đặt trước, thứ Bảy–Chủ nhật đón khách lẻ, nghỉ thứ Hai. Lịch chỉ xếp khách lẻ cuối tuần, ca sáng. Giá / giờ: bảng tổng hợp nhóm cung cấp 28/11/2026 (nguồn Google, chưa đối chiếu trang chính thức) — kiểm lại trước khi đi.",
+    "notes_en": "Official site lists Wednesday–Saturday; directory hours are 08:30–11:30 and 13:30–16:30. Admission reports conflict. Ask for gate 2 and confirm group arrangements. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free. Free. Open 8:30–11:30 & 13:30–16:30; Tue–Fri pre-booked groups only, Sat–Sun walk-in visitors, closed Monday. Planner schedules walk-ins on weekends, morning session. Price / hours: team-compiled table 28/11/2026 (Google listings, not yet checked against official sites) — re-check before visiting.",
     "source": "https://vnmn.ac.vn/public/ | https://travel.com.vn/en/tin-tuc-du-lich/dia-diem-du-lich-ha-noi-v18484.aspx"
   },
   {
@@ -870,10 +872,13 @@
       "education"
     ],
     "indoor": true,
-    "price_vnd": null,
-    "open": null,
-    "close": null,
-    "closed_days": [],
+    "price_vnd": 0,
+    "open": "08:00",
+    "close": "11:00",
+    "closed_days": [
+      "mon",
+      "fri"
+    ],
     "visit_minutes": 60,
     "suitable_for": [
       "family",
@@ -884,8 +889,8 @@
     ],
     "description_vi": "Bảo tàng tại 157 Đội Cấn giới thiệu lịch sử phòng không và các hiện vật liên quan đến chiến thắng tháng 12/1972 tại Hà Nội.",
     "description_en": "The museum at 157 Doi Can interprets air-defense history and artifacts associated with the December 1972 events in Hanoi.",
-    "notes_vi": "Website thông báo mở lại từ 10/11/2026 sau nâng cấp; yêu cầu liên hệ trong giờ hành chính. Chưa xác nhận giá và lịch cụ thể. Có khu trưng bày ngoài trời. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý.",
-    "notes_en": "The museum announced reopening on 10 Nov 2026 after upgrades; contact during business hours. Exact admission and schedule unconfirmed. Outdoor exhibits are also present. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free. Null hours mean no verified fixed schedule; contact the operator.",
+    "notes_vi": "Website thông báo mở lại từ 10/11/2026 sau nâng cấp; yêu cầu liên hệ trong giờ hành chính. Chưa xác nhận giá và lịch cụ thể. Có khu trưng bày ngoài trời. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý. Miễn phí. Mở 8:00–11:00 & 13:30–16:30, đóng cửa thứ Hai và thứ Sáu. Lịch chỉ dùng ca sáng. Giá / giờ: bảng tổng hợp nhóm cung cấp 28/11/2026 (nguồn Google, chưa đối chiếu trang chính thức) — kiểm lại trước khi đi.",
+    "notes_en": "The museum announced reopening on 10 Nov 2026 after upgrades; contact during business hours. Exact admission and schedule unconfirmed. Outdoor exhibits are also present. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free. Null hours mean no verified fixed schedule; contact the operator. Free. Open 8:00–11:00 & 13:30–16:30, closed Monday and Friday. Planner uses the morning session. Price / hours: team-compiled table 28/11/2026 (Google listings, not yet checked against official sites) — re-check before visiting.",
     "source": "https://baotangchienthangb52.com.vn/ | https://govietnam.travel/province/ha-noi/"
   },
   {
@@ -1074,8 +1079,8 @@
     ],
     "indoor": false,
     "price_vnd": 0,
-    "open": null,
-    "close": null,
+    "open": "08:00",
+    "close": "18:00",
     "closed_days": [],
     "visit_minutes": 150,
     "suitable_for": [
@@ -1087,8 +1092,8 @@
     ],
     "description_vi": "Làng nghề bên sông Hồng nổi tiếng với gốm sứ, chợ gốm, không gian làng cổ và các xưởng thực hành nặn gốm.",
     "description_en": "A Red River craft village known for ceramics, a pottery market, traditional village spaces and hands-on workshops.",
-    "notes_vi": "0 đồng chỉ áp dụng khi đi dạo đường làng; bảo tàng gốm, lớp nặn gốm, sản phẩm và từng cơ sở có giá riêng. Không có giờ chung cho cả làng. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý.",
-    "notes_en": "Zero means walking public village lanes only; ceramic museums, workshops, goods and individual venues have separate fees. No common village-wide schedule. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator.",
+    "notes_vi": "0 đồng chỉ áp dụng khi đi dạo đường làng; bảo tàng gốm, lớp nặn gốm, sản phẩm và từng cơ sở có giá riêng. Không có giờ chung cho cả làng. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý. Vào làng miễn phí, không có cổng soát vé; xưởng gốm, chợ gốm và điểm trải nghiệm hoạt động khoảng 8:00–18:00. Giá / giờ: bảng tổng hợp nhóm cung cấp 28/11/2026 (nguồn Google, chưa đối chiếu trang chính thức) — kiểm lại trước khi đi.",
+    "notes_en": "Zero means walking public village lanes only; ceramic museums, workshops, goods and individual venues have separate fees. No common village-wide schedule. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator. Free entry, no ticket gate; workshops, the ceramics market and hands-on activities run about 8:00–18:00. Price / hours: team-compiled table 28/11/2026 (Google listings, not yet checked against official sites) — re-check before visiting.",
     "source": "https://hanoigo.hanoi.gov.vn/destination/diem-du-lich-bat-trang-xa-bat-trang-thanh-pho-ha-noi-xa-bat-trang | https://travel.com.vn/en/tin-tuc-du-lich/dia-diem-du-lich-ha-noi-v18484.aspx"
   },
   {
@@ -1108,8 +1113,8 @@
     ],
     "indoor": false,
     "price_vnd": 0,
-    "open": null,
-    "close": null,
+    "open": "08:00",
+    "close": "19:00",
     "closed_days": [],
     "visit_minutes": 90,
     "suitable_for": [
@@ -1121,8 +1126,8 @@
     ],
     "description_vi": "Làng dệt lụa ở Hà Đông, có phố bán sản phẩm lụa, đình làng và không gian tìm hiểu nghề dệt.",
     "description_en": "A silk-weaving village in Ha Dong with textile shops, a communal house and opportunities to learn about weaving.",
-    "notes_vi": "0 đồng cho đường làng công cộng; hàng hóa và trải nghiệm ở xưởng trả riêng. Từng cửa hàng tự quyết định giờ. Được công nhận điểm du lịch tháng 8/2026. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý.",
-    "notes_en": "Free public lanes; purchases and workshop experiences cost extra. Shops set individual hours. Recognized as a tourism site in August 2026. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator.",
+    "notes_vi": "0 đồng cho đường làng công cộng; hàng hóa và trải nghiệm ở xưởng trả riêng. Từng cửa hàng tự quyết định giờ. Được công nhận điểm du lịch tháng 8/2026. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý. Vào làng miễn phí, không có cổng soát vé; cửa hàng và phố lụa hoạt động khoảng 8:00–19:00. Giá / giờ: bảng tổng hợp nhóm cung cấp 28/11/2026 (nguồn Google, chưa đối chiếu trang chính thức) — kiểm lại trước khi đi.",
+    "notes_en": "Free public lanes; purchases and workshop experiences cost extra. Shops set individual hours. Recognized as a tourism site in August 2026. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator. Free entry, no ticket gate; silk shops and the silk street operate about 8:00–19:00. Price / hours: team-compiled table 28/11/2026 (Google listings, not yet checked against official sites) — re-check before visiting.",
     "source": "https://thanglong.chinhphu.vn/ha-noi-cong-nhan-diem-du-lich-lang-nghe-det-lua-van-phuc-ha-dong-103260804125611912.htm | https://hanoigo.hanoi.gov.vn/destination/lang-lua-van-phuc | https://www.vietnamplus.vn/chuyen-doi-so-o-lang-lua-van-phuc-dua-di-san-nghin-nam-tro-thanh-diem-den-so-post1131784.amp"
   },
   {
@@ -1142,8 +1147,8 @@
     ],
     "indoor": false,
     "price_vnd": 0,
-    "open": null,
-    "close": null,
+    "open": "08:00",
+    "close": "16:30",
     "closed_days": [],
     "visit_minutes": 90,
     "suitable_for": [
@@ -1154,8 +1159,8 @@
     ],
     "description_vi": "Làng nghề vùng Ứng Hòa nổi tiếng với các bó tăm hương nhuộm màu, phơi thành cụm trong sân sản xuất.",
     "description_en": "A craft village in the Ung Hoa area known for colorful incense sticks dried in bundles in workshop courtyards.",
-    "notes_vi": "0 đồng cho đường công cộng, không gồm phí vào sân chụp ảnh hoặc tour. Cần xin phép chủ xưởng; cảnh phơi hương phụ thuộc thời tiết và sản xuất. Không có lịch chung. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý.",
-    "notes_en": "Free public roads, excluding photography courtyards and tours. Ask workshop owners for permission; drying displays depend on weather and production. No unified hours. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator.",
+    "notes_vi": "0 đồng cho đường công cộng, không gồm phí vào sân chụp ảnh hoặc tour. Cần xin phép chủ xưởng; cảnh phơi hương phụ thuộc thời tiết và sản xuất. Không có lịch chung. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý. Vào làng miễn phí; một số hộ dân / sân phơi thu phí chụp ảnh khoảng 50.000–100.000đ/người. Đẹp nhất 8:00–16:30 khi phơi hương. Giá / giờ: bảng tổng hợp nhóm cung cấp 28/11/2026 (nguồn Google, chưa đối chiếu trang chính thức) — kiểm lại trước khi đi.",
+    "notes_en": "Free public roads, excluding photography courtyards and tours. Ask workshop owners for permission; drying displays depend on weather and production. No unified hours. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator. Free to enter; some households / drying yards charge about 50,000–100,000 VND per person for photos. Best 8:00–16:30 when incense is drying. Price / hours: team-compiled table 28/11/2026 (Google listings, not yet checked against official sites) — re-check before visiting.",
     "source": "https://vanvn.vn/giu-nghe-xua-giua-thoi-hien-dai-lang-huong-quang-phu-cau/ | https://govietnam.travel/destination/quang-phu-cau-incense-village/"
   },
   {
@@ -1175,8 +1180,8 @@
     ],
     "indoor": false,
     "price_vnd": 30000,
-    "open": null,
-    "close": null,
+    "open": "08:00",
+    "close": "17:00",
     "closed_days": [],
     "visit_minutes": 120,
     "suitable_for": [
@@ -1188,8 +1193,8 @@
     ],
     "description_vi": "Quần thể thành cổ vùng Đông Anh gắn với nước Âu Lạc, An Dương Vương và các vòng thành đất, đền thờ, đình cổ.",
     "description_en": "An ancient fortified complex in the Dong Anh area associated with Au Lac, An Duong Vuong, earthen ramparts, temples and communal buildings.",
-    "notes_vi": "Vé 30.000 đồng theo biểu phí áp dụng từ 2024; chưa đối chiếu mức tại quầy năm 2026. Các vòng thành nằm xen khu dân cư, không phải toàn bộ có kiểm soát vé; truyền thuyết Mỵ Châu là truyền thuyết. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý.",
-    "notes_en": "VND 30,000 under the tariff effective 2024; not independently checked at the 2026 ticket desk. Ramparts extend through residential areas; not all are gated. The My Chau story is legendary. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator.",
+    "notes_vi": "Vé 30.000 đồng theo biểu phí áp dụng từ 2024; chưa đối chiếu mức tại quầy năm 2026. Các vòng thành nằm xen khu dân cư, không phải toàn bộ có kiểm soát vé; truyền thuyết Mỵ Châu là truyền thuyết. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý. Giờ 8:00–17:00 hằng ngày theo cẩm nang Vinpearl (xem 28/11/2026): https://vinpearl.com/vi/cam-nang-tham-quan-thanh-co-loa",
+    "notes_en": "VND 30,000 under the tariff effective 2024; not independently checked at the 2026 ticket desk. Ramparts extend through residential areas; not all are gated. The My Chau story is legendary. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator. Hours 8:00–17:00 daily per the Vinpearl guide (viewed 28/11/2026): https://vinpearl.com/vi/cam-nang-tham-quan-thanh-co-loa",
     "source": "https://hanoi.gov.vn/hoat-dong-cua-hdnd-thanh-pho-ha-noi/quy-dinh-phi-tham-quan-danh-lam-thang-canh-di-tich-lich-su-cong-trinh-van-hoa-tren-dia-ban-thanh-pho-ha-noi-ap-dung-tu-1-1-2024-42861763.htm | https://donganh.hanoi.gov.vn/di-tich-lich-su-va-van-hoa/khu-di-tich-co-loa-28342506231105416.htm"
   },
   {
@@ -1210,8 +1215,8 @@
     ],
     "indoor": false,
     "price_vnd": 20000,
-    "open": null,
-    "close": null,
+    "open": "08:00",
+    "close": "17:00",
     "closed_days": [],
     "visit_minutes": 180,
     "suitable_for": [
@@ -1223,9 +1228,10 @@
     ],
     "description_vi": "Làng cổ vùng Sơn Tây với cổng làng, đình Mông Phụ, nhà đá ong và nếp sống làng Bắc Bộ.",
     "description_en": "A historic village near Son Tay with the Mong Phu communal house, traditional laterite homes and northern delta village life.",
-    "notes_vi": "Vé theo biểu phí từ 2024, chưa kiểm tra tại quầy 2026. Nhà cổ có người sinh sống; không mặc định được vào mọi nhà. Dịch vụ ăn uống, hướng dẫn và trải nghiệm có thể tính riêng. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý.",
-    "notes_en": "Tariff effective 2024, not confirmed at the 2026 desk. Historic homes remain inhabited; entry is not automatic. Meals, guides and activities may cost extra. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator.",
-    "source": "https://hanoi.gov.vn/hoat-dong-cua-hdnd-thanh-pho-ha-noi/quy-dinh-phi-tham-quan-danh-lam-thang-canh-di-tich-lich-su-cong-trinh-van-hoa-tren-dia-ban-thanh-pho-ha-noi-ap-dung-tu-1-1-2024-42861763.htm | https://thanglong.chinhphu.vn/cong-nhan-lang-co-o-duong-lam-la-diem-du-lich-10327457.htm | https://sovhtt.hanoi.gov.vn/dua-lang-co-o-duong-lam-tro-thanh-di-tich-quoc-gia-dac-biet/"
+    "notes_vi": "Vé theo biểu phí từ 2024, chưa kiểm tra tại quầy 2026. Nhà cổ có người sinh sống; không mặc định được vào mọi nhà. Dịch vụ ăn uống, hướng dẫn và trải nghiệm có thể tính riêng. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý. Giờ 08:00–17:00 là (tự ước tính) khung ban ngày để xếp lịch — chưa có nguồn ghi giờ chính thức; kiểm lại trước khi đi.",
+    "notes_en": "Tariff effective 2024, not confirmed at the 2026 desk. Historic homes remain inhabited; entry is not automatic. Meals, guides and activities may cost extra. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator. Hours 08:00–17:00 are a self-estimated daytime window for planning — no official hours found; re-check before visiting.",
+    "source": "https://hanoi.gov.vn/hoat-dong-cua-hdnd-thanh-pho-ha-noi/quy-dinh-phi-tham-quan-danh-lam-thang-canh-di-tich-lich-su-cong-trinh-van-hoa-tren-dia-ban-thanh-pho-ha-noi-ap-dung-tu-1-1-2024-42861763.htm | https://thanglong.chinhphu.vn/cong-nhan-lang-co-o-duong-lam-la-diem-du-lich-10327457.htm | https://sovhtt.hanoi.gov.vn/dua-lang-co-o-duong-lam-tro-thanh-di-tich-quoc-gia-dac-biet/",
+    "hours_estimated": true
   },
   {
     "id": "hn_036",
@@ -1244,8 +1250,8 @@
     ],
     "indoor": false,
     "price_vnd": 10000,
-    "open": null,
-    "close": null,
+    "open": "08:00",
+    "close": "17:00",
     "closed_days": [],
     "visit_minutes": 90,
     "suitable_for": [
@@ -1256,9 +1262,10 @@
     ],
     "description_vi": "Quần thể chùa dưới chân núi Sài Sơn, gắn với thiền sư Từ Đạo Hạnh, hồ Long Chiểu và thủy đình.",
     "description_en": "A temple complex at Sai Son Mountain associated with monk Tu Dao Hanh, Long Chieu Lake and a water pavilion.",
-    "notes_vi": "Vé theo biểu phí 2024, chưa xác minh mức 2026. Khu dưới chân núi khác đường leo núi và hang; bậc đá có thể khó đi. Lịch lễ hội và giờ vào điện thờ có thể thay đổi. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý.",
-    "notes_en": "Tariff effective 2024, not independently checked for 2026. The lower complex differs from mountain and cave paths; stone steps can be challenging. Festival and worship access can vary. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator.",
-    "source": "https://hanoi.gov.vn/hoat-dong-cua-hdnd-thanh-pho-ha-noi/quy-dinh-phi-tham-quan-danh-lam-thang-canh-di-tich-lich-su-cong-trinh-van-hoa-tren-dia-ban-thanh-pho-ha-noi-ap-dung-tu-1-1-2024-42861763.htm | https://danhlamcotu.vn/ | https://travel.com.vn/en/tin-tuc-du-lich/dia-diem-du-lich-ha-noi-v18484.aspx"
+    "notes_vi": "Vé theo biểu phí 2024, chưa xác minh mức 2026. Khu dưới chân núi khác đường leo núi và hang; bậc đá có thể khó đi. Lịch lễ hội và giờ vào điện thờ có thể thay đổi. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý. Giờ 08:00–17:00 là (tự ước tính) khung ban ngày để xếp lịch — chưa có nguồn ghi giờ chính thức (nguồn chỉ ghi \"mở cả ngày\": greensm.com/vn-vi/news/chua-thay-quoc-oai); kiểm lại trước khi đi.",
+    "notes_en": "Tariff effective 2024, not independently checked for 2026. The lower complex differs from mountain and cave paths; stone steps can be challenging. Festival and worship access can vary. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator. Hours 08:00–17:00 are a self-estimated daytime window for planning — no official hours found (source only says \"open all day\": greensm.com/vn-vi/news/chua-thay-quoc-oai); re-check before visiting.",
+    "source": "https://hanoi.gov.vn/hoat-dong-cua-hdnd-thanh-pho-ha-noi/quy-dinh-phi-tham-quan-danh-lam-thang-canh-di-tich-lich-su-cong-trinh-van-hoa-tren-dia-ban-thanh-pho-ha-noi-ap-dung-tu-1-1-2024-42861763.htm | https://danhlamcotu.vn/ | https://travel.com.vn/en/tin-tuc-du-lich/dia-diem-du-lich-ha-noi-v18484.aspx",
+    "hours_estimated": true
   },
   {
     "id": "hn_037",
@@ -1277,8 +1284,8 @@
     ],
     "indoor": false,
     "price_vnd": 10000,
-    "open": null,
-    "close": null,
+    "open": "08:00",
+    "close": "17:00",
     "closed_days": [],
     "visit_minutes": 75,
     "suitable_for": [
@@ -1289,9 +1296,10 @@
     ],
     "description_vi": "Chùa trên đồi ở vùng Thạch Thất, nổi bật với kiến trúc gỗ và hệ thống tượng Phật, tượng La Hán.",
     "description_en": "A hilltop pagoda in the Thach That area known for timber architecture and Buddhist sculptures, including Arhat figures.",
-    "notes_vi": "Vé theo biểu phí từ 2024; chưa xác minh mức hiện tại. Có nhiều bậc lên chùa; người khó vận động cần cân nhắc. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý.",
-    "notes_en": "Tariff effective 2024; current charge not independently confirmed. Many steps lead uphill; visitors with limited mobility should assess access. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator.",
-    "source": "https://hanoi.gov.vn/hoat-dong-cua-hdnd-thanh-pho-ha-noi/quy-dinh-phi-tham-quan-danh-lam-thang-canh-di-tich-lich-su-cong-trinh-van-hoa-tren-dia-ban-thanh-pho-ha-noi-ap-dung-tu-1-1-2024-42861763.htm | https://danhlamcotu.vn/ | https://travel.com.vn/en/tin-tuc-du-lich/dia-diem-du-lich-ha-noi-v18484.aspx"
+    "notes_vi": "Vé theo biểu phí từ 2024; chưa xác minh mức hiện tại. Có nhiều bậc lên chùa; người khó vận động cần cân nhắc. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý. Giờ 08:00–17:00 là (tự ước tính) khung ban ngày để xếp lịch — chưa có nguồn ghi giờ chính thức (nguồn chỉ ghi \"mở cả ngày\": greensm.com/vn-vi/news/chua-tay-phuong-thach-that-ha-noi); kiểm lại trước khi đi.",
+    "notes_en": "Tariff effective 2024; current charge not independently confirmed. Many steps lead uphill; visitors with limited mobility should assess access. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator. Hours 08:00–17:00 are a self-estimated daytime window for planning — no official hours found (source only says \"open all day\": greensm.com/vn-vi/news/chua-tay-phuong-thach-that-ha-noi); re-check before visiting.",
+    "source": "https://hanoi.gov.vn/hoat-dong-cua-hdnd-thanh-pho-ha-noi/quy-dinh-phi-tham-quan-danh-lam-thang-canh-di-tich-lich-su-cong-trinh-van-hoa-tren-dia-ban-thanh-pho-ha-noi-ap-dung-tu-1-1-2024-42861763.htm | https://danhlamcotu.vn/ | https://travel.com.vn/en/tin-tuc-du-lich/dia-diem-du-lich-ha-noi-v18484.aspx",
+    "hours_estimated": true
   },
   {
     "id": "hn_038",
@@ -1311,8 +1319,8 @@
     ],
     "indoor": false,
     "price_vnd": 230000,
-    "open": null,
-    "close": null,
+    "open": "06:00",
+    "close": "18:00",
     "closed_days": [],
     "visit_minutes": 360,
     "suitable_for": [
@@ -1323,8 +1331,8 @@
     ],
     "description_vi": "Quần thể đền, chùa và hang động trong vùng núi đá vôi Hương Sơn; tuyến phổ biến đi thuyền suối Yến đến Thiên Trù và Hương Tích.",
     "description_en": "A limestone landscape of temples and caves in Huong Son; a common route follows Yen Stream by boat toward Thien Tru and Huong Tich.",
-    "notes_vi": "230.000 đồng là gói người lớn vé tham quan + thuyền tuyến Hương Tích mùa lễ hội 2026, không phải vé vào riêng 118.000 đồng trong biểu phí 2024. Cáp treo khứ hồi người lớn 260.000 đồng, xe điện tính riêng. Ngoài mùa hội cần hỏi lịch đò và giá. Tọa độ đại diện khu danh thắng, không phải bến đò. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý.",
-    "notes_en": "VND 230,000 was the 2026 festival adult sightseeing-plus-boat package for Huong Tich, distinct from the VND 118,000 standalone tariff published in 2024. Adult return cable car VND 260,000; electric shuttle extra. Check boat hours and rates outside festival season. Pin is not a boat dock. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator.",
+    "notes_vi": "230.000 đồng là gói người lớn vé tham quan + thuyền tuyến Hương Tích mùa lễ hội 2026, không phải vé vào riêng 118.000 đồng trong biểu phí 2024. Cáp treo khứ hồi người lớn 260.000 đồng, xe điện tính riêng. Ngoài mùa hội cần hỏi lịch đò và giá. Tọa độ đại diện khu danh thắng, không phải bến đò. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý. 230.000đ là combo vé thắng cảnh + đò khứ hồi tuyến Hương Tích. Mở 6:00–18:00; mùa lễ hội (tháng Giêng–tháng 3 âm lịch) đò chạy 4:00–20:00. Giá / giờ: bảng tổng hợp nhóm cung cấp 28/11/2026 (nguồn Google, chưa đối chiếu trang chính thức) — kiểm lại trước khi đi.",
+    "notes_en": "VND 230,000 was the 2026 festival adult sightseeing-plus-boat package for Huong Tich, distinct from the VND 118,000 standalone tariff published in 2024. Adult return cable car VND 260,000; electric shuttle extra. Check boat hours and rates outside festival season. Pin is not a boat dock. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator. 230,000 VND combo: scenic-area ticket + return boat on the Huong Tich route. Open 6:00–18:00; during the festival (1st–3rd lunar month) boats run 4:00–20:00. Price / hours: team-compiled table 28/11/2026 (Google listings, not yet checked against official sites) — re-check before visiting.",
     "source": "https://hutranco.com.vn/chua-huong-festival/introduction/post/171/thong-tin-chinh-thuc-gia-ve-tham-quan-thuyen-do-cap-treo-xe-dien-ve-gui-xe-le-hoi-chua-huong-nam-2026.aspx | https://huongson.hanoi.gov.vn/tin-tuc-su-kien/chua-huong-nam-2026-nhieu-diem-moi-nang-tam-trai-nghiem-du-khach-2711260318215657368.htm | https://hanoi.gov.vn/hoat-dong-cua-hdnd-thanh-pho-ha-noi/quy-dinh-phi-tham-quan-danh-lam-thang-canh-di-tich-lich-su-cong-trinh-van-hoa-tren-dia-ban-thanh-pho-ha-noi-ap-dung-tu-1-1-2024-42861763.htm"
   },
   {
@@ -1343,10 +1351,12 @@
       "education"
     ],
     "indoor": false,
-    "price_vnd": null,
+    "price_vnd": 30000,
     "open": "08:00",
-    "close": "17:00",
-    "closed_days": [],
+    "close": "16:30",
+    "closed_days": [
+      "mon"
+    ],
     "visit_minutes": 180,
     "suitable_for": [
       "family",
@@ -1357,8 +1367,8 @@
     ],
     "description_vi": "Khu văn hóa rộng ở Đồng Mô phía tây Hà Nội, tái hiện không gian kiến trúc và sinh hoạt cộng đồng các dân tộc Việt Nam.",
     "description_en": "A large cultural park in Dong Mo, western Hanoi, interpreting traditional architecture and community life of Vietnam’s ethnic groups.",
-    "notes_vi": "Trang đơn vị ghi mở hàng ngày kể cả lễ Tết; chưa trích xuất được biểu giá hiện hành. Các cụm làng cách xa nhau, xe điện và sự kiện có thể có phí/lịch riêng. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí.",
-    "notes_en": "Operator lists daily opening including holidays; current ticket amount could not be extracted. Villages are spread out; shuttles and events may have separate costs and schedules. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free.",
+    "notes_vi": "Trang đơn vị ghi mở hàng ngày kể cả lễ Tết; chưa trích xuất được biểu giá hiện hành. Các cụm làng cách xa nhau, xe điện và sự kiện có thể có phí/lịch riêng. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí. Vé người lớn 30.000đ (sinh viên 10.000đ, học sinh 5.000đ, trẻ dưới 6 tuổi miễn phí); mở thứ Ba–Chủ nhật 8:00–11:00 và 13:00–16:30, nghỉ trưa — theo Mia.vn (xem 28/11/2026): https://mia.vn/cam-nang-du-lich/lang-van-hoa-cac-dan-toc-viet-nam-13872",
+    "notes_en": "Operator lists daily opening including holidays; current ticket amount could not be extracted. Villages are spread out; shuttles and events may have separate costs and schedules. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free. Adult ticket 30,000 VND (students 10,000, pupils 5,000, under-6 free); open Tue–Sun 8:00–11:00 and 13:00–16:30 with a lunch break — per Mia.vn (viewed 28/11/2026).",
     "source": "https://langvanhoavietnam.vn/nhung-thong-tin-huu-ich-khi-tham-quan-lang-van-hoa-du-lich-cac-dan-toc-viet-nam/ | https://hanoigo.hanoi.gov.vn/destination/lang-van-hoa-du-lich-cac-dan-toc-viet-nam-xa-doai-phuong"
   },
   {
@@ -1413,9 +1423,9 @@
       "education"
     ],
     "indoor": false,
-    "price_vnd": null,
-    "open": null,
-    "close": null,
+    "price_vnd": 50000,
+    "open": "08:00",
+    "close": "16:00",
     "closed_days": [],
     "visit_minutes": 120,
     "suitable_for": [
@@ -1427,8 +1437,8 @@
     ],
     "description_vi": "Vườn thú kết hợp công viên quanh hồ Thủ Lệ, nơi khách có thể quan sát động vật và đi dạo.",
     "description_en": "A zoo and park around Thu Le Lake, offering animal exhibits and walking paths.",
-    "notes_vi": "Vườn thú Hà Nội và Công viên Thủ Lệ là cùng điểm; giá theo chiều cao/đối tượng, giờ theo mùa; chưa trích xuất mức hiện hành. Trò chơi, đạp vịt, gửi xe tính riêng. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý.",
-    "notes_en": "Hanoi Zoo and Thu Le Park refer to the same venue; pricing depends on visitor category/height and hours vary seasonally. Current figures not extracted. Rides, pedal boats and parking cost extra. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free. Null hours mean no verified fixed schedule; contact the operator.",
+    "notes_vi": "Vườn thú Hà Nội và Công viên Thủ Lệ là cùng điểm; giá theo chiều cao/đối tượng, giờ theo mùa; chưa trích xuất mức hiện hành. Trò chơi, đạp vịt, gửi xe tính riêng. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý. 50.000đ (cao trên 1,3 m), 30.000đ (từ 1,3 m trở xuống). Công viên mở 7:00/7:30–22:00 nhưng khu trưng bày thú 8:00–16:00 — lịch dùng khung khu thú. Giá / giờ: bảng tổng hợp nhóm cung cấp 28/11/2026 (nguồn Google, chưa đối chiếu trang chính thức) — kiểm lại trước khi đi.",
+    "notes_en": "Hanoi Zoo and Thu Le Park refer to the same venue; pricing depends on visitor category/height and hours vary seasonally. Current figures not extracted. Rides, pedal boats and parking cost extra. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free. Null hours mean no verified fixed schedule; contact the operator. 50,000 VND (over 1.3 m), 30,000 VND (1.3 m or under). Park open 7:00/7:30–22:00 but animal exhibits 8:00–16:00 — planner uses the exhibit hours. Price / hours: team-compiled table 28/11/2026 (Google listings, not yet checked against official sites) — re-check before visiting.",
     "source": "https://mia.vn/cam-nang-du-lich/cuoi-tuan-den-cong-vien-thu-le-tim-ve-ky-uc-tuoi-tho-2792 | https://cityguide.vn/vn/hanoi/dia-diem/vuon-thu-ha-noi"
   },
   {
@@ -1449,8 +1459,8 @@
     ],
     "indoor": false,
     "price_vnd": 0,
-    "open": null,
-    "close": null,
+    "open": "05:00",
+    "close": "19:00",
     "closed_days": [],
     "visit_minutes": 120,
     "suitable_for": [
@@ -1462,8 +1472,8 @@
     ],
     "description_vi": "Không gian cây xanh và hồ nước phía nam Hà Nội, phù hợp đi dạo, dã ngoại và hoạt động ngoài trời.",
     "description_en": "A large green space with lakes in southern Hanoi, suitable for walks, picnics and outdoor activities.",
-    "notes_vi": "Website ghi miễn phí vào cửa; chưa xác nhận giờ cổng. Cắm trại, BBQ chỉ ở khu được phép, thuê dụng cụ và sự kiện có thể có phí. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý.",
-    "notes_en": "Website states free entry; gate hours not verified. Camping and BBQ only in designated areas; rentals and events may cost extra. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator.",
+    "notes_vi": "Website ghi miễn phí vào cửa; chưa xác nhận giờ cổng. Cắm trại, BBQ chỉ ở khu được phép, thuê dụng cụ và sự kiện có thể có phí. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý. Miễn phí. Mở 5:00–19:00 hằng ngày. Giá / giờ: bảng tổng hợp nhóm cung cấp 28/11/2026 (nguồn Google, chưa đối chiếu trang chính thức) — kiểm lại trước khi đi.",
+    "notes_en": "Website states free entry; gate hours not verified. Camping and BBQ only in designated areas; rentals and events may cost extra. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator. Free. Open 5:00–19:00 daily. Price / hours: team-compiled table 28/11/2026 (Google listings, not yet checked against official sites) — re-check before visiting.",
     "source": "https://congvienyenso.vn/ | https://travel.com.vn/en/tin-tuc-du-lich/dia-diem-du-lich-ha-noi-v18484.aspx"
   },
   {
@@ -1518,7 +1528,7 @@
       "indoor"
     ],
     "indoor": true,
-    "price_vnd": null,
+    "price_vnd": 350000,
     "open": "09:30",
     "close": "22:00",
     "closed_days": [],
@@ -1532,8 +1542,8 @@
     ],
     "description_vi": "Thủy cung tại tầng B1–B2 Lotte Mall West Lake Hà Nội, có các khu trưng bày sinh vật nước ngọt và biển.",
     "description_en": "An aquarium on basement levels B1–B2 of Lotte Mall West Lake Hanoi, with freshwater and marine exhibits.",
-    "notes_vi": "Nhận khách muộn nhất 21:00 theo cẩm nang. Bảng giá chính thức dạng ảnh, chưa trích xuất mức người lớn; trẻ dưới 80 cm có điều kiện miễn phí khi mua trực tiếp. Không nhầm với thủy cung Times City. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí.",
-    "notes_en": "Last entry 21:00 according to the guide. Official prices are image-based and adult amount was not extracted; children under 80 cm may qualify for free entry under walk-in conditions. Distinct from Times City Aquarium. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free.",
+    "notes_vi": "Nhận khách muộn nhất 21:00 theo cẩm nang. Bảng giá chính thức dạng ảnh, chưa trích xuất mức người lớn; trẻ dưới 80 cm có điều kiện miễn phí khi mua trực tiếp. Không nhầm với thủy cung Times City. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí. Thứ Hai–Sáu 280.000đ (người lớn), 190.000đ (trẻ em); cuối tuần / lễ 350.000đ và 250.000đ — lịch dùng giá cuối tuần. Ngừng nhận khách sau 21:00. Trẻ dưới 0,8 m miễn phí khi đi cùng người lớn (lotteworld.vn/ticket). Giá / giờ: bảng tổng hợp nhóm cung cấp 28/11/2026 (nguồn Google, chưa đối chiếu trang chính thức) — kiểm lại trước khi đi.",
+    "notes_en": "Last entry 21:00 according to the guide. Official prices are image-based and adult amount was not extracted; children under 80 cm may qualify for free entry under walk-in conditions. Distinct from Times City Aquarium. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free. Mon–Fri 280,000 VND (adult), 190,000 (child); weekends / holidays 350,000 and 250,000 — planner uses the weekend price. Last entry 21:00. Under 0.8 m free with an adult (lotteworld.vn/ticket). Price / hours: team-compiled table 28/11/2026 (Google listings, not yet checked against official sites) — re-check before visiting.",
     "source": "https://lotteworld.vn/ticket/ | https://lotteworld.vn/plan/ | https://cityguide.vn/vn/hanoi/dia-diem/thuy-cung-lotte-world-ha-noi"
   },
   {
@@ -1553,9 +1563,9 @@
       "indoor"
     ],
     "indoor": true,
-    "price_vnd": null,
-    "open": null,
-    "close": null,
+    "price_vnd": 270000,
+    "open": "10:00",
+    "close": "22:00",
     "closed_days": [],
     "visit_minutes": 120,
     "suitable_for": [
@@ -1567,8 +1577,8 @@
     ],
     "description_vi": "Thủy cung dưới lòng trung tâm thương mại tại 458 Minh Khai, giới thiệu sinh vật biển, nước ngọt và khu bò sát.",
     "description_en": "An underground aquarium at 458 Minh Khai with marine and freshwater animals and a reptile section.",
-    "notes_vi": "Vé thủy cung riêng khác combo VinKE; mức giá thay đổi theo chiều cao, ngày và chương trình. Chưa xác minh giá vé riêng và giờ hiện hành. Không phải thủy cung Lotte. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý.",
-    "notes_en": "Aquarium-only tickets differ from VinKE bundles; pricing varies by height, day and offers. Standalone current price and hours not verified. Not the Lotte aquarium. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free. Null hours mean no verified fixed schedule; contact the operator.",
+    "notes_vi": "Vé thủy cung riêng khác combo VinKE; mức giá thay đổi theo chiều cao, ngày và chương trình. Chưa xác minh giá vé riêng và giờ hiện hành. Không phải thủy cung Lotte. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý. Thứ Hai–Sáu 210.000đ (≥1,4 m), 160.000đ (0,8–1,4 m); cuối tuần / lễ 270.000đ và 210.000đ — lịch dùng giá cuối tuần. Giờ: ngày thường 10:00–22:00, cuối tuần 9:30–22:00. Trẻ dưới 0,8 m miễn phí khi đi cùng người lớn. Giá / giờ: bảng tổng hợp nhóm cung cấp 28/11/2026 (nguồn Google, chưa đối chiếu trang chính thức) — kiểm lại trước khi đi.",
+    "notes_en": "Aquarium-only tickets differ from VinKE bundles; pricing varies by height, day and offers. Standalone current price and hours not verified. Not the Lotte aquarium. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free. Null hours mean no verified fixed schedule; contact the operator. Mon–Fri 210,000 VND (≥1.4 m), 160,000 (0.8–1.4 m); weekends / holidays 270,000 and 210,000 — planner uses the weekend price. Hours: weekdays 10:00–22:00, weekends 9:30–22:00. Under 0.8 m free with an adult. Price / hours: team-compiled table 28/11/2026 (Google listings, not yet checked against official sites) — re-check before visiting.",
     "source": "https://vinpearl.com/vi/thuy-cung-times-city-kham-pha-dai-duong-ky-dieu-giua-long-thu-do | https://vincom.com.vn/store/thuy-cung?center=vincom-mega-mall-times-city"
   },
   {
@@ -1655,9 +1665,9 @@
       "architecture"
     ],
     "indoor": false,
-    "price_vnd": null,
-    "open": null,
-    "close": null,
+    "price_vnd": 0,
+    "open": "06:00",
+    "close": "19:00",
     "closed_days": [],
     "visit_minutes": 35,
     "suitable_for": [
@@ -1669,8 +1679,8 @@
     ],
     "description_vi": "Chùa tại 73 Quán Sứ, gắn với lịch sử Phật giáo và hoạt động của Giáo hội Phật giáo Việt Nam.",
     "description_en": "A pagoda at 73 Quan Su associated with Buddhist history and the activities of the Vietnam Buddhist Sangha.",
-    "notes_vi": "Cơ sở tôn giáo đang hoạt động; không coi giờ lễ là giờ tham quan. Chưa xác minh biểu phí và giờ hiện hành; mặc kín đáo, hạn chế làm phiền người hành lễ. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý.",
-    "notes_en": "An active religious site; worship times are not sightseeing hours. Current fees and visitor hours unverified; dress respectfully and avoid disturbing worshippers. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free. Null hours mean no verified fixed schedule; contact the operator.",
+    "notes_vi": "Cơ sở tôn giáo đang hoạt động; không coi giờ lễ là giờ tham quan. Chưa xác minh biểu phí và giờ hiện hành; mặc kín đáo, hạn chế làm phiền người hành lễ. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giá null: chưa xác minh mức vé áp dụng, không phải miễn phí. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý. Miễn phí. Mở 6:00–19:00 hằng ngày, muộn hơn vào ngày Rằm, mùng 1 và lễ hội. Giá / giờ: bảng tổng hợp nhóm cung cấp 28/11/2026 (nguồn Google, chưa đối chiếu trang chính thức) — kiểm lại trước khi đi.",
+    "notes_en": "An active religious site; worship times are not sightseeing hours. Current fees and visitor hours unverified; dress respectfully and avoid disturbing worshippers. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null price means unverified admission, not free. Null hours mean no verified fixed schedule; contact the operator. Free. Open 6:00–19:00 daily, later on full-moon, first-of-month and festival days. Price / hours: team-compiled table 28/11/2026 (Google listings, not yet checked against official sites) — re-check before visiting.",
     "source": "https://myhanoi.vn/vi/chuaquansu | https://www.vietnamtourism.com/en/places/hanoi"
   },
   {
@@ -1689,8 +1699,8 @@
     ],
     "indoor": false,
     "price_vnd": 0,
-    "open": null,
-    "close": null,
+    "open": "08:00",
+    "close": "17:00",
     "closed_days": [],
     "visit_minutes": 35,
     "suitable_for": [
@@ -1702,8 +1712,8 @@
     ],
     "description_vi": "Một trong Thăng Long tứ trấn, thờ Linh Lang Đại Vương và nằm bên khu hồ Thủ Lệ; còn gọi là đền Linh Lang.",
     "description_en": "One of the four guardian temples of Thang Long, dedicated to Linh Lang and located near Thu Le Lake; also known as Linh Lang Temple.",
-    "notes_vi": "Vietnam Airlines ghi miễn phí; chưa xác nhận giờ vào đền. Đây là điểm thờ tự riêng, không đồng nghĩa vé Vườn thú Thủ Lệ miễn phí. Lễ hội có thể đông. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý.",
-    "notes_en": "Vietnam Airlines lists free admission; temple hours not verified. A distinct worship site, not free access to the zoo. Festivals can be crowded. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator.",
+    "notes_vi": "Vietnam Airlines ghi miễn phí; chưa xác nhận giờ vào đền. Đây là điểm thờ tự riêng, không đồng nghĩa vé Vườn thú Thủ Lệ miễn phí. Lễ hội có thể đông. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa. Giờ null: chưa xác minh khung giờ cố định; cần hỏi đơn vị quản lý. Miễn phí. Mở 8:00–17:00 hằng ngày; Rằm, mùng 1 mở 6:00–20:00. Giá / giờ: bảng tổng hợp nhóm cung cấp 28/11/2026 (nguồn Google, chưa đối chiếu trang chính thức) — kiểm lại trước khi đi.",
+    "notes_en": "Vietnam Airlines lists free admission; temple hours not verified. A distinct worship site, not free access to the zoo. Festivals can be crowded. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access. Null hours mean no verified fixed schedule; contact the operator. Free. Open 8:00–17:00 daily; full-moon and first-of-month days 6:00–20:00. Price / hours: team-compiled table 28/11/2026 (Google listings, not yet checked against official sites) — re-check before visiting.",
     "source": "https://www.vietnamairlines.com/vn/vi/plan-book/travel/travel-guide/voi-phuc-temple | https://hanoi.gov.vn/van-hien-thang-long/thang-long-tu-tran-dau-an-lich-su-ngan-nam-42733112.htm"
   },
   {
@@ -1739,5 +1749,181 @@
     "notes_vi": "Vé người lớn 60.000 đồng theo hướng dẫn mùa hoa 10/2026. Giờ 05:00–19:00 là lịch ngày thường mùa hoa 2026; cuối tuần 04:00–20:00, có điều chỉnh khi đông khách. Không suy rộng quanh năm. Phần vườn trải qua Hà Nội và Phú Thọ; tọa độ đại diện phía Hà Nội, cần xác minh cổng. Tọa độ xấp xỉ vị trí đại diện, chưa đối chiếu cổng vào; thời lượng, tags, indoor và nhóm khách là gợi ý biên tập. Ngày nghỉ [] chỉ có nghĩa không ghi nhận ngày nghỉ cố định, không bảo đảm mở cửa.",
     "notes_en": "Adult VND 60,000 under October 2026 flower-season guidance. 05:00–19:00 is weekday flower-season access; weekends 04:00–20:00, with crowd-related changes. Not a year-round guarantee. Park spans Hanoi and Phu Tho; pin represents the Hanoi side, verify the entrance. Coordinates are approximate representative points, not entrance-verified; duration, tags, indoor and audience are editorial estimates. An empty closed_days array means no fixed closure recorded, not guaranteed access.",
     "source": "https://www.aseanresort.com.vn/cam-nang/vuon-quoc-gia-ba-vi/ | https://www.vietnamairlines.com/vn/vi/plan-book/travel/travel-guide/ba-vi-national-park | https://baomoi.com/vuon-quoc-gia-ba-vi-de-nhung-mua-da-quy-noi-dai-c56518830.epi"
+  },
+  {
+    "id": "hn_051",
+    "name": {
+      "vi": "Phở Gia Truyền Bát Đàn",
+      "en": "Pho Gia Truyen (49 Bat Dan)"
+    },
+    "lat": 21.0335617,
+    "lng": 105.8465655,
+    "district": "Hoàn Kiếm",
+    "category": "food",
+    "tags": [
+      "food",
+      "pho",
+      "local",
+      "breakfast"
+    ],
+    "indoor": true,
+    "price_vnd": 60000,
+    "open": "06:00",
+    "close": "10:00",
+    "closed_days": [],
+    "visit_minutes": 40,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Quán phở bò gia truyền ở số 49 Bát Đàn, được Michelin Guide xếp hạng Bib Gourmand.",
+    "description_en": "Long-running family beef pho shop at 49 Bat Dan, listed as Bib Gourmand by the Michelin Guide.",
+    "notes_vi": "Giá tham khảo 55.000–70.000đ/bát; giờ buổi sáng các nguồn ghi 5:30/6:00 đến 10:00/11:00, có nguồn ghi thêm buổi tối 17:00/18:00–20:30/21:30. Thường đông, xếp hàng và tự bưng phở. Giờ / giá tổng hợp từ trang du lịch ngày 28/11/2026, các nguồn không thống nhất — kiểm lại trước khi đi.",
+    "notes_en": "Approx. 55,000–70,000 VND per bowl; morning hours listed as 5:30/6:00 to 10:00/11:00, some sources add an evening session 17:00/18:00–20:30/21:30. Often busy with queues; self-service. Hours / prices compiled from travel sites on 28/11/2026; sources disagree — re-check before visiting.",
+    "source": "https://guide.michelin.com/en/ha-noi/ha-noi_2974158/restaurant/pho-gia-truyen"
+  },
+  {
+    "id": "hn_052",
+    "name": {
+      "vi": "Bún chả Hương Liên",
+      "en": "Bun Cha Huong Lien (\"Obama bun cha\")"
+    },
+    "lat": 21.01805,
+    "lng": 105.853851,
+    "district": "Hai Bà Trưng",
+    "category": "food",
+    "tags": [
+      "food",
+      "bun_cha",
+      "local",
+      "lunch"
+    ],
+    "indoor": true,
+    "price_vnd": 60000,
+    "open": "08:00",
+    "close": "20:00",
+    "closed_days": [],
+    "visit_minutes": 45,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Quán bún chả ở 24 Lê Văn Hưu, nổi tiếng là nơi Tổng thống Mỹ Barack Obama và đầu bếp Anthony Bourdain từng ăn; có trong Michelin Guide.",
+    "description_en": "Bun cha restaurant at 24 Le Van Huu, famous as the place Barack Obama and Anthony Bourdain ate together; listed in the Michelin Guide.",
+    "notes_vi": "Bún chả đặc biệt khoảng 60.000đ/phần; \"combo Obama\" (bún chả, nem hải sản, bia) khoảng 100.000–130.000đ. Giờ: Michelin ghi 8:00–20:00, trang khác ghi đến 20:30. Giờ / giá tổng hợp từ trang du lịch ngày 28/11/2026, các nguồn không thống nhất — kiểm lại trước khi đi.",
+    "notes_en": "Special bun cha about 60,000 VND; the \"Obama combo\" (bun cha, seafood spring roll, beer) about 100,000–130,000 VND. Hours: Michelin lists 8:00–20:00, other sites until 20:30. Hours / prices compiled from travel sites on 28/11/2026; sources disagree — re-check before visiting.",
+    "source": "https://guide.michelin.com/en/ha-noi/ha-noi_2974158/restaurant/bun-cha-huong-lien"
+  },
+  {
+    "id": "hn_053",
+    "name": {
+      "vi": "Chả cá Lã Vọng (14 Chả Cá)",
+      "en": "Cha Ca La Vong (14 Cha Ca Street)"
+    },
+    "lat": 21.035716,
+    "lng": 105.849139,
+    "district": "Hoàn Kiếm",
+    "category": "food",
+    "tags": [
+      "food",
+      "cha_ca",
+      "local",
+      "lunch",
+      "dinner"
+    ],
+    "indoor": true,
+    "price_vnd": 350000,
+    "open": "11:00",
+    "close": "14:00",
+    "closed_days": [],
+    "visit_minutes": 60,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Quán chả cá ở số 14 phố Chả Cá, được xem là nơi khởi nguồn món chả cá Lã Vọng của Hà Nội.",
+    "description_en": "Grilled-fish restaurant at 14 Cha Ca Street, regarded as the birthplace of Hanoi's cha ca La Vong.",
+    "notes_vi": "Khoảng 350.000đ/suất; có đánh giá cho rằng giá cao so với khẩu phần. Mở trưa 11:00–14:00 và tối 17:00–21:00 (lịch chỉ dùng ca trưa). Giờ / giá tổng hợp từ trang du lịch ngày 28/11/2026, các nguồn không thống nhất — kiểm lại trước khi đi.",
+    "notes_en": "About 350,000 VND per set; some reviews find it pricey for the portion. Open 11:00–14:00 and 17:00–21:00 (the planner uses the lunch session). Hours / prices compiled from travel sites on 28/11/2026; sources disagree — re-check before visiting.",
+    "source": "https://vinpearl.com/vi/cha-ca-la-vong-ha-noi"
+  },
+  {
+    "id": "hn_054",
+    "name": {
+      "vi": "Cà phê Giảng",
+      "en": "Cafe Giang (egg coffee)"
+    },
+    "lat": 21.0336273,
+    "lng": 105.8545268,
+    "district": "Hoàn Kiếm",
+    "category": "cafe",
+    "tags": [
+      "cafe",
+      "food",
+      "egg_coffee",
+      "local"
+    ],
+    "indoor": true,
+    "price_vnd": 50000,
+    "open": "07:00",
+    "close": "22:00",
+    "closed_days": [],
+    "visit_minutes": 40,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Quán cà phê lâu đời ở 39 Nguyễn Hữu Huân, nổi tiếng với cà phê trứng đựng trong cốc đặt trong bát nước ấm; có cả cacao trứng, rum trứng.",
+    "description_en": "Long-established cafe at 39 Nguyen Huu Huan, known for egg coffee served in a cup sitting in warm water; also egg cocoa and egg rum.",
+    "notes_vi": "Giá đồ uống khoảng 25.000–50.000đ. Giờ: các nguồn ghi mở 7:00, đóng 22:00–23:30. Có chi nhánh ở phố Yên Phụ. Giờ / giá tổng hợp từ trang du lịch ngày 28/11/2026, các nguồn không thống nhất — kiểm lại trước khi đi.",
+    "notes_en": "Drinks about 25,000–50,000 VND. Opens 7:00, closing listed between 22:00 and 23:30. Another branch on Yen Phu Street. Hours / prices compiled from travel sites on 28/11/2026; sources disagree — re-check before visiting.",
+    "source": "https://mia.vn/cam-nang-du-lich/ca-phe-giang-va-cau-chuyen-thuong-hieu-vuot-qua-bao-thang-tram-3109"
+  },
+  {
+    "id": "hn_055",
+    "name": {
+      "vi": "Bánh mì 25 Hàng Cá",
+      "en": "Banh Mi 25 (25 Hang Ca)"
+    },
+    "lat": 21.03611,
+    "lng": 105.848534,
+    "district": "Hoàn Kiếm",
+    "category": "food",
+    "tags": [
+      "food",
+      "banh_mi",
+      "local",
+      "breakfast"
+    ],
+    "indoor": true,
+    "price_vnd": 45000,
+    "open": "07:00",
+    "close": "21:00",
+    "closed_days": [],
+    "visit_minutes": 30,
+    "suitable_for": [
+      "family",
+      "elderly",
+      "couple",
+      "friends",
+      "solo"
+    ],
+    "description_vi": "Tiệm bánh mì ở 25 Hàng Cá trong phố cổ, quen thuộc với du khách quốc tế.",
+    "description_en": "Banh mi shop at 25 Hang Ca in the Old Quarter, popular with international visitors.",
+    "notes_vi": "Giá tham khảo 30.000–45.000đ/ổ (có nguồn ghi cao hơn cho bánh mì chảo). Nên đến trước 9:00 để tránh đông. Giờ / giá tổng hợp từ trang du lịch ngày 28/11/2026, các nguồn không thống nhất — kiểm lại trước khi đi.",
+    "notes_en": "About 30,000–45,000 VND per sandwich (higher for pan-served versions per some sources). Go before 9:00 to avoid crowds. Hours / prices compiled from travel sites on 28/11/2026; sources disagree — re-check before visiting.",
+    "source": "https://www.vietnamtourism.com/vi/an-banh-mi-o-ha-noi-i-au-goi-gi-va-lua-chon-cua-anthony-bour"
   }
 ]

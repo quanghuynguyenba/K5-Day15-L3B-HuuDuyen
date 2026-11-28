@@ -23,7 +23,8 @@ def summarize_trip(plan: dict, lang: str) -> str:
     f = trip_facts(plan)
     facts = "Điểm đã đi: %s\nTổng chi: %d VND\nTổng thời gian: %d phút" % (
         ", ".join(f["places"]), f["total_cost"], f["total_minutes"])
-    system = ("Bạn viết tóm tắt chuyến đi cho du khách, bằng ngôn ngữ mã '%s'. "
-              "Chỉ dùng số liệu được cung cấp, không tự tính hay thêm số. "
-              "Kết thúc bằng 2 gợi ý cho lần sau." % lang)
+    from agent.tools import NARRATE_LANGS
+    system = ("Bạn viết tóm tắt chuyến đi cho du khách, VIẾT TOÀN BỘ bằng %s (dịch cả phần số liệu được cung cấp; "
+              "tên địa điểm giữ tên tiếng Việt). Chỉ dùng số liệu được cung cấp, không tự tính hay thêm số. "
+              "Kết thúc bằng 2 gợi ý cho lần sau." % NARRATE_LANGS.get(lang, lang))
     return call_llm(system, facts, mock_reply="[MOCK] Tóm tắt chuyến đi\n" + facts)
