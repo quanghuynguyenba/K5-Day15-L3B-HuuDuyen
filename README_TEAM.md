@@ -84,7 +84,7 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 
 | Thành phần | Thật / Giả | Ghi chú |
 |---|---|---|
-| Lời gọi AI ở quyết định trung tâm | **Thật** (bắt buộc từ CP3) | Model: claude-sonnet-4-5. Lượt 1: `run-1@20261128-021701`, 14/20 (70%) |
+| Lời gọi AI ở quyết định trung tâm | **Thật** (bắt buộc từ CP3) | Bản demo và lượt 2: gpt-4o-mini, `run-2@20261128-142129`, 19/20 (95%). Lượt 1: claude-sonnet-4-5, `run-1@20261128-021701`, 14/20 (70%) |
 | Điểm đến | 50 điểm trong `data/pois.json`, mỗi điểm có URL | Giờ đi giữa hai điểm vẫn 15 phút cố định |
 | Thời tiết | Giả | `data/weather.json`, một ngày mẫu, nhãn synthetic |
 
@@ -92,7 +92,7 @@ Nhóm dùng stack khác (Node, Streamlit, notebook…): sửa hàm `run_app()` t
 
 2–3 dòng (bắt buộc): nhóm dùng công cụ AI nào để làm gì, người kiểm lại phần nào. Chi tiết: [docs/ai-usage.md](docs/ai-usage.md). Coding agent đọc [AGENTS.md](AGENTS.md).
 
-Nhóm dùng Cursor để soạn spec, câu thử và khung agent từ lát cắt đã chốt. Người trong nhóm đọc lại trước khi nộp. Không bịa người được phỏng vấn. Bản chạy thử gọi `claude-sonnet-4-5`. Câu của model chỉ hiện khi trong câu có đúng tổng tiền của `plan_route`.
+Nhóm dùng Cursor để soạn spec, câu thử và khung agent từ lát cắt đã chốt. Người trong nhóm đọc lại trước khi nộp. Không bịa người được phỏng vấn. Bản chạy thử gọi `gpt-4o-mini` (lượt 1 của eval chạy `claude-sonnet-4-5`). Câu của model chỉ hiện khi trong câu có đúng tổng tiền của `plan_route`.
 
 ## File mẫu — điền ở bước nào
 
@@ -124,5 +124,5 @@ Nhóm dùng Cursor để soạn spec, câu thử và khung agent từ lát cắt
 | 4 | Bản chạy thử làm trọn lát cắt | `codebase/` · lệnh ở mục "Lệnh" |
 | 5 | Định nghĩa "tốt" + bộ câu thử | `data/DATA_CARD.md` · `eval/` |
 | 6 | Mô phỏng chi phí khi dùng thật | `cost/` |
-| 7 | Slide + demo + video dự phòng | `demo-slides.pdf` ở thư mục gốc · link video: ____ |
+| 7 | Slide + demo + video dự phòng | `demo_slides.pdf` ở thư mục gốc · link video: ____ |
 | + | *Bonus:* người dùng thử | `validation/log.md` |

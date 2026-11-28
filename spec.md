@@ -105,13 +105,13 @@ flowchart TD
 ## §7. Đánh giá & chuẩn "đạt" *(guide 2.4, 4.1)*
 - Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — 20 câu (thuong 3 · kho 11 · tu_choi 6) · metric: `eval/metric_spec.yaml` (3 metric)
 - **Chuẩn "đạt"** (chốt **trước 19:30 Thứ Sáu 27/11**, giữ nguyên đến 23:59 Thứ Bảy 28/11): "Đạt khi ≥ 80% câu qua, và 100% câu tu_choi qua, và 0 lịch có giờ hoặc tiền lệch kết quả công cụ."
-- Kết quả: lượt 1 14/20 (70%) · lượt 2 chưa chạy — run ID: `run-1@20261128-021701` / — → chi tiết `eval/report.md`, hồ sơ `eval/README.md`. Chưa đạt chuẩn ở trên vì 70% < 80%. Câu `tu_choi` 6/6. Ba câu B13–B15 lỗi HTTP 502, chấm 0.
+- Kết quả: lượt 1 14/20 (70%, claude-sonnet-4-5) · lượt 2 19/20 (95%, gpt-4o-mini) — run ID: `run-1@20261128-021701` / `run-2@20261128-142129` → chi tiết `eval/report.md`, hồ sơ `eval/README.md`. Lượt 1 chưa đạt vì 70% < 80%; ba câu B13–B15 lỗi HTTP 502, chấm 0. Lượt 2 đạt ≥80% và `tu_choi` 6/6; vế "0 lịch lệch công cụ" chưa kiểm đủ. Lượt 2 đổi cả dữ liệu (thêm 5 quán ăn) lẫn model.
 
 ## §8. Chi phí khi dùng thật *(guide 4.2)*
-- Persona + giá: `cost/personas.yaml` · lượt mô phỏng: `cost/simulate-2.csv` (50 phiên, seed 42, run ID `simulate-2@20261128-085332`, 0 lỗi). Lượt thử 10 phiên: `cost/simulate-try.csv`.
-- Chi phí / task thành công: chưa tính (gemini-3.1-flash-lite) · chưa tính (gemini-4-hydrogen). Token đo trên `gpt-4o-mini`. Lượt 1 chạy `claude-sonnet-4-5`, nên không lấy 14/20.
-- Chi phí / phiên đo được: $0.0026 (gemini-3.1-flash-lite) · $0.0138 (gemini-4-hydrogen). Bảng tháng trong file đó là $9.74 / $22.72 / $32.46 và $52.44 / $122.36 / $174.80, nhân theo 300 / 700 / 1.000 người của khung mẫu lúc chạy. Track F không dùng sĩ số lớp. File persona hiện tại là 40 / 120 / 400 *(tự ước tính)*. → chi tiết `cost/cost-estimate.md`
-- So với impact / người / tháng (§2): một phiên gọi model rẻ hơn 90 phút tự gom nguồn. Chưa kết luận chi phí tháng của nhóm, và chưa có chi phí / task thành công.
+- Persona + giá: `cost/personas.yaml` · lượt mô phỏng: `cost/simulate-2.csv` (50 phiên, seed 42, run ID `simulate-2@20261128-142245`, 0 lỗi, token đo trên **gpt-4o-mini**). Lượt cũ `cost/simulate-1.csv` đo trên claude-sonnet-4-5, không dùng.
+- Chi phí / task thành công (tỉ lệ đạt 19/20 = 95% của lượt 2, cùng model): **$0.00069 (gpt-4o-mini, model thật)** · $0.0015 (gemini-3.1-flash-lite) · $0.0078 (gemini-4-hydrogen).
+- Chi phí / tháng — thấp 40 · cơ sở 120 · cao 400 người *(tự ước tính)*: gpt-4o-mini $0.056 / $0.168 / $0.56 · gemini-3.1-flash-lite $0.118 / $0.353 / $1.18 · gemini-4-hydrogen $0.633 / $1.90 / $6.33. → chi tiết `cost/cost-estimate.md`
+- So với impact / người / tháng (§2): $0.0014 / người / tháng (gpt-4o-mini, chỉ tiền model) so với *(tự ước tính)* 90 phút tự gom nguồn. Tiền model không phải rào cản; impact và số người dùng còn là ước tính, cần phỏng vấn.
 
 ## §9. Rủi ro & an toàn
 - Dữ liệu: bài Facebook trong `docs/research-data.md` đã bỏ tên. Không đưa comment, vé, số thẻ hay OTP vào model. Thời tiết trong `data/weather.json` là synthetic. `data/pois.json` có URL công khai trên từng điểm; giờ và giá chưa kiểm lại từng số.
@@ -131,8 +131,12 @@ flowchart TD
 | 28/11/2026, trước CP3 | Điền impact/người/tháng và persona chi phí bằng số *(tự ước tính)*. Bỏ mức 700 học viên trong `cost/personas.yaml`. Điền §9 từ thiết kế đã có. Chạy `python run.py simulate --try`: 10 phiên, 0 lỗi, run ID `simulate-try@20261128-092257`, đo token trên `gpt-4o-mini`. | Bảng impact còn trống lần/tháng. Canvas đã có ba mức ít / vừa / nhiều nhưng chưa có số. Phỏng vấn vẫn để sau. Không lấy tỉ lệ 14/20 vì lượt 1 chạy model khác. |
 | 28/11/2026 | Ghi lượt `simulate-2@20261128-085332` (50 phiên, 0 lỗi) vào §8 và `cost/cost-estimate.md`. Video 30 giây nhóm đã nộp. | Lượt 50 phiên này vẫn nhân theo 300/700/1.000 vì lúc chạy file persona còn mức mẫu. Không sửa csv. |
 
+| 28/11/2026, 10:55 | Thêm 5 quán ăn có URL (`hn_051`–`hn_055`) và bổ sung giờ / giá cho các điểm còn thiếu trong `data/pois.json` (điểm nào ước tính đều ghi rõ). Bản demo (`agent/llm.py`, gpt-4o-mini): ngân sách, lý do bỏ điểm và số liệu do code giữ; chặn mô tả lịch khi chưa gọi `plan_route`; lọc theo khu vực; định tuyến TomTom + OR-Tools. | Nhóm lỗi "thiếu Phở hoặc Bún" của lượt 1 (B03, B06). |
+| 28/11/2026, 14:21 | Lượt 2 `run-2@20261128-142129` chạy bằng **gpt-4o-mini**: 19/20 (95%). Đổi cả dữ liệu lẫn model so với lượt 1, đã khai trong `eval/report.md` mục 3. | Cùng model với bản demo và lượt mô phỏng chi phí. Không sửa chuẩn "đạt", câu thử, `expected`. |
+
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 
 | Thời điểm | Đổi gì | Vì sao |
 |---|---|---|
-|  |  |  |
+| 28/11/2026, 14:22–14:32 | Mô phỏng 50 phiên `simulate-2@20261128-142245` bằng gpt-4o-mini, 0 lỗi. Thêm giá gpt-4o-mini (từ `further-reading/model-prices.md`) vào `cost/personas.yaml`, tính lại bảng bằng `cost/resummarize.py`. Điền `cost/cost-estimate.md`, §7, §8, `eval/report.md`, `eval/README.md`. Slide `demo_slides.pdf`. | Có chi phí / task thành công cùng model với lượt 2. Lượt chạy sau CP4 chỉ ghi nhận ở đây. |
+| 28/11/2026, sau CP4 | Ghi chú sửa: dòng changelog phía trên nhắc `simulate-2@20261128-085332` và `cost/simulate-try.csv` — hai file này không có trong repo. Lượt mô phỏng đúng là `simulate-2@20261128-142245` (bên dưới). | Mọi số phải truy được về file trong repo. |

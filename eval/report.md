@@ -9,7 +9,7 @@
 | Lượt | Run ID | Đạt / tổng | % | thuong | kho | tu_choi | So với chuẩn "đạt" |
 |---|---|---|---|---|---|---|---|
 | 1 | run-1@20261128-021701 | 14/20 | 70% | 2/3 | 6/11 | 6/6 | chưa. Chuẩn: ≥80% câu qua, 100% câu tu_choi qua, và 0 lịch lệch công cụ. Model: claude-sonnet-4-5 |
-| 2 | chưa chạy | | | | | | |
+| 2 | run-2@20261128-142129 | 19/20 | 95% | 3/3 | 10/11 | 6/6 | ≥80% và 100% tu_choi: đạt. 0 lịch lệch công cụ: chưa kiểm đủ (trace chỉ lưu 300 ký tự đầu của output `plan_route`, không đối chiếu được từng giờ / tiền). Model: gpt-4o-mini |
 
 Kết quả từng câu: `eval/run-1.csv`, `eval/run-2.csv`. Trace: `traces/run-1.jsonl`, `traces/run-2.jsonl`.
 
@@ -31,12 +31,13 @@ Kết quả từng câu: `eval/run-1.csv`, `eval/run-2.csv`. Trace: `traces/run-
 
 ## 3. Một lần cải tiến
 
-- Nhắm vào nhóm lỗi: chưa chọn — lượt 2 làm sau CP3, trước CP4
-- Đã sửa gì (có thể vài thay đổi cùng nhắm nhóm lỗi đó): chưa
-- Kết quả: nhóm lỗi đó __/__ → __/__ · tổng 70% → __%
-- Câu nào **tệ đi** sau khi sửa: chưa chạy lượt 2
+- Nhắm vào nhóm lỗi: **Thiếu điểm ăn đúng tên (không có Phở hoặc Bún)** — B03, B06.
+- Đã sửa gì: thêm 5 quán ăn có URL nguồn vào `data/pois.json` (`hn_051`–`hn_055`: Phở Gia Truyền Bát Đàn, Bún chả Hương Liên, Chả cá Lã Vọng, Cà phê Giảng, Bánh mì 25 Hàng Cá). `codebase/` không đổi so với lượt 1.
+- **Khai thêm — lượt 2 đổi cả model:** lượt 1 chạy `claude-sonnet-4-5`, lượt 2 chạy `gpt-4o-mini` (cùng model với bản demo và với lượt mô phỏng chi phí). Vì đổi hai thứ cùng lúc, không tách được phần tăng nào do dữ liệu, phần nào do model.
+- Kết quả: nhóm lỗi đó 0/2 → 2/2 · tổng 70% → 95%. Ba câu lỗi HTTP 502 ở lượt 1 (B13–B15) qua ở lượt 2 — đây là lỗi kỹ thuật của lượt 1, không phải do cải tiến.
+- Câu nào **tệ đi** sau khi sửa: không có câu nào từ đạt thành trượt. B09 vẫn trượt nhưng đổi kiểu: lượt 1 trả lời ngoài phạm vi, lượt 2 bỏ qua Sun World Ba Na và xếp luôn lịch Hà Nội.
 
 ## 4. Còn lại
 
-- Lỗi chưa sửa + nguy hiểm thế nào: B03 và B06 ra lịch ẩm thực không có Phở hoặc Bún, nên khách thích ăn không dùng được lịch. B09 không nói "không có trong dữ liệu" khi được xin Sun World Ba Na. B13–B15 không có output vì HTTP 502.
-- Nếu có thêm 1 tuần: sửa lời từ chối khi điểm không có trong dữ liệu, rồi phỏng vấn ≥3 khách tự túc một ngày ở Hà Nội. Lượt 2 chưa chạy.
+- Lỗi chưa sửa + nguy hiểm thế nào: B09 — khách xin Sun World Ba Na, bot không nói "không có trong dữ liệu" mà xếp lịch Hà Nội, khách có thể tưởng điểm đó đã được xét. Ở B01, B05, B07, B09 model tự viết lại lịch thành văn bản thay vì dùng mẫu có sẵn; chưa kiểm được hết giờ và tiền trong đó có khớp `plan_route` không.
+- Nếu có thêm 1 tuần: sửa lời báo khi điểm không có trong dữ liệu; lưu đủ output công cụ trong trace để chấm `khop_cong_cu` bằng code; chạy lại lượt 1 bằng gpt-4o-mini để tách ảnh hưởng của model và của dữ liệu; phỏng vấn ≥3 khách tự túc một ngày ở Hà Nội.

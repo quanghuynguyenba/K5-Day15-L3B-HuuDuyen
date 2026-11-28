@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Hữu Duyên — Trợ lý hành trình Hà Nội</title>
+<style>
+  @page { size: 1280px 720px; margin: 0; }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: "Segoe UI", Arial, sans-serif; color: #1f2328; }
+  .s { width: 1280px; height: 720px; padding: 56px 72px 48px; position: relative; page-break-after: always;
+       background: #fbf8f3; overflow: hidden; }
+  .s:last-child { page-break-after: auto; }
+  .s::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 10px; background: #a3262a; }
+  .tag { font-size: 15px; letter-spacing: .08em; text-transform: uppercase; color: #a3262a; font-weight: 700; }
+  h1 { font-size: 44px; margin: 8px 0 22px; line-height: 1.15; }
+  h2 { font-size: 22px; margin: 0 0 10px; }
+  p, li { font-size: 21px; line-height: 1.45; }
+  ul { margin: 0; padding-left: 26px; }
+  li { margin-bottom: 8px; }
+  .src { position: absolute; left: 72px; right: 72px; bottom: 22px; font-size: 13.5px; color: #6b6f76; }
+  .pg { position: absolute; right: 40px; top: 28px; font-size: 14px; color: #9a9ea5; }
+  .grid { display: grid; gap: 22px; }
+  .g2 { grid-template-columns: 1fr 1fr; }
+  .g3 { grid-template-columns: 1fr 1fr 1fr; }
+  .card { background: #fff; border: 1px solid #e6dfd3; border-radius: 14px; padding: 20px 24px; }
+  .big { font-size: 54px; font-weight: 800; color: #a3262a; line-height: 1; }
+  .big small { font-size: 22px; font-weight: 600; color: #1f2328; }
+  .lab { font-size: 17px; color: #555; margin-top: 8px; line-height: 1.35; }
+  table { border-collapse: collapse; width: 100%; font-size: 18px; background: #fff; }
+  th, td { border: 1px solid #e6dfd3; padding: 9px 12px; text-align: left; }
+  th { background: #f3ece1; }
+  td.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .q { font-style: italic; color: #444; font-size: 19px; border-left: 4px solid #d9b36c; padding-left: 14px; margin: 10px 0; }
+  .flow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 6px 0 18px; }
+  .flow span { background: #fff; border: 1.5px solid #a3262a; border-radius: 10px; padding: 9px 14px; font-size: 17px; }
+  .flow b { color: #a3262a; font-size: 22px; }
+  pre { background: #fff; border: 1px solid #e6dfd3; border-radius: 12px; padding: 14px 16px; font-size: 15px;
+        line-height: 1.4; white-space: pre-wrap; margin: 6px 0 0; font-family: Consolas, monospace; }
+  .warn { color: #8a5a00; }
+  .cover { background: #a3262a; color: #fff; display: flex; flex-direction: column; justify-content: center; }
+  .cover::before { display: none; }
+  .cover h1 { font-size: 60px; margin: 18px 0 10px; }
+  .cover p { font-size: 24px; opacity: .92; }
+  .cover img { width: 110px; height: 110px; border-radius: 22px; background: #fff; padding: 8px; }
+  .pill { display: inline-block; background: #a3262a; color: #fff; border-radius: 999px; padding: 6px 18px; font-weight: 700; font-size: 26px; }
+</style>
+</head>
+<body>
+
+<section class="s cover">
+  <img src="../frontend/public/brand/emblem.png" alt="">
+  <h1>Hữu Duyên — Trợ lý hành trình Hà Nội</h1>
+  <p>Lịch một ngày ở Hà Nội theo túi tiền, giờ mở cửa và thời tiết — mọi giờ, mọi khoản tiền lấy từ công cụ, không để AI tự nhẩm.</p>
+  <p style="font-size:18px;opacity:.8;margin-top:30px">Nhóm Hữu Duyên · L3B · Hackathon AI20K · Đề #14 · 28/11/2026</p>
+</section>
+
+<section class="s">
+  <div class="pg">1</div>
+  <div class="tag">Người dùng &amp; pain</div>
+  <h1>Khách tự túc một ngày ở Hà Nội tự gom nguồn, rồi vẫn phải đi hỏi nhóm</h1>
+  <div class="grid g3">
+    <div class="card"><div class="big">16<small>/20</small></div><div class="lab">bài người viết trên Facebook đang tự lên lịch và hỏi nhóm</div></div>
+    <div class="card"><div class="big">6<small>/20</small></div><div class="lab">đã có lịch nháp mà vẫn hỏi nhóm trước khi chốt</div></div>
+    <div class="card"><div class="big">60,4<small>%</small></div><div class="lab">người lên kế hoạch nói cân đối ngân sách là thử thách lớn nhất (Klook, n = 2.725)</div></div>
+  </div>
+  <p class="q">"Mình đã tự tìm hiểu khá nhiều nhưng vẫn muốn xin thêm kinh nghiệm thực tế từ mọi người đã đi." — bài Facebook 04/09/2026, đã bỏ tên</p>
+  <p style="font-size:19px">Pain: gom điểm, giờ mở cửa, giá vé, đường đi từ nhiều nguồn lệch nhau → đến nơi thì đóng cửa, vượt ngân sách hoặc bỏ điểm muốn đi.
+  <span class="warn">Chưa phỏng vấn (0/3); mẫu Facebook là mẫu có chủ đích, 0/20 bài đúng một ngày ở Hà Nội.</span></p>
+  <div class="src">Nguồn: evidence/summary.md · evidence/data-mining.md · docs/research-data.md (27/11/2026) · Người Đô Thị 04/08/2026 dẫn khảo sát Klook</div>
+</section>
+
+<section class="s">
+  <div class="pg">2</div>
+  <div class="tag">Vì sao chọn bài này</div>
+  <h1>Chọn đúng một việc: xếp lịch một ngày theo túi tiền</h1>
+  <table>
+    <tr><th>Hướng</th><th>Mỗi lần tốn gì</th><th>Làm kịp?</th><th>Quyết định</th></tr>
+    <tr><td>Xếp lịch một ngày theo túi tiền</td><td>≈ 90 phút gom bản đồ, blog, group <i>(tự ước tính)</i></td><td>Kịp</td><td><b>Chọn</b></td></tr>
+    <tr><td>Đặt vé, giữ chỗ, hoàn tiền</td><td>Sai là mất tiền thật</td><td>Ngoài lát cắt</td><td>Loại</td></tr>
+    <tr><td>Nhiều thành phố, nhớ dài hạn</td><td>—</td><td>Không kịp (≈ 10 giờ)</td><td>Loại</td></tr>
+  </table>
+  <p style="margin-top:22px">Impact hướng đã chọn: <b>≈ 90 phút / người / tháng</b> <i>(tự ước tính)</i> — người gặp lấy từ khảo sát Klook; số lần và số phút từ canvas, chưa đo.</p>
+  <div class="src">Nguồn: spec.md §2</div>
+</section>
+
+<section class="s">
+  <div class="pg">3</div>
+  <div class="tag">Giải pháp</div>
+  <h1>Khách nhắn một câu → lịch từng giờ, tổng tiền, đường đi, lý do bỏ điểm</h1>
+  <div class="flow">
+    <span>Khách nhắn</span><b>→</b><span>Đòi đặt vé / thẻ / OTP? → từ chối</span><b>→</b><span>Thiếu ngân sách? → hỏi đúng 1 câu</span><b>→</b>
+    <span>get_weather</span><b>→</b><span>search_pois</span><b>→</b><span>plan_route (OR-Tools + TomTom)</span><b>→</b><span>Model diễn đạt, số giữ từ công cụ</span>
+  </div>
+  <div class="grid g2">
+    <div class="card"><h2>AI tự làm</h2><ul>
+      <li>Hiểu câu tự nhiên, chọn điểm theo sở thích, khu vực, mưa / nắng</li>
+      <li>Hỏi đường + gợi ý điểm lân cận ("muốn đến Văn Miếu, gợi ý 5 điểm gần đó")</li>
+      <li>Thuyết minh từng điểm, 5 ngôn ngữ, dựng sẵn</li></ul></div>
+    <div class="card"><h2>Code giữ, AI không được đụng</h2><ul>
+      <li>Giờ đến / đi, tổng tiền, ngân sách, điểm bị bỏ và lý do</li>
+      <li>Câu trả lời sai số → thay bằng câu viết sẵn từ số của công cụ</li>
+      <li>Không đặt vé, không thanh toán, không nhận số thẻ / OTP</li></ul></div>
+  </div>
+  <div class="src">Nguồn: spec.md §4 · 55 điểm trong data/pois.json, mỗi điểm có URL nguồn · model gpt-4o-mini</div>
+</section>
+
+<section class="s">
+  <div class="pg">4</div>
+  <div class="tag">Demo live</div>
+  <h1>Một trường hợp thường, một trường hợp khó — lấy từ bộ câu thử</h1>
+  <div class="grid g2">
+    <div><h2>B03 · thường — "2 người, 800k, 10h–18h, thích ẩm thực"</h2>
+<pre>1. Chợ Đồng Xuân      | đến 10:00 | đi 11:00 | 0
+2. Phố cổ Hà Nội      | đến 11:15 | đi 12:45 | 0
+3. Bánh mì 25 Hàng Cá | đến 13:00 | đi 13:30 | 90000
+4. Cà phê Giảng       | đến 13:45 | đi 14:25 | 100000
+5. Bún chả Hương Liên | đến 14:40 | đi 15:25 | 120000
+Tổng tiền: 310000
+Bỏ: Phở Gia Truyền Bát Đàn — hết giờ</pre></div>
+    <div><h2>B08 · khó — "Chiều nay mưa, 2 người, 1 triệu, lịch sử"</h2>
+<pre>Trời mưa: chỉ xếp điểm trong nhà.
+1. Di tích Nhà 48 Hàng Ngang | 09:00–09:30
+2. Nhà thờ Lớn Hà Nội       | 09:45–10:20
+3. Bảo tàng Hồ Chí Minh     | 10:35–12:05
+...
+Tổng tiền: 200000
+Bỏ: Lăng Chủ tịch Hồ Chí Minh — hết giờ ...</pre></div>
+  </div>
+  <p style="font-size:18px;margin-top:16px">Trên web demo thêm: bản đồ có đường đi TomTom, vị trí GPS, hỏi đường "chỉ đường tới Hỏa Lò", thuyết minh audio. Mạng hỏng → video dự phòng.</p>
+  <div class="src">Nguồn: eval/benchmark.csv (B03, B08) · output thật lượt 2, eval/run-2.csv (rút gọn)</div>
+</section>
+
+<section class="s">
+  <div class="pg">5</div>
+  <div class="tag">Đánh giá thế nào</div>
+  <h1>20 câu thử · chấm bằng code theo tiêu chí từng câu</h1>
+  <div class="grid g2" style="grid-template-columns: 1.15fr 1fr">
+    <div>
+      <table>
+        <tr><th>Lượt</th><th>Model</th><th>Đạt</th><th>thuong</th><th>kho</th><th>tu_choi</th></tr>
+        <tr><td>1 · run-1@…021701</td><td>claude-sonnet-4-5</td><td class="n">14/20 · 70%</td><td class="n">2/3</td><td class="n">6/11</td><td class="n">6/6</td></tr>
+        <tr><td>2 · run-2@…142129</td><td>gpt-4o-mini</td><td class="n"><b>19/20 · 95%</b></td><td class="n">3/3</td><td class="n">10/11</td><td class="n">6/6</td></tr>
+      </table>
+      <p style="font-size:18px;margin-top:14px">Chuẩn "đạt" (chốt CP2): ≥ 80% câu qua · 100% câu tu_choi · 0 lịch lệch công cụ.<br>
+      Lượt 2: hai vế đầu <b>đạt</b>; vế thứ ba <span class="warn">chưa kiểm đủ</span> (trace chỉ lưu 300 ký tự output công cụ).</p>
+    </div>
+    <div class="card">
+      <h2>Bộ câu thử</h2>
+      <ul style="font-size:18px">
+        <li>3 thường · 11 khó · 6 từ chối (3 câu tấn công)</li>
+        <li>12/20 câu từ người dùng / data thật</li>
+        <li>3 metric: khớp công cụ · từ chối đặt vé · hỏi khi thiếu</li>
+      </ul>
+      <h2 style="margin-top:12px">Một cải tiến</h2>
+      <ul style="font-size:18px">
+        <li>Thêm 5 quán ăn có nguồn → "thiếu Phở / Bún" 0/2 → 2/2</li>
+        <li class="warn">Lượt 2 đổi cả model → không tách được phần do dữ liệu</li>
+        <li>Còn trượt B09: hỏi Sun World Ba Na, không báo "không có trong dữ liệu"</li>
+      </ul>
+    </div>
+  </div>
+  <div class="src">Nguồn: eval/README.md · eval/report.md · eval/run-1.csv · eval/run-2.csv · eval/metric_spec.yaml</div>
+</section>
+
+<section class="s">
+  <div class="pg">6</div>
+  <div class="tag">Chi phí khi dùng thật</div>
+  <h1>Chi phí / task thành công: <span class="pill">$0.00069 · gpt-4o-mini</span></h1>
+  <table>
+    <tr><th>Model</th><th>/ phiên</th><th>/ task thành công</th><th>/ tháng — thấp (40)</th><th>cơ sở (120)</th><th>cao (400)</th><th>/ người / tháng</th></tr>
+    <tr><td><b>gpt-4o-mini</b> (model thật)</td><td class="n">$0.00065</td><td class="n"><b>$0.00069</b></td><td class="n">$0.056</td><td class="n">$0.168</td><td class="n">$0.56</td><td class="n">$0.0014</td></tr>
+    <tr><td>gemini-3.1-flash-lite (rẻ)</td><td class="n">$0.0014</td><td class="n">$0.0015</td><td class="n">$0.118</td><td class="n">$0.353</td><td class="n">$1.18</td><td class="n">$0.0029</td></tr>
+    <tr><td>gemini-4-hydrogen (mạnh)</td><td class="n">$0.0074</td><td class="n">$0.0078</td><td class="n">$0.633</td><td class="n">$1.90</td><td class="n">$6.33</td><td class="n">$0.0158</td></tr>
+  </table>
+  <ul style="margin-top:18px;font-size:18px">
+    <li>50 phiên mô phỏng chạy thật qua bản chạy thử (seed 42, 0 lỗi), token đo trên gpt-4o-mini; tỉ lệ đạt 95% của lượt 2.</li>
+    <li>So với impact ≈ 90 phút / người / tháng <i>(tự ước tính)</i>: tiền model không phải rào cản. Số người dùng 40 / 120 / 400 <i>(tự ước tính)</i>.</li>
+    <li class="warn">Chưa tính: bản đồ TomTom, máy chủ, giờ công kiểm dữ liệu giờ / giá.</li>
+  </ul>
+  <div class="src">Nguồn: cost/cost-estimate.md · cost/simulate-2.csv (simulate-2@20261128-142245) · cost/personas.yaml · giá: further-reading/model-prices.md (BTC xem 25/11/2026)</div>
+</section>
+
+<section class="s">
+  <div class="pg">7</div>
+  <div class="tag">Kết luận</div>
+  <h1>Iterate — sản phẩm chạy được và rẻ, nhưng pain chưa được hỏi trực tiếp</h1>
+  <div class="grid g3">
+    <div class="card"><div class="big">95<small>%</small></div><div class="lab">câu thử đạt ở lượt 2 (từ 70%) — trang 5</div></div>
+    <div class="card"><div class="big">$0.0014</div><div class="lab">tiền model / người / tháng ở kịch bản cơ sở — trang 6</div></div>
+    <div class="card"><div class="big">0<small>/3</small></div><div class="lab">người được phỏng vấn — trang 1</div></div>
+  </div>
+  <ul style="margin-top:24px">
+    <li><b>Không stop:</b> 16/20 bài cho thấy người tự xếp lịch vẫn phải đi hỏi; chi phí gần như bằng 0.</li>
+    <li><b>Chưa go:</b> impact 90 phút và số người dùng là tự ước tính; vế "0 lịch lệch công cụ" chưa kiểm đủ.</li>
+  </ul>
+  <div class="src">Nguồn: evidence/summary.md · eval/report.md · cost/cost-estimate.md</div>
+</section>
+
+<section class="s">
+  <div class="pg">8</div>
+  <div class="tag">Nếu có thêm 1 tuần</div>
+  <h1>Ba việc, theo đúng lỗi còn lại</h1>
+  <div class="grid g3">
+    <div class="card"><h2>1 · Phỏng vấn ≥ 3 khách</h2><p style="font-size:18px">Khách tự túc một ngày ở Hà Nội: đo số phút gom nguồn và số lần xếp lại / tháng — thay hai số <i>(tự ước tính)</i>.</p></div>
+    <div class="card"><h2>2 · Chấm đủ "khớp công cụ"</h2><p style="font-size:18px">Lưu trọn output <code>plan_route</code> trong trace, chấm bằng code từng giờ / tiền; chạy lại lượt 1 bằng gpt-4o-mini để tách ảnh hưởng của model.</p></div>
+    <div class="card"><h2>3 · Báo điểm không có</h2><p style="font-size:18px">Câu B09: khách xin điểm không có trong dữ liệu (Sun World Ba Na) → nói rõ "không có", không lặng lẽ xếp lịch khác.</p></div>
+  </div>
+  <div class="src">Nguồn: eval/report.md mục 4 · evidence/summary.md</div>
+</section>
+
+</body>
+</html>

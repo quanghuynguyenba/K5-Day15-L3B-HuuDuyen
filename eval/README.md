@@ -35,10 +35,10 @@
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
 | 1 | run-1@20261128-021701 | claude-sonnet-4-5 | `codebase/agent.py` gọi model thật rồi `get_weather`, `search_pois`, `plan_route`. Câu model chỉ hiện nếu có đúng tổng tiền của công cụ. | 14/20 | 70% | chưa |
-| 2 | | | chưa chạy | | | |
+| 2 | run-2@20261128-142129 | gpt-4o-mini | `codebase/agent.py` như lượt 1; `data/pois.json` thêm 5 quán ăn (`hn_051`–`hn_055`); đổi model sang gpt-4o-mini | 19/20 | 95% | ≥80% và 100% tu_choi: đạt; 0 lịch lệch công cụ: chưa kiểm đủ |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
 
 ## 6. Lỗi chính
 
-Lượt 1: 14/20 (70%), chưa đạt chuẩn ≥80%. Lệch nhiều nhất ở lịch ẩm thực thiếu Phở hoặc Bún (B03, B06), câu xin Sun World Ba Na bị trả lời ngoài phạm vi (B09), và 3 câu HTTP 502 (B13–B15). Chưa sửa. Lượt 2 chưa chạy.
+Lượt 1: 14/20 (70%), chưa đạt chuẩn ≥80%. Lệch nhiều nhất ở lịch ẩm thực thiếu Phở hoặc Bún (B03, B06), câu xin Sun World Ba Na bị trả lời ngoài phạm vi (B09), và 3 câu HTTP 502 (B13–B15). Lượt 2: 19/20 (95%) với gpt-4o-mini và thêm 5 quán ăn; B03, B06 qua, B13–B15 qua. Còn trượt B09 (không báo Sun World Ba Na không có trong dữ liệu). Lượt 2 đổi cả dữ liệu lẫn model nên không tách được nguyên nhân — chi tiết `eval/report.md` mục 3.
