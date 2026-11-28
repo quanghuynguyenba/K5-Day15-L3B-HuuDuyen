@@ -1,7 +1,12 @@
 // Mọi lời gọi backend nằm ở đây. Hợp đồng: xem server.py
-async function request(path, options = {}) {
+// options.signal (tuỳ chọn): người dùng huỷ (vd đóng popup) → fetch dừng, backend thấy client ngắt kết nối,
+// hàm ném lỗi có name = "AbortError" để nơi gọi bỏ qua im lặng.
+async function request(path, { signal, ...options } = {}) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), 60000);
+  const cancel = () => controller.abort();
+  if (signal?.aborted) controller.abort();
+  signal?.addEventListener("abort", cancel);
   try {
     let res;
     try {
@@ -11,6 +16,11 @@ async function request(path, options = {}) {
         signal: controller.signal,
       });
     } catch {
+      if (signal?.aborted) {
+        const aborted = new Error("Đã huỷ yêu cầu.");
+        aborted.name = "AbortError";
+        throw aborted;
+      }
       if (controller.signal.aborted)
         throw new Error("Máy chủ phản hồi quá lâu. Vui lòng thử lại yêu cầu.");
       throw new Error(
@@ -34,21 +44,24 @@ async function request(path, options = {}) {
     }
   } finally {
     clearTimeout(timer);
+    signal?.removeEventListener("abort", cancel);
   }
 }
 
-const post = (path, body) =>
-  request(path, { method: "POST", body: JSON.stringify(body) });
+const post = (path, body, options = {}) =>
+  request(path, { method: "POST", body: JSON.stringify(body), ...options });
 
 export const api = {
   config: () => request("/api/config"),
-  chat: (sessionId, message, date) =>
-    post("/api/chat", { session_id: sessionId, message, date }),
+  // location: { lat, lng, accuracy } từ GPS trình duyệt, hoặc null nếu chưa có / bị từ chối
+  chat: (sessionId, message, date, location = null) =>
+    post("/api/chat", { session_id: sessionId, message, date, location }),
   reset: (sessionId) => post("/api/reset", { session_id: sessionId }),
   poi: (poiId) => request(`/api/pois/${poiId}`),
   pois: () => request("/api/pois"),
   weather: (date) => request(`/api/weather?date=${date}`),
-  narrate: (poiId, lang) => post("/api/narrate", { poi_id: poiId, lang }),
+  narrate: (poiId, lang, signal) =>
+    post("/api/narrate", { poi_id: poiId, lang }, { signal }),
   summary: (sessionId, lang) =>
     post("/api/summary", { session_id: sessionId, lang }),
 };

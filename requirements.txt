@@ -6,7 +6,7 @@ uvicorn
 openai
 # Routing (Tùng)
 ortools
-polyline
+# TomTom: chỉ dùng thư viện chuẩn (urllib), không cần SDK
 # TTS (Cường)
 edge-tts>=7.2,<8
 gTTS>=2.5,<3

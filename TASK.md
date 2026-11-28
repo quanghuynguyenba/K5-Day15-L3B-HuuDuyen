@@ -47,14 +47,17 @@ agent/tools.py         # TOOL_SCHEMAS, dispatch, narrate (Huy + Cường)
 data/pois.json         # 50 POI; một số điểm mới chưa đủ giá/giờ cho bộ lập lịch (Hiếu)
 data/build_db.py       # json → SQLite; MVP hiện đọc JSON trực tiếp (Hiếu)
 rag/search.py          # search_pois, get_poi_context (Hiếu)
-routing/goong.py       # Distance Matrix, Directions, cache (Tùng)
-routing/optimizer.py   # plan_route: OR-Tools / greedy (Tùng)
+routing/maps.py        # TomTom: Matrix, Calculate Route, cache, fallback (Tùng)
+routing/optimizer.py   # plan_route: OR-Tools → kiểm → greedy dự phòng (Tùng)
+routing/ortools_solver.py # VRP 1 xe: time windows, ngân sách, disjunction (Tùng)
+routing/validate.py    # validate_plan: kiểm lịch bằng code, dùng cho eval (Tùng)
 routing/summary.py     # summarize_trip (Tùng)
+routing/warm_cache.py  # tính sẵn ma trận TomTom cho mọi POI → data/cache/maps_cache.json (Tùng)
 services/weather.py    # Open-Meteo (Cường)
 services/tts.py        # edge-tts / gTTS (Cường)
 audio/                 # mp3 thuyết minh pre-generate: <poi_id>_<lang>.mp3
-data/cache/            # matrix, vector (không commit)
-.env.example           # LLM_API_KEY, LLM_MODEL, LLM_BASE_URL, GOONG_API_KEY, (EMBED_API_KEY)
+data/cache/            # vector (không commit) + maps_cache.json (commit, để demo không cần mạng)
+.env.example           # LLM_API_KEY, LLM_MODEL, LLM_BASE_URL, TOMTOM_API_KEY, (EMBED_API_KEY)
 requirements.txt
 ```
 
@@ -145,7 +148,7 @@ Phạm vi MVP dùng JSON và xếp hạng theo tag; SQLite/vector/embedding đư
 | Dữ liệu | Nguồn | Cách lấy |
 |---|---|---|
 | Danh sách POI + toạ độ | OpenStreetMap qua **Overpass API** (miễn phí, không key) | API |
-| Bổ sung / kiểm tra toạ độ | **Goong Geocoding / Places** | API (dùng chung key với Tùng) |
+| Bổ sung / kiểm tra toạ độ | **TomTom Search / Geocoding** | API (dùng chung key với Tùng) |
 | Mô tả, lịch sử, nội dung thuyết minh | **Wikipedia / Wikivoyage** (có sẵn vi, en, ko, ja, zh…), thư viện `wikipedia-api` | API |
 | Giá vé, giờ mở cửa, thời gian tham quan | Website chính thức, trang du lịch Hà Nội | **Tự gom**: LLM tạo bản nháp, người kiểm tra lại từng điểm |
 | `suitable_for`, `indoor`, `tags` | Tự gán | **Tự gom** |
@@ -189,32 +192,41 @@ Script thu thập tự động, vector/embedding và tìm kiếm ngữ nghĩa l�
 
 ### Tùng — Map API + tối ưu lộ trình
 
-**Map API: Goong** (Việt Nam, định dạng giống Google Maps, hiển thị đúng Hoàng Sa – Trường Sa)
-- Distance Matrix: thời gian/quãng đường giữa các POI
-- Directions: lấy polyline để vẽ đường (decode bằng thư viện `polyline`)
-- Free tier giới hạn request/phút → **cache Distance Matrix ra file** cho bộ POI cố định, tính sẵn trước demo
-- Dự phòng: OSRM public demo server (`router.project-osrm.org`, chỉ để demo) → cuối cùng là Haversine × hệ số 1.4 / tốc độ trung bình nội thành
+**Map API: TomTom** (chọn thay Goong: có chế độ xe máy khi tìm đường, gói miễn phí theo ngày, không cần SDK)
+- Matrix Routing v2 (`POST /routing/matrix/2`): thời gian giữa các POI
+- Calculate Route (`GET /routing/1/calculateRoute/...`): **một lần gọi cho cả tuyến**, cache từng chặng → `polyline` bám đường
+- **Cache theo từng cặp điểm** ra `data/cache/maps_cache.json`, tính sẵn bằng `python -m routing.warm_cache`
+- `plan_route` gọi ma trận **một lần**, chỉ xin các cặp còn thiếu; điểm xuất phát mới chỉ tốn 1 × n ô (không xin chiều quay về điểm xuất phát)
+- Matrix v2 có thể không nhận xe máy → xe máy tạm dùng thời gian ô tô trong ma trận (`MATRIX_MODE` trong `routing/maps.py`), đường vẽ vẫn dùng `motorcycle`
+- Có `TOMTOM_API_KEY` là dùng TomTom (độc lập với LLM mock); `USE_TOMTOM=0` để tắt
+- Hiển thị bản đồ nền là phần của frontend; backend chỉ trả `polyline` bám đường
+- Dự phòng: TomTom lỗi → tạm ngừng gọi 60 giây, dùng Haversine × 1.4 / tốc độ trung bình nội thành (đường: nối thẳng)
 
 **Tối ưu: Google OR-Tools** (`pip install ortools`)
 - Mô hình: TSP/VRP 1 xe, **time windows** (giờ mở/đóng cửa), **service time** (`visit_minutes`)
-- **Disjunction có penalty** cho từng POI → solver được phép bỏ bớt điểm nếu không kịp giờ; POI phù hợp sở thích hơn thì penalty cao hơn
-- Ngân sách: lọc trước + chọn tập POI theo điểm ưu tiên / giá (greedy kiểu knapsack) trước khi đưa vào solver; `total_cost = Σ price × n_people` (+ ước tính di chuyển nếu kịp)
+- **Disjunction có penalty** cho từng POI → solver được phép bỏ bớt điểm. Phạt cơ bản > cả ngày di chuyển (ưu tiên đi được nhiều điểm nhất), cộng 10 phút cho mỗi bậc hạng sở thích (`PRIORITY_STEP`)
+- Ngân sách: **chiều "Cost" ngay trong solver** (tổng giá vé × số người ≤ ngân sách), không cần lọc knapsack trước; `total_cost = Σ price × n_people`
 - Giới hạn thời gian solver ~2 giây
-- **Fallback:** greedy nearest-neighbor + kiểm tra giờ mở cửa → viết **trước**, OR-Tools làm sau
+- **Kiểm + fallback:** kết quả OR-Tools qua `validate_plan`; có vi phạm / lỗi / chưa cài ortools → greedy nearest-neighbor
+- `plan_route` trả thêm `solver` (`ortools` | `greedy`) và `dropped_reasons` (`not_found`, `missing_data`, `closed`, `budget`, `time`, `low_priority`) để LLM giải thích đúng vì sao bỏ điểm
+- Đo 27/11 trên 8 kịch bản (ma trận TomTom thật): OR-Tools 78 điểm vs greedy 64, cả hai 0 vi phạm; OR-Tools đi nhiều phút hơn vì nhiều điểm hơn; ~2 giây/lần
 
 **Task:**
-- [ ] Đăng ký Goong key, test Distance Matrix + Directions
-- [ ] `routing/goong.py` + cache
-- [ ] Greedy fallback chạy được → **trước 18:00**
-- [ ] OR-Tools có time windows + disjunction
-- [ ] Trả đúng output `plan_route` (kèm `dropped` để LLM giải thích vì sao bỏ điểm); loại POI có `closed_days` trùng ngày đi
+- [x] Đăng ký TomTom key, điền `TOMTOM_API_KEY` vào `.env`, gọi thử matrix + calculateRoute cho 2 điểm ở Hà Nội (27/11: ô tô, xe máy, đi bộ đều trả kết quả)
+- [x] `routing/maps.py`: Matrix + Calculate Route + cache + fallback Haversine (khung đã viết, chờ test key thật)
+- [x] Kiểm: matrix v2 có nhận `travelMode` xe máy không; số ô tối đa mỗi lần gọi → chỉnh `MATRIX_MODE`, `MAX_CELLS` (matrix từ chối xe máy → dùng ô tô; tối đa 200 ô)
+- [x] Chạy `python -m routing.warm_cache` trước demo, commit `data/cache/maps_cache.json` (33 POI lập lịch được; chạy lại nếu `pois.json` đổi)
+- [x] Greedy fallback chạy được → **trước 18:00**
+- [x] OR-Tools có time windows + disjunction + ngân sách
+- [x] Trả đúng output `plan_route` (kèm `dropped` + `dropped_reasons`); loại POI có `closed_days` trùng ngày đi
+- [x] `validate_plan` kiểm lịch bằng code → dùng làm metric "0 vi phạm" trong `eval/metric_spec.yaml`
 - [ ] Hàm tóm tắt "Sau chuyến đi" `summarize_trip(plan, lang) -> str`: tổng chi và tổng thời gian **tính bằng code** từ `stops`, LLM chỉ viết lời tóm tắt + gợi ý lần sau (dùng lại client LLM của Huy)
 
 ### Cường — Giao diện + thuyết minh + thời tiết + demo
 
 **Giao diện:** ReactJS (Vite) + `react-leaflet`, gọi API ở `server.py`
 - Layout: sidebar + 2 cột, trái là chat, phải là map (`Chat.jsx`, `MapView.jsx`)
-- Map: tile OpenStreetMap mặc định (miễn phí) hoặc tile Goong; marker đánh số theo thứ tự, polyline đường đi, popup giờ đến + giá
+- Map: tile OpenStreetMap mặc định (miễn phí) hoặc tile TomTom (raster, dùng thẳng với Leaflet); marker đánh số theo thứ tự, polyline đường đi, popup giờ đến + giá
 - Bắt sự kiện click marker → hiện thẻ POI + nút "Nghe thuyết minh"
 - Chọn ngôn ngữ (vi / en / ko / ja / zh) ở sidebar
 - State: lịch sử chat + lịch trình giữ ở server theo `session_id` (frontend sinh); React chỉ giữ state hiển thị
@@ -246,7 +258,7 @@ Script thu thập tự động, vector/embedding và tìm kiếm ngữ nghĩa l�
 | 12:00 | Bộ POI mẫu ban đầu; file hiện có 50 POI | Hiếu |
 | 14:00 | UI khung chạy dữ liệu giả; agent gọi được tool giả | Cường, Huy |
 | 16:00 | File đã tăng lên 50 POI đọc JSON; điểm thiếu giá/giờ được bỏ qua khi lập lịch | Hiếu |
-| 18:00 | Greedy route chạy với Goong thật | Tùng |
+| 18:00 | Greedy route chạy với TomTom thật | Tùng |
 | 21:00 | **Tích hợp lần 1:** chat → lịch trình → map end-to-end | Cả nhóm |
 | 22:00 | **Khoá tính năng.** Sau mốc này không thêm tính năng mới | Cả nhóm |
 | 22:00–01:00 | OR-Tools, thuyết minh, thời tiết, sửa lịch trình qua chat | Theo phân công |
@@ -272,7 +284,7 @@ Script thu thập tự động, vector/embedding và tìm kiếm ngữ nghĩa l�
 
 | Rủi ro | Dự phòng |
 |---|---|
-| Hết quota / mất mạng Goong | Distance Matrix cache sẵn; fallback Haversine |
+| Hết quota / mất mạng TomTom | Ma trận + đường cache sẵn; tạm ngừng gọi 60 giây; fallback Haversine |
 | LLM chậm / lỗi lúc demo | Câu chat demo đã chạy thử nhiều lần; video quay sẵn |
 | TTS lỗi | Audio mp3 pre-generate cho POI trong kịch bản |
 | Embedding local chạy chậm trên máy demo | Vector đã tính sẵn; chỉ embed câu hỏi |

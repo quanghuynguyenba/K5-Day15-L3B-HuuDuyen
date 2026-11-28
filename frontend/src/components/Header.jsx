@@ -27,7 +27,14 @@ export default function Header({
   weather,
   preview,
   onOpenSidebar,
+  geo,
 }) {
+  const located = geo?.status === "ok" && geo.location;
+  const locationLabel = located
+    ? `Vị trí của bạn${geo.location.accuracy ? ` · ±${geo.location.accuracy} m` : ""}`
+    : geo?.status === "pending"
+      ? "Đang định vị…"
+      : "Hà Nội";
   return (
     <header className="top-header">
       <div className="brand">
@@ -44,9 +51,15 @@ export default function Header({
         </span>
         <strong>Hanoi Travel AI</strong>
         <Chip
-          className="location-pill"
+          className={`location-pill ${located ? "located" : ""}`}
           icon={<Icon name="pin" size={14} />}
-          label="Hà Nội"
+          label={locationLabel}
+          title={
+            located
+              ? `Lịch trình xuất phát từ vị trí hiện tại (${geo.location.lat}, ${geo.location.lng})`
+              : geo?.error || "Chưa có vị trí — lịch trình xuất phát từ Hồ Gươm. Bấm để thử lại."
+          }
+          onClick={!located && geo?.retry ? geo.retry : undefined}
           size="small"
         />
       </div>
