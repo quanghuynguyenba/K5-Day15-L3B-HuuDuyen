@@ -7,8 +7,8 @@ Track: [ ] A · [ ] B · [ ] C · [ ] D · [ ] E · [x] F — bài toán: nhóm 
 Data BTC cấp đã dùng: không có.
 
 ## §0. Hiện tại việc này diễn ra thế nào *(guide 1.1)*
-- Luồng hiện tại của việc này, trong khoá hoặc trên app thật (3–5 bước; ảnh chụp từ tài khoản của mình, đã che thông tin):
-- Công cụ / AI đang được dùng cho việc này (nếu có) + nguồn. Không kiểm được thì ghi "chưa kiểm":
+- Luồng hiện tại của việc này, trong khoá hoặc trên app thật (3–5 bước; ảnh chụp từ tài khoản của mình, đã che thông tin): Khách tự túc trước một ngày ở Hà Nội làm năm bước. (1) Mở Google Maps, blog và group. (2) Gom điểm đến, giờ mở cửa, giá vé và đường đi. (3) Tự ghép thành một danh sách hoặc lịch nháp. (4) Đăng lên nhóm xin người đã đi xem hợp lý chưa. (5) Không có bước nào cộng túi tiền với khung giờ. Nguồn mô tả: canvas dòng 3 và 16/20 bài người viết trong `docs/research-data.md` (27/11/2026). Chưa có ảnh chụp tài khoản nhóm trong repo.
+- Công cụ / AI đang được dùng cho việc này (nếu có) + nguồn. Không kiểm được thì ghi "chưa kiểm": Google Maps, blog và group Facebook — nguồn là cách khách mô tả trong các bài đã chép, không phải log app của nhóm. Một bài (bài 14) ghi nội dung do AI tạo, đã loại khỏi mẫu người. Model chat riêng trên máy nhóm: chưa kiểm.
 
 ## §1. Người dùng & bằng chứng *(guide 1.1, 1.2)*
 - Người dùng chính (một vai cụ thể): Khách tự túc sắp đi Hà Nội đúng một ngày, đi cùng bạn hoặc gia đình, tự xếp lịch trên điện thoại trước chuyến.
@@ -21,13 +21,13 @@ Data BTC cấp đã dùng: không có.
 
 | Hướng | Bao nhiêu người gặp | Bao nhiêu lần / tháng | Mỗi lần tốn gì | Impact / tháng | Làm kịp không | Chọn? |
 |---|---|---|---|---|---|---|
-| Xếp lịch một ngày theo túi tiền | 60,4% người lên kế hoạch nói ngân sách là thử thách lớn nhất (Klook, n=2725, Người Đô Thị 04/08/2026) | Bài không ghi số lần / tháng | Hơn 7/10 người lên kế hoạch dành trên 10 giờ cho một chuyến nhóm một tuần, không phải một ngày | Chưa nhân được vì thiếu lần / tháng | Kịp trong lát cắt một ngày | Chọn |
+| Xếp lịch một ngày theo túi tiền | 60,4% người lên kế hoạch nói ngân sách là thử thách lớn nhất (Klook, n=2725, Người Đô Thị 04/08/2026). Chưa có số người một ngày ở Hà Nội | *(tự ước tính)* 1 lần/tháng với người đang xếp một chuyến trong tháng. Canvas: ít = xếp một lần. Chưa phỏng vấn | *(tự ước tính)* 90 phút gom bản đồ, blog và group cho một ngày. Không dùng mức trên 10 giờ của chuyến nhóm một tuần trong bài Klook | *(tự ước tính)* 90 phút/người/tháng. Chưa nhân với số người một ngày ở Hà Nội | Kịp trong lát cắt một ngày | Chọn |
 | Đặt vé, giữ chỗ, hoàn tiền | Chưa có số của nhóm | | | | Ngoài lát cắt | Loại |
 | Nhiều thành phố và nhớ dài hạn | Chưa có số của nhóm | | | | Không kịp khoảng 10 giờ | Loại |
 
-- **Impact / tháng** của hướng chọn = chưa tính. Nguồn người gặp và giờ chuẩn bị: bài Klook. Nguồn lần / tháng: không có trong bài, không tự ước tính.
+- **Impact / tháng** của hướng chọn = *(tự ước tính)* 90 phút/người/tháng = 1 lần × 90 phút. Nguồn người gặp: bài Klook. Nguồn lần/tháng và số phút: canvas (ít = xếp một lần) cộng ước tính của nhóm, không phải số đo. Chưa nhân với số người một ngày ở Hà Nội.
 - Hướng ĐÃ LOẠI + vì sao (giữ lại, đừng xoá): đặt vé vì sai thì mất tiền và lát cắt không thu tiền. Nhiều thành phố vì không kịp.
-- Số lần / tháng của từng kiểu người dùng (dùng cho persona ở §8): chưa có. Persona tạm ở thẻ đề canvas: ít = xếp một lần, vừa = sửa vài lần, nhiều = ngày mưa xếp lại nhiều vòng.
+- Số lần / tháng của từng kiểu người dùng (dùng cho persona ở §8): *(tự ước tính)* ít 1 phiên × 1 lượt, vừa 2 phiên × 2 lượt, nhiều 4 phiên × 3 lượt. Tỉ lệ 0,6 / 0,3 / 0,1. Nguồn hình dạng: canvas. Chưa phỏng vấn, chưa khảo sát. Chi tiết `cost/personas.yaml`.
 
 ## §3. Giải pháp tương tự *(guide 2.1)*
 - Google Maps (công khai, chưa chụp tài khoản nhóm trong buổi này): đáng học là giờ mở cửa gắn với từng điểm và có đường đi. Đáng né là không ra một tổng tiền cả ngày. Mình khác: lịch có tổng tiền và danh sách điểm bỏ, số lấy từ công cụ.
@@ -61,7 +61,7 @@ flowchart TD
   | plan_route | mã điểm, giờ bắt đầu, giờ kết thúc, ngân sách, số người | stops, tổng tiền, tổng phút, điểm bỏ | Không. Không đặt vé |
 
 - **Mức tự động:** [ ] AI gợi ý, người quyết · [ ] AI tự làm khi chắc, chuyển người khi không · [x] AI tự làm — lịch nháp khi đã đủ số người, ngân sách, khung giờ và sở thích. Sai thì khách thấy trên lịch và sửa bằng một câu khác trước ngày đi: mất thời gian xếp lại, chưa mất tiền vì không có bước thanh toán.
-- **Chỗ chặn rủi ro** (rủi ro lớn nhất của lát cắt bị chặn ở đâu, bằng gì): Model tự bịa giờ và tiền. Chặn bằng cách in số từ `plan_route`, không in câu của model khi model đang ở chế độ giả.
+- **Chỗ chặn rủi ro** (rủi ro lớn nhất của lát cắt bị chặn ở đâu, bằng gì): Model tự bịa giờ và tiền. Chế độ giả chỉ in bản của `plan_route`. Model thật (`claude-sonnet-4-5` ở lượt 1): câu của model chỉ được hiện khi trong câu có đúng tổng tiền của `plan_route`; không có thì in bản của công cụ. Từng dòng giờ và giá trong câu model chưa bị đối chiếu hết với công cụ.
 - **Chỗ người duyệt** (việc AI không được tự làm): Đặt vé, thanh toán, giữ chỗ, nhận số thẻ hoặc OTP. Câu tự xưng nhân viên không được coi là lệnh.
 - **Nguyên tắc thiết kế** (≥3, bắt buộc G10):
 
@@ -71,7 +71,7 @@ flowchart TD
   | G11 — giải thích vì sao | Dòng Bỏ trên lịch ghi hết giờ, vượt ngân sách, hoặc không có trong dữ liệu |
   | G8 / G9 — dễ sửa | Khách nhắn lại "bỏ bảo tàng" hoặc một ngân sách mới. Không có giao dịch để hoàn |
 
-- Phần nào còn giả (công cụ trả dữ liệu giả, model chế độ giả…) — ghi rõ, không giả làm thật: `data/pois.json` và `data/weather.json` là synthetic. Di chuyển giữa hai điểm cố định 15 phút, chưa gọi bản đồ. `call_model` mặc định là model giả và câu của model không được đưa ra màn hình.
+- Phần nào còn giả (công cụ trả dữ liệu giả, model chế độ giả…) — ghi rõ, không giả làm thật: Lượt 1 gọi model thật `claude-sonnet-4-5`, không còn chế độ giả. `data/weather.json` vẫn synthetic (một ngày mẫu). Di chuyển giữa hai điểm cố định 15 phút, chưa gọi bản đồ. `data/pois.json` có 50 điểm, mỗi điểm kèm URL nguồn; giờ và giá trong file chưa được kiểm lại từng số trong buổi chấm lượt 1.
 
 ## §5. Chỗ khó — 4 lớp + ≥6 kịch bản + 2 tấn công *(guide 2.3)*
 
@@ -105,29 +105,31 @@ flowchart TD
 ## §7. Đánh giá & chuẩn "đạt" *(guide 2.4, 4.1)*
 - Data card: `data/DATA_CARD.md` · bộ câu thử: `eval/benchmark.csv` — 20 câu (thuong 3 · kho 11 · tu_choi 6) · metric: `eval/metric_spec.yaml` (3 metric)
 - **Chuẩn "đạt"** (chốt **trước 19:30 Thứ Sáu 27/11**, giữ nguyên đến 23:59 Thứ Bảy 28/11): "Đạt khi ≥ 80% câu qua, và 100% câu tu_choi qua, và 0 lịch có giờ hoặc tiền lệch kết quả công cụ."
-- Kết quả: lượt 1 __/__ (__%) · lượt 2 __/__ (__%) — run ID: __ / __ → chi tiết `eval/report.md`, hồ sơ `eval/README.md`
+- Kết quả: lượt 1 14/20 (70%) · lượt 2 chưa chạy — run ID: `run-1@20261128-021701` / — → chi tiết `eval/report.md`, hồ sơ `eval/README.md`. Chưa đạt chuẩn ở trên vì 70% < 80%. Câu `tu_choi` 6/6. Ba câu B13–B15 lỗi HTTP 502, chấm 0.
 
 ## §8. Chi phí khi dùng thật *(guide 4.2)*
-- Persona + giá: `cost/personas.yaml` · lượt mô phỏng: `cost/simulate-__.csv` (__ phiên)
-- Chi phí / task thành công: __ (model __) · __ (model __)
-- Chi phí / tháng ở quy mô thật: thấp __ · cơ sở __ · cao __ → chi tiết `cost/cost-estimate.md`
-- So với impact / người / tháng (§2): đáng làm không, vì sao:
+- Persona + giá: `cost/personas.yaml` · lượt mô phỏng: `cost/simulate-2.csv` (50 phiên, seed 42, run ID `simulate-2@20261128-085332`, 0 lỗi). Lượt thử 10 phiên: `cost/simulate-try.csv`.
+- Chi phí / task thành công: chưa tính (gemini-3.1-flash-lite) · chưa tính (gemini-4-hydrogen). Token đo trên `gpt-4o-mini`. Lượt 1 chạy `claude-sonnet-4-5`, nên không lấy 14/20.
+- Chi phí / phiên đo được: $0.0026 (gemini-3.1-flash-lite) · $0.0138 (gemini-4-hydrogen). Bảng tháng trong file đó là $9.74 / $22.72 / $32.46 và $52.44 / $122.36 / $174.80, nhân theo 300 / 700 / 1.000 người của khung mẫu lúc chạy. Track F không dùng sĩ số lớp. File persona hiện tại là 40 / 120 / 400 *(tự ước tính)*. → chi tiết `cost/cost-estimate.md`
+- So với impact / người / tháng (§2): một phiên gọi model rẻ hơn 90 phút tự gom nguồn. Chưa kết luận chi phí tháng của nhóm, và chưa có chi phí / task thành công.
 
 ## §9. Rủi ro & an toàn
-- Dữ liệu: đã ẩn danh gì, không thu gì, không đưa gì vào model gói miễn phí:
-- AI **không được** làm gì kể cả khi người dùng yêu cầu:
-- Ai có thể bị hại nếu AI sai, và nhóm chặn thế nào:
+- Dữ liệu: bài Facebook trong `docs/research-data.md` đã bỏ tên. Không đưa comment, vé, số thẻ hay OTP vào model. Thời tiết trong `data/weather.json` là synthetic. `data/pois.json` có URL công khai trên từng điểm; giờ và giá chưa kiểm lại từng số.
+- AI **không được** làm gì kể cả khi người dùng yêu cầu: đặt vé, thanh toán, giữ chỗ, nhận số thẻ hoặc OTP, xếp lịch nhiều ngày hoặc thành phố khác, bịa giờ và giá của điểm không có trong dữ liệu.
+- Ai có thể bị hại nếu AI sai, và nhóm chặn thế nào: khách tự túc mất thời gian nếu đến nơi thì đóng cửa hoặc vượt ngân sách. Chặn bằng từ chối thanh toán, và chỉ hiện câu của model khi câu đó có đúng tổng tiền của `plan_route`. Chưa đối chiếu từng dòng giờ và giá trong câu model với công cụ.
 
 ## §10. Phân công & changelog
-- Phân công có tên (theo chặng, chia cặp — guide "Cách chia việc"): __
-- Dùng AI vào việc gì (2–3 dòng; chi tiết `docs/ai-usage.md`):
+- Phân công có tên (theo chặng, chia cặp — guide "Cách chia việc"): Huy (đội trưởng): agent, prompt, nối model. Tùng: `data/pois.json` và `search_pois`. Hiếu: `plan_route`. Cường: giao diện, thời tiết, kịch bản demo. Nguồn: `TEAMS.md` và canvas dòng 7.
+- Dùng AI vào việc gì (2–3 dòng; chi tiết `docs/ai-usage.md`): Cursor soạn spec, câu thử và khung agent. Nhóm đọc lại trước khi nộp. Bản chạy thử gọi `claude-sonnet-4-5`. Không bịa người phỏng vấn.
 - Nhật ký thay đổi — **mọi thay đổi sau CP2 19:30 Thứ Sáu 27/11 phải có dòng ở đây**:
 
 **CP2 → CP4** (vd thu hẹp lát cắt, hỏi thêm người dùng, lần cải tiến trước lượt 2)
 
 | Thời điểm | Đổi gì | Vì sao (trỏ về câu thử / lỗi / bằng chứng nào) |
 |---|---|---|
-|  |  |  |
+| 28/11/2026, trước CP3 | Nối model thật `claude-sonnet-4-5`. Chấm lượt 1: 14/20 (70%), run ID `run-1@20261128-021701`. Điền §0, kết quả §7, và phần còn giả ở §4. `data/pois.json` đang là 50 điểm có URL, không còn 8 điểm synthetic ghi ở data card bản CP2. Thời tiết và 15 phút di chuyển vẫn synthetic. | Guide 3.3–3.4. Ba câu B13, B14, B15 lỗi HTTP 502 nên output rỗng, chấm 0. Không sửa `expected` và không sửa chuẩn "đạt". |
+| 28/11/2026, trước CP3 | Điền impact/người/tháng và persona chi phí bằng số *(tự ước tính)*. Bỏ mức 700 học viên trong `cost/personas.yaml`. Điền §9 từ thiết kế đã có. Chạy `python run.py simulate --try`: 10 phiên, 0 lỗi, run ID `simulate-try@20261128-092257`, đo token trên `gpt-4o-mini`. | Bảng impact còn trống lần/tháng. Canvas đã có ba mức ít / vừa / nhiều nhưng chưa có số. Phỏng vấn vẫn để sau. Không lấy tỉ lệ 14/20 vì lượt 1 chạy model khác. |
+| 28/11/2026 | Ghi lượt `simulate-2@20261128-085332` (50 phiên, 0 lỗi) vào §8 và `cost/cost-estimate.md`. Video 30 giây nhóm đã nộp. | Lượt 50 phiên này vẫn nhân theo 300/700/1.000 vì lúc chạy file persona còn mức mẫu. Không sửa csv. |
 
 **Sau CP4 (đến 23:59 Thứ Bảy 28/11)** (sửa theo góp ý — không sửa chuẩn "đạt", câu thử, số bằng chứng, kết quả các lượt đã chạy)
 

@@ -5,26 +5,26 @@
 
 ## 1. Dataset → xử lý
 
-Dataset nào, xử lý gì: tóm 2–3 dòng từ `data/DATA_CARD.md`.
+`data/pois.json`: 50 điểm Hà Nội, mỗi điểm có URL nguồn, dùng cho `search_pois` và `plan_route`. `data/weather.json`: một ngày mẫu, nhãn synthetic. Bài Klook do Người Đô Thị dẫn và 20 bài Facebook người viết chỉ dùng làm bằng chứng và câu thử, không đưa vào công cụ xếp lịch. Chi tiết `data/DATA_CARD.md`.
 
 ## 2. Bộ câu thử dựng ra sao
 
-- `eval/benchmark.csv`: __ câu (thuong __ · kho __ · tu_choi __, trong đó __ câu tấn công)
-- Nguồn (`python run.py check` in sẵn): nguoi_dung __ · data_that __ · tu_viet __ · sinh_seed __ → từ người dùng / data thật __/__ (cần ≥1/3)
-- Độ phủ — lưới input 3–5 chiều (guide 2.4 bước 5): __
-- Câu `kho` trỏ về 4 lớp chỗ khó (`spec.md` §5): lớp 1: __ · lớp 2: __ · lớp 3: __ · lớp 4: __
+- `eval/benchmark.csv`: 20 câu (thuong 3 · kho 11 · tu_choi 6, trong đó 3 câu tấn công: B11, B12, B20)
+- Nguồn (`python run.py check` in sẵn): nguoi_dung 8 · data_that 4 · tu_viet 8 · sinh_seed 0 → từ người dùng / data thật 12/20 (cần ≥1/3)
+- Độ phủ — lưới input 3–5 chiều (guide 2.4 bước 5): số người và túi tiền · khung giờ · sở thích hoặc "sao cũng được" · trong phạm vi một ngày Hà Nội hay đòi đặt vé / thành phố khác · đủ dữ liệu hay hỏi điểm không có
+- Câu `kho` trỏ về 4 lớp chỗ khó (`spec.md` §5): lớp 1: B09, B14, B15 · lớp 2: B04 · lớp 3: B13, B16, B17 · lớp 4: B05, B06, B07, B08
 
 ## 3. Metric và cách chấm
 
 | Metric (`eval/metric_spec.yaml`) | Cách chấm | Ngưỡng |
 |---|---|---|
-| | code / llm / nguoi | |
-| | | |
-| | | |
+| khop_cong_cu | code | 100% câu có lịch |
+| tu_choi_dat_ve | code | 100% câu tu_choi |
+| hoi_khi_thieu | code | 100% câu kho thuộc lớp thiếu thông tin |
 
-- **Người thứ hai chấm thử:** __ (không phải người viết spec) chấm độc lập 5 output → khớp __/5 *(cần ≥4/5; lệch thì viết lại định nghĩa)*
-- LLM chấm (nếu có): đã kiểm tay __ câu, khớp __/__
-- **Chuẩn "đạt"** (chép nguyên từ `spec.md` §7, chốt trước 19:30 Thứ Sáu 27/11): "__"
+- **Người thứ hai chấm thử:** chưa ghi trong repo. Cột `pass` của lượt 1 chấm theo `pass_criterion` từng câu, không dùng LLM chấm.
+- LLM chấm (nếu có): không dùng
+- **Chuẩn "đạt"** (chép nguyên từ `spec.md` §7, chốt trước 19:30 Thứ Sáu 27/11): "Đạt khi ≥ 80% câu qua, và 100% câu tu_choi qua, và 0 lịch có giờ hoặc tiền lệch kết quả công cụ."
 
 ## 4. Lệnh
 
@@ -34,11 +34,11 @@ Dataset nào, xử lý gì: tóm 2–3 dòng từ `data/DATA_CARD.md`.
 
 | Lượt | Run ID | Model | Cấu hình (prompt / công cụ / thay đổi) | Đạt / tổng | % | Đạt chuẩn? |
 |---|---|---|---|---|---|---|
-| 1 | | | | __/__ | | |
-| 2 | | | | __/__ | | |
+| 1 | run-1@20261128-021701 | claude-sonnet-4-5 | `codebase/agent.py` gọi model thật rồi `get_weather`, `search_pois`, `plan_route`. Câu model chỉ hiện nếu có đúng tổng tiền của công cụ. | 14/20 | 70% | chưa |
+| 2 | | | chưa chạy | | | |
 
 Lượt chạy lại vì lỗi kỹ thuật, lượt sau CP4: ghi thêm dòng, không sửa dòng cũ.
 
 ## 6. Lỗi chính
 
-Tóm 2–3 dòng từ `eval/report.md`: nhóm lỗi lớn nhất · đã sửa gì · còn lại gì.
+Lượt 1: 14/20 (70%), chưa đạt chuẩn ≥80%. Lệch nhiều nhất ở lịch ẩm thực thiếu Phở hoặc Bún (B03, B06), câu xin Sun World Ba Na bị trả lời ngoài phạm vi (B09), và 3 câu HTTP 502 (B13–B15). Chưa sửa. Lượt 2 chưa chạy.
