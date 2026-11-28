@@ -1,0 +1,11 @@
+{
+  "text": "안녕하세요, 여러분! 지금 우리는 하노이 구시가지에 위치한 25 Hàng Cá에 있는 유명한 반미 가게, \"Banh Mi 25\"에 왔습니다. 이곳은 국제 관광객들에게 매우 인기 있는 장소입니다. \n\n반미 한 개의 가격은 보통 30,000에서 45,000 VND 사이이며, 판에서 제공되는 특별 버전의 경우는 조금 더 비쌀 수 있습니다. 이곳을 방문하실 때는 아침 9시 이전에 오시는 것이 좋습니다. 그래야 붐비지 않아 더욱 편안하게 드실 수 있습니다.\n\n\"Banh Mi 25\"는 오전 7시부터 오후 9시까지 운영되니, 꼭 참고하시고 맛있는 반미를 즐겨보세요!",
+  "text_sha256": "d9a6faf7f344f26d104e8041a605eb5c3b8c34e0e142a1bb77c69a494e1956e2",
+  "audio_sha256": "83eda4f21e3aa8c78493eb5b5b3136a1a292f439727f603db34ace7dee22c338",
+  "lang": "ko",
+  "provider": "edge-tts",
+  "source": "https://www.vietnamtourism.com/vi/an-banh-mi-o-ha-noi-i-au-goi-gi-va-lua-chon-cua-anthony-bour",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "1f84de74474295926b117c9bcff07e463e1c97a44529d18b2832cc38d4516d65"
+}

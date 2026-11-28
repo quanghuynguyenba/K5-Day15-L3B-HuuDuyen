@@ -1,11 +1,11 @@
 {
   "text": "Bảo tàng Thiên nhiên Việt Nam đưa người xem đến với câu chuyện về sự sống và tính đa dạng của thế giới tự nhiên. Các mẫu vật giúp giới thiệu đặc điểm của sinh vật, mối liên hệ giữa chúng với môi trường và những biến đổi qua thời gian. Khác với việc chỉ nhìn hình ảnh trong sách, quan sát mẫu vật tạo cơ hội nhận ra hình dáng, cấu trúc và những chi tiết rất nhỏ. Không gian trưng bày khơi gợi sự tò mò khoa học, đồng thời nhắc đến giá trị của việc nghiên cứu, lưu giữ và bảo vệ di sản thiên nhiên.",
   "text_sha256": "92924616e84a279332f675594c8986e397111721d0b1189e88fb2a6a5cb62530",
-  "audio_sha256": "2af91fcce17cab292f80c35e0d554d927ed002997cdac314cb0c4cd3b20f71fa",
+  "audio_sha256": "d2301787b59a2bbe56928065ea4d517e3774c32102b8e840f81ab48a6456a55a",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://vnmn.ac.vn/public/",
   "approved": true,
   "prepared": true,
-  "context_sha256": "80f61624d0dff2dbff3e353f719d433099ac543da33bfa6c8215c41025f9010d"
+  "context_sha256": "4d25887d889780c8929bfe28640e06312b65fc079be2d381587887b16a603ca6"
 }

@@ -22,8 +22,12 @@ PRIORITY_STEP = 10  # phút di chuyển đổi lấy 1 bậc hạng ưu tiên
 
 
 def solve(pois: list[dict], matrix: list[list[int]], start_min: int, end_min: int,
-          budget_vnd: int, n_people: int, time_limit_s: int = TIME_LIMIT_S):
-    """pois: POI đã lọc, theo thứ tự ưu tiên. matrix: phút di chuyển, chỉ số 0 = điểm xuất phát, i+1 = pois[i]."""
+          budget_vnd: int, n_people: int, time_limit_s: int = TIME_LIMIT_S,
+          must: set | None = None, first: str | None = None, max_stops: int | None = None):
+    """pois: POI đã lọc, theo thứ tự ưu tiên. matrix: phút di chuyển, chỉ số 0 = điểm xuất phát, i+1 = pois[i].
+    must: id khách chỉ đích danh (vd "muốn đến Văn Miếu") — phạt bỏ cực lớn, gần như bắt buộc.
+    first: id phải là điểm dừng đầu tiên (điểm đến khách hỏi đường). max_stops: số điểm tối đa ("gợi ý 5 điểm")."""
+    must = set(must or ())
     try:
         from ortools.constraint_solver import pywrapcp, routing_enums_pb2
     except ImportError:
@@ -78,6 +82,8 @@ def solve(pois: list[dict], matrix: list[list[int]], start_min: int, end_min: in
         lo = max(to_min(p["open"]), start_min)
         hi = min(to_min(p["close"]), end_min) - p["visit_minutes"]
         penalty = base * (n + 1) + PRIORITY_STEP * (n - k)  # bỏ 2 điểm luôn tệ hơn bỏ 1 điểm bất kỳ
+        if p["id"] in must:
+            penalty *= 100 * (n + 1)  # bỏ điểm khách chỉ đích danh tệ hơn bỏ mọi điểm khác cộng lại
         if lo > hi or price[node] > budget_vnd:
             # không thể xếp dù đi một mình → buộc bỏ (vẫn khai disjunction để mô hình khả thi)
             routing.AddDisjunction([index], 0)
@@ -85,6 +91,12 @@ def solve(pois: list[dict], matrix: list[list[int]], start_min: int, end_min: in
             continue
         time.CumulVar(index).SetRange(lo, hi)
         routing.AddDisjunction([index], penalty)
+        if first and p["id"] == first:
+            routing.solver().Add(routing.NextVar(routing.Start(0)) == index)  # đi thẳng tới điểm đến trước
+
+    if max_stops:
+        count_cb = routing.RegisterUnaryTransitCallback(lambda fi: 1 if 1 <= manager.IndexToNode(fi) <= n else 0)
+        routing.AddDimension(count_cb, 0, int(max_stops), True, "Count")
 
     params = pywrapcp.DefaultRoutingSearchParameters()
     params.first_solution_strategy = routing_enums_pb2.FirstSolutionStrategy.PATH_CHEAPEST_ARC

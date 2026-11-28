@@ -1,0 +1,11 @@
+{
+  "text": "Welcome to the Vietnam National Museum of Nature, or Bảo tàng Thiên nhiên Việt Nam! This museum is located within the Vietnam Academy of Science and Technology at 18 Hoang Quoc Viet. Here, you will find a compact yet fascinating exhibition showcasing various specimens and the evolution of life.\n\nThe museum is open from Wednesday to Saturday, with visiting hours from 8:30 AM to 11:30 AM and then again from 1:30 PM to 4:30 PM. Please note that on Tuesdays and Fridays, only pre-booked groups are allowed to visit, while Saturdays and Sundays welcome walk-in visitors.\n\nOne important tip is to enter through gate 2 and confirm your group arrangements upon arrival. Admission to the museum is free, but it’s always a good idea to check any updates or requirements at the entrance.\n\nEnjoy exploring the wonders of nature and the story of life evolution as you take your time viewing the exhibits. Should you have any questions or need assistance, don’t hesitate to ask the staff. Have a great visit!",
+  "text_sha256": "659ddb8394035d296dd7b268f33c1cd894c0ba192cd620356c534b47d919807c",
+  "audio_sha256": "4ed3ad6ecff123f274b53d2cf8bcde9b0ce3ffcbcdd047fe4800b60dcc5fef2c",
+  "lang": "en",
+  "provider": "edge-tts",
+  "source": "https://vnmn.ac.vn/public/ | https://travel.com.vn/en/tin-tuc-du-lich/dia-diem-du-lich-ha-noi-v18484.aspx",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "064bab02218ab64df7786482a045d1338d1b79679524308354464103b597aac5"
+}

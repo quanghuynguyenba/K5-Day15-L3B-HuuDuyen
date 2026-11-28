@@ -1,11 +1,11 @@
 {
   "text": "Khu di tích Cổ Loa gắn với nước Âu Lạc và An Dương Vương, mở ra một phần câu chuyện về buổi đầu dựng nước. Những vòng thành đất cùng hệ thống đền, đình và không gian làng xóm cho thấy sự kết hợp giữa dấu tích thành cổ với đời sống cộng đồng. Bên cạnh tư liệu lịch sử và khảo cổ, nơi đây còn lưu truyền câu chuyện nỏ thần cùng Mỵ Châu, Trọng Thủy. Đó là lớp truyền thuyết cần được phân biệt với sự kiện đã kiểm chứng, nhưng vẫn phản ánh cách người xưa gửi gắm ký ức và bài học vào di sản.",
   "text_sha256": "4811ea9f945f7d2767ffec06fe96c65c6b4a76279d168b7584834e3928e38b9c",
-  "audio_sha256": "e86d70f36802d0bfcae874728b63465f0b098d73e0dd96d53e9daf871fcf05d8",
+  "audio_sha256": "f8068200fc8446eaa46af643d8495f805f3f1645f4075dbd7defb4b0bf56a989",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://donganh.hanoi.gov.vn/di-tich-lich-su-va-van-hoa/khu-di-tich-co-loa-28342506231105416.htm",
   "approved": true,
   "prepared": true,
-  "context_sha256": "190bbf3085950df8622716d4d14fc4be46158a5af14ee4ff2bc312cd2af590a4"
+  "context_sha256": "995706cb51755d5576b339f920afd53477decbb0e3f5e330652b14caf1d9e440"
 }

@@ -1,9 +1,9 @@
 {
   "text": "Đền Bạch Mã nằm trên phố Hàng Buồm, là một di tích tín ngưỡng quan trọng trong không gian phố cổ. Ngôi đền gắn với truyền thuyết ngựa trắng giúp nhà vua xác định dấu thành khi xây dựng kinh đô Thăng Long. Câu chuyện dân gian ấy thể hiện cách cộng đồng lý giải và gửi gắm niềm tin vào sự bảo hộ của thần linh. Bên trong di tích, kiến trúc thờ tự và những chi tiết trang trí tạo nên vẻ trang nghiêm. Giữa khu phố buôn bán đông đúc, đền giữ vai trò như một điểm tựa tinh thần và ký ức của cư dân.",
   "text_sha256": "1eafbede644a67094b39c60fd014aa361eb6fc1e29162b71da33907fe06ff3c0",
-  "audio_sha256": "27481ecd9a80ee87b69a13c535048e4cdb22b3a3a64d895cac082a17a17c9cb2",
+  "audio_sha256": "7a32a8a0385e3b90e035063f447e5124473c245cb3b43c19cf2dcac2554f9f6c",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://cityguide.vn/vn/hanoi/dia-diem/den-bach-ma",
   "approved": true,
   "prepared": true,

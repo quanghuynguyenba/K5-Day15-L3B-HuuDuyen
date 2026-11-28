@@ -1,9 +1,9 @@
 {
   "text": "Di tích Nhà tù Hỏa Lò là nơi lưu giữ những ký ức về cuộc đấu tranh giành độc lập của dân tộc. Qua các không gian trưng bày, chúng ta sẽ tìm hiểu hoàn cảnh giam giữ khắc nghiệt và tinh thần kiên cường của những người tù yêu nước. Xin quý khách dành thời gian đọc những câu chuyện gắn với từng hiện vật, bởi phía sau đó là số phận, niềm tin và sự hy sinh của con người. Hy vọng chuyến tham quan giúp chúng ta thêm trân trọng giá trị của tự do và cuộc sống hòa bình hôm nay.",
   "text_sha256": "f00eeed5811d8c7009ef2e752250650298d49e84ff43cb937474ffb920ef72b8",
-  "audio_sha256": "70a455703425f87e40e4f61dc80ab71b21c946a12b72b13d1b25134d8f309b05",
+  "audio_sha256": "2969e98f96385853a2ec2fcacf2957f9dee5ae2802c223014a600fd5aa06b6c5",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://trungbayonline.hoalo.vn/Home/About",
   "approved": true,
   "prepared": true,

@@ -1,9 +1,9 @@
 {
   "text": "Trung tâm Giao lưu Văn hóa Phố cổ Hà Nội tại số năm mươi Đào Duy Từ là không gian giới thiệu những giá trị của di sản đô thị. Câu chuyện về phố nghề, kiến trúc và đời sống cư dân được kết nối với hoạt động giao lưu văn hóa. Điểm đặc biệt của trung tâm là cách nhìn phố cổ như một cộng đồng đang sống, thay vì chỉ là tập hợp những ngôi nhà cũ. Những nội dung giới thiệu giúp đặt từng di tích vào bối cảnh rộng hơn, nơi nghề nghiệp, sinh hoạt và ký ức cùng góp phần hình thành bản sắc Hà Nội.",
   "text_sha256": "70e063940a7411fd5f8e3500da4658f4557b8bc14b5b5f3689574bfda14527b9",
-  "audio_sha256": "e233a85a7258ac393490817a35a068f40dedd97b6a0f42304d4f515455879152",
+  "audio_sha256": "ad62a543d08cfd1a1f376e7e90957813d98bf02f1f7ff27c2837e385ca68f429",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://baonghean.vn/pho-co-ha-noi-huong-dan-tham-quan-4-di-tich-thu-phi-10313940.html",
   "approved": true,
   "prepared": true,

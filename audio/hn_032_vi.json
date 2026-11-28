@@ -1,11 +1,11 @@
 {
   "text": "Làng lụa Vạn Phúc gắn với nghề dệt và những sản phẩm lụa đã trở thành một dấu ấn văn hóa của vùng Hà Đông. Trên từng tấm vải, độ óng, màu sắc và hoa văn cho thấy sự kết hợp giữa chất liệu với kỹ thuật của người thợ. Không gian làng nghề còn kết nối hoạt động sản xuất, buôn bán và sinh hoạt cộng đồng. Câu chuyện về lụa vì thế không dừng ở một món hàng, mà mở ra cách một nghề truyền thống được truyền nối và thích ứng với đời sống mới, đồng thời gìn giữ nét riêng của địa phương.",
   "text_sha256": "1ef09ac508e3131d53efdb8998a68976b72b114bb054ac45d9229950fb47f6f4",
-  "audio_sha256": "96833cb70bdd412008cd6523e203f70018fbd9bd8bba8ce8663aef59b74523e1",
+  "audio_sha256": "4904d1f9c264547674f656824f2ec565f0162363ca30df70ec81c1bfca5eaa3d",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://thanglong.chinhphu.vn/ha-noi-cong-nhan-diem-du-lich-lang-nghe-det-lua-van-phuc-ha-dong-103260804125611912.htm",
   "approved": true,
   "prepared": true,
-  "context_sha256": "dab74da4cf72b8f8acd82d2195cef600ff2c789e2291de4a1cbf880aefcd755c"
+  "context_sha256": "0ef34c60bef3a2e17742c6748c69b0a3daacc9b6ca0834ce514163bec257a4ef"
 }

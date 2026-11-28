@@ -1,9 +1,9 @@
 {
   "text": "Phố cổ Hà Nội lưu giữ dấu ấn của một đô thị phát triển từ những phố nghề và hoạt động buôn bán. Các con phố nhỏ, nhà ống và cửa hàng san sát tạo nên không gian vừa chật hẹp vừa giàu sức sống. Điều đặc biệt nằm ở sự đan xen giữa nơi ở, nơi làm nghề và những công trình tín ngưỡng của cộng đồng. Những tên phố, mặt tiền nhà và nhịp sinh hoạt thường ngày cùng kể câu chuyện về cư dân qua nhiều thế hệ. Di sản ở đây vẫn tiếp tục được sử dụng, biến đổi và gìn giữ trong cuộc sống hôm nay.",
   "text_sha256": "46dce8228d39c29ca22747d0666094b05802e2b40065374d63cdde3088c976eb",
-  "audio_sha256": "504cc09083e62dcf0504edab8955b0a23e3428577a2c907172cbf72fd5c456d8",
+  "audio_sha256": "4d7b5a7d853d9351733d8f9496f1f6478c3484a72c8a0ff818b7f3c354390e81",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://phocohanoi.hoankiem.vn/",
   "approved": true,
   "prepared": true,

@@ -64,8 +64,21 @@ TOOL_SCHEMAS = [
         }, "required": ["poi_id", "lang"]}}},
 ]
 
-NARRATE_SYSTEM = ("Bạn là hướng dẫn viên. Viết lời thuyết minh 60–90 giây bằng ngôn ngữ mã '%s'. "
-                  "CHỈ dùng nội dung được cung cấp, không bịa năm, số liệu hay giai thoại.")
+NARRATE_LANGS = {"vi": "tiếng Việt", "en": "English", "ko": "한국어 (tiếng Hàn)", "ja": "日本語 (tiếng Nhật)",
+                 "zh": "简体中文 (tiếng Trung giản thể)"}
+NARRATE_SYSTEM = ("Bạn là hướng dẫn viên du lịch đang nói với du khách tại chỗ. Viết lời thuyết minh 60–90 giây, "
+                  "VIẾT TOÀN BỘ bằng %s (kể cả khi nội dung được cung cấp là tiếng Việt / tiếng Anh — hãy dịch). "
+                  "CHỈ dùng nội dung được cung cấp, không bịa năm, số liệu hay giai thoại. "
+                  "Phần ghi chú có câu dành cho người làm dữ liệu (toạ độ, nguồn, kiểm chứng, gợi ý thời lượng, "
+                  "nhóm khách, \"bản ghi kế thừa\"…) — KHÔNG đọc những câu đó; chỉ giữ thông tin có ích cho khách "
+                  "(giá vé, giờ mở, lưu ý khi tham quan). Không xưng là ban quản lý địa điểm. Nhắc tên địa điểm, "
+                  "kèm tên tiếng Việt gốc; không tự phiên âm tên riêng sang chữ khác. Nói như hướng dẫn viên tại chỗ: "
+                  "không nhắc tới bản đồ, toạ độ, dữ liệu, nguồn hay việc 'chưa kiểm chứng'; nếu thiếu giờ / giá thì "
+                  "chỉ khuyên khách hỏi tại chỗ.")
+
+
+def narrate_system(lang: str) -> str:
+    return NARRATE_SYSTEM % NARRATE_LANGS.get(lang, lang)
 
 
 class NarrationCancelled(Exception):
@@ -98,7 +111,8 @@ def narrate(poi_id: str, lang: str, cancel=None) -> dict:
                 "source": "mock", "tts_status": "disabled",
                 "warning": "Chưa có model dịch/viết thuyết minh. Có thể dùng audio đã chuẩn bị và duyệt trước."}
     _check(cancel)
-    text = call_llm(NARRATE_SYSTEM % lang, ctx)
+    named = "Địa điểm: %s (%s)\n%s" % (poi.get("name", {}).get("vi", poi_id), poi.get("name", {}).get("en", ""), ctx)
+    text = call_llm(narrate_system(lang), named)  # có tên điểm — model gọi đúng tên, giữ tên tiếng Việt
     if not isinstance(text, str) or not text.strip():
         raise ValueError("Model chưa trả về nội dung thuyết minh.")
     _check(cancel)  # huỷ trong lúc LLM đang viết → không tạo audio
@@ -114,7 +128,9 @@ def default_start(state: dict) -> tuple:
     """Điểm xuất phát khi khách không nói vị trí khác:
     - đang lập lịch cho một khu vực (vd Sơn Tây): GPS nếu khách đang ở trong khu vực đó, không thì trung tâm khu vực
     - còn lại: GPS của khách (server đã kiểm nằm trong vùng Hà Nội), không có thì Hồ Gươm."""
-    loc, area = state.get("location"), state.get("area")
+    loc, area, named = state.get("location"), state.get("area"), state.get("named_start")
+    if named:  # khách tự nói "tôi đang ở X" — tin lời khách hơn GPS / khu vực
+        return (named["lat"], named["lng"])
     if area:
         if loc and in_area(loc["lat"], loc["lng"], area, use_admin=False):  # GPS đổi liên tục — không tra quận
             return (loc["lat"], loc["lng"])
@@ -221,6 +237,55 @@ def plan_summary(plan: dict) -> dict:
             "dropped": dropped}
 
 
+def route_facts(plan: dict, state: dict) -> dict | None:
+    """Chỉ đường tới điểm đến khách hỏi + khoảng cách các điểm gợi ý tới điểm neo — tính bằng code."""
+    from rag.search import get_poi
+    from routing.maps import _haversine_km
+    from routing.validate import to_min
+    dest, anchor = state.get("destination_id"), state.get("anchor")
+    stops = plan.get("stops") or []
+    if not (dest or anchor) or not stops:
+        return None
+    out = {}
+    if dest and stops[0]["poi_id"] == dest:
+        start_t = to_min((state.get("route_args") or {}).get("start_time") or DEFAULT_START_TIME)
+        out["destination"] = {"name": get_poi(dest)["name"]["vi"], "arrive": stops[0]["arrive"],
+                              "minutes_from_start": to_min(stops[0]["arrive"]) - start_t,
+                              "from": state.get("start_label") or "vị trí của bạn",
+                              "map": "đường đi đã vẽ trên bản đồ (TomTom)"}
+    elif dest:
+        out["destination"] = {"name": get_poi(dest)["name"]["vi"], "note": "không xếp được — xem dropped"}
+    if anchor:
+        out["nearby"] = [{"name": get_poi(s["poi_id"])["name"]["vi"],
+                          "km_from_" + anchor["name"]: round(_haversine_km(
+                              (get_poi(s["poi_id"])["lat"], get_poi(s["poi_id"])["lng"]), (anchor["lat"], anchor["lng"])), 1)}
+                         for s in stops if s["poi_id"] != dest]
+    return out
+
+
+def search_near(args: dict, date: str | None, state: dict, radius_km: float = 2.5) -> list:
+    """Gợi ý quanh điểm neo: ứng viên đã lọc (giá, nhóm, trong nhà, ngày) xếp theo khoảng cách tới điểm neo;
+    chỉ lấy trong radius_km, thiếu thì nới dần. Điểm khách chỉ đích danh luôn đứng đầu."""
+    from rag.search import get_poi
+    from routing.maps import _haversine_km
+    a = state["anchor"]
+    pool = search_pois([], args.get("group_type", "friends"), int(args.get("max_price", 10**9)),
+                       bool(args.get("indoor_only", False)), 200, date)
+    dist = {p["id"]: _haversine_km((p["lat"], p["lng"]), (a["lat"], a["lng"])) for p in pool}
+    # model hay đặt top_k = đúng số khách xin → thiếu chỗ cho điểm bắt buộc / điểm không kịp giờ: code lấy dư
+    want = max(int(args.get("top_k", 15)), (state.get("max_stops") or 0) + 4)
+    near = []
+    for r in (radius_km, radius_km * 2, radius_km * 4):
+        near = sorted((p for p in pool if dist[p["id"]] <= r), key=lambda p: dist[p["id"]])
+        if len(near) >= min(want, 6):
+            break
+    must = [get_poi(i) for i in (state.get("must_ids") or []) if get_poi(i)]
+    ids = {p["id"] for p in must}
+    out = [_slim_poi(p) for p in must + [p for p in near if p["id"] not in ids]][:want]
+    state["last_search_ids"] = [p["id"] for p in out]
+    return out
+
+
 def _fold(text: str) -> str:
     import unicodedata
     text = unicodedata.normalize("NFD", (text or "").lower().replace("đ", "d"))
@@ -258,30 +323,62 @@ def dispatch(name: str, args: dict, state: dict):
     date = args.get("date") or state.get("date")
     if name == "lookup_poi":
         return lookup_poi(args.get("name", ""))
+    if name == "search_pois" and state.get("anchor"):
+        # "gợi ý quanh Văn Miếu": model hay coi tên điểm là khu vực → bỏ, xếp theo khoảng cách tới điểm neo
+        state["area"] = None
+        return search_near(args, date, state)
     if name == "search_pois" and args.get("area"):
         return search_in_area(args, date, state)
     if name == "search_pois":
         state["area"] = None  # tìm không theo khu vực → bỏ khu vực cũ
-        res = search_pois(args.get("interests", []), args.get("group_type", "friends"),
-                          int(args.get("max_price", 10**9)), bool(args.get("indoor_only", False)),
-                          int(args.get("top_k", 15)), date)
+        res = search_balanced(args.get("interests", []), args.get("group_type", "friends"),
+                              int(args.get("max_price", 10**9)), bool(args.get("indoor_only", False)),
+                              int(args.get("top_k", 15)), date)
         return [_slim_poi(p) for p in res]
     if name == "plan_route":
         fallback = default_start(state)
         start = (args.get("start_lat", fallback[0]), args.get("start_lng", fallback[1]))
+        if state.get("named_start_turn") or state.get("destination_id"):
+            # khách vừa nói "đang ở X" / đang hỏi đường tới một điểm: xuất phát do code đặt, bỏ toạ độ LLM tự đoán.
+            # Hỏi đường thì đi từ chỗ khách đang đứng (nói rõ / GPS / Hồ Gươm), không từ tâm khu vực model tự chọn.
+            start = fallback if state.get("named_start") or not state.get("destination_id") else                 default_start({**state, "area": None})
         state["plan_start"] = start
         # Ngân sách do code giữ (agent.llm.apply_budget_from_text) thắng số LLM tự đưa vào.
         # Lần lập lịch đầu chưa có thì lấy số LLM tách từ câu khách rồi giữ lại.
         if state.get("budget_vnd") is None:
             state["budget_vnd"] = int(args["budget_vnd"])
         budget = int(state["budget_vnd"])
+        # Điểm khách đã bảo bỏ (agent.llm.apply_exclusion_from_text) không bao giờ quay lại lịch
+        # model đôi khi đưa tên thay cho id ("Di tích Nhà tù Hỏa Lò") → đổi về id nếu khớp đúng tên
+        from rag.search import get_poi, load_pois
+        by_name = {_fold(n): p["id"] for p in load_pois() for n in p["name"].values()}
+        ids = [i if get_poi(i) else by_name.get(_fold(str(i))) for i in args["poi_ids"]]
+        args = {**args, "poi_ids": [i for i in ids if i]}  # id model tự bịa (vd "di-tich-nha-tu-hoa-lo") → bỏ
+        excluded = set(state.get("excluded_ids") or [])
+        if excluded:
+            args = {**args, "poi_ids": [i for i in args["poi_ids"] if i not in excluded]}
+        if state.get("anchor") and state.get("last_search_ids"):
+            # gợi ý quanh một điểm: đưa ĐỦ ứng viên gần cho solver (model hay tự cắt bớt → ra ít điểm hơn khách xin)
+            args = {**args, "poi_ids": list(dict.fromkeys(list(args["poi_ids"]) + [
+                i for i in state["last_search_ids"] if i not in excluded]))}
+        must = [m for m in (state.get("must_ids") or []) if m not in excluded]
+        first = state.get("destination_id") if state.get("destination_id") not in excluded else None
         plan = plan_route(args["poi_ids"], start, args.get("start_time", DEFAULT_START_TIME),
                           args.get("end_time", DEFAULT_END_TIME), budget,
-                          int(args["n_people"]), args.get("vehicle", "car"), date)
+                          int(args["n_people"]), args.get("vehicle", "car"), date,
+                          must_ids=must, first_id=first, max_stops=state.get("max_stops"))
         state["route_args"] = {**args, "budget_vnd": budget}
         state["plan"] = plan
         out = {k: v for k, v in plan.items() if k != "polyline"}  # polyline dài, LLM không cần
         out["summary"] = plan_summary(plan)  # số đã tính sẵn — LLM chép đúng các số này
+        loc, named = state.get("location"), state.get("named_start")
+        state["start_label"] = (named["name"] if named else
+                                "vị trí hiện tại của bạn (GPS)" if loc and tuple(start) == (loc["lat"], loc["lng"]) else
+                                "Hồ Gươm (điểm xuất phát mặc định)" if tuple(start) == tuple(DEFAULT_START) else
+                                "điểm xuất phát đã chọn")
+        facts = route_facts(plan, state)
+        if facts:
+            out["route_facts"] = facts  # chỉ đường tới điểm đến + khoảng cách gợi ý — tính bằng code
         return out
     if name == "get_weather":
         w = get_weather(date or args["date"], *DEFAULT_START)
@@ -290,6 +387,23 @@ def dispatch(name: str, args: dict, state: dict):
     if name == "narrate":
         return narrate(args["poi_id"], args.get("lang", "vi"))
     return {"error": "tool không tồn tại: %s" % name}
+
+
+def search_balanced(interests: list, group_type: str, max_price: int, indoor_only: bool, top_k: int,
+                    date: str | None) -> list:
+    """Nhiều sở thích (vd lịch sử + ẩm thực): lấy kết quả RIÊNG cho từng sở thích rồi xen kẽ, để sở thích nào cũng
+    có mặt trong top_k. Xếp chung một danh sách thì điểm lịch sử (rất nhiều) chiếm hết chỗ, quán ăn bị cắt."""
+    interests = [i for i in (interests or []) if i]
+    if len(interests) <= 1:
+        return search_pois(interests, group_type, max_price, indoor_only, top_k, date)
+    lists = [search_pois([i], group_type, max_price, indoor_only, top_k, date) for i in interests]
+    out, seen = [], set()
+    for rank in range(max((len(x) for x in lists), default=0)):
+        for lst in lists:
+            if rank < len(lst) and lst[rank]["id"] not in seen:
+                seen.add(lst[rank]["id"])
+                out.append(lst[rank])
+    return out[:top_k]
 
 
 def dumps(obj) -> str:

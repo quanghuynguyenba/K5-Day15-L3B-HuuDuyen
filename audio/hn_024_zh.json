@@ -1,0 +1,11 @@
+{
+  "text": "各位游客，欢迎来到越南自然博物馆（Bảo tàng Thiên nhiên Việt Nam）。这里位于越南科学技术学院校园内，具体地址是黄国越街18号。博物馆内部展出丰富的标本，展示了生命的演变与多样性。\n\n博物馆的开放时间是周三到周六，早上从8:30到11:30，下午从13:30到16:30。请注意，周二的团体参观需要提前预约，周六和周日则欢迎散客前来参观，而周一则关闭。因此，我们建议您在周末的早上前来，以便充分享受博物馆的展览。\n\n此博物馆的入场费用是免费的，您可以尽情欣赏这里的展品。如果您有任何疑问或需要确认团体安排，请向门口的工作人员咨询。希望大家在这里度过愉快的时光！",
+  "text_sha256": "032a28504d4b981bb96de0862fc05f4bc91ef50ae3d16bdc861f70754c531ded",
+  "audio_sha256": "05dc0ccf58b978c61cc6e89469bfbc716bf63c44f5b473d2ae92408d410f5dc5",
+  "lang": "zh",
+  "provider": "edge-tts",
+  "source": "https://vnmn.ac.vn/public/ | https://travel.com.vn/en/tin-tuc-du-lich/dia-diem-du-lich-ha-noi-v18484.aspx",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "064bab02218ab64df7786482a045d1338d1b79679524308354464103b597aac5"
+}

@@ -1,0 +1,11 @@
+{
+  "text": "欢迎大家来到胡志明博物馆（Bảo tàng Hồ Chí Minh），这里是关于胡志明和现代越南历史的重要展览场所。在博物馆中，您将能够看到许多珍贵的文献、物品和解说展示，这些都深入探讨了胡志明的生平和他对国家的贡献。\n\n对于越南游客，入场是免费的；而国际游客的票价为40,000越南盾。请注意，博物馆的开放时间是上午8点到下午4点30分。正午时分，博物馆会闭馆，从中午12点到下午2点，因此建议您合理安排参观时间，特别是在11点30分和下午4点时，售票处会提前关闭。\n\n请务必留意，胡志明博物馆不同于胡志明陵墓，确保您访问的是正确的地点。如果您有任何问题或需要帮助，请随时询问。祝您在这里度过愉快的时光！",
+  "text_sha256": "09916aa9a6e2a3114193676a4cadb8c4684475285fe2df11fd730d442eb2ff27",
+  "audio_sha256": "aa974ae43fe2eea7b2723cdbe5c2414148a47f740e8a6ffadd34b69b2eb78113",
+  "lang": "zh",
+  "provider": "edge-tts",
+  "source": "https://baotanghochiminh.vn/ | https://cityguide.vn/vn/hanoi/dia-diem/bao-tang-ho-chi-minh",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "1816d0fa5493be90ba035c26e225dc6a281a6695441d9ad22b9fb9f533aa2add"
+}

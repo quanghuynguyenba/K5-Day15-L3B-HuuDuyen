@@ -1,9 +1,9 @@
 {
   "text": "Chùa Trấn Quốc nằm bên Hồ Tây, nổi bật bởi sự hòa quyện giữa kiến trúc Phật giáo và cảnh quan mặt nước. Những mái chùa, sân cây và bảo tháp nhiều tầng tạo nên không gian trang nghiêm nhưng vẫn gần gũi với thiên nhiên. Vị trí bên hồ khiến hình ảnh ngôi chùa thay đổi theo ánh sáng và góc nhìn, khi hiện rõ trên nền trời, khi in bóng xuống mặt nước. Đây là điểm đến để tìm hiểu đời sống tín ngưỡng của Hà Nội, đồng thời cảm nhận cách người xưa tổ chức một không gian tâm linh trong lòng cảnh sắc đô thị.",
   "text_sha256": "845f441fc9ffb4cbe80020dc28e397de72929917024bf1115a5023eb06b0d72a",
-  "audio_sha256": "f161f185cb95247e5eb13acb63c2612bd534fe71192e836b3ce81b12741b9695",
+  "audio_sha256": "d9eb9fc5a3d38cf99493b53fcc6f1179ec0f2f3fe343981311410d7022c5485e",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://www.vietnamairlines.com/vn/vi/plan-book/travel/travel-guide/tran-quoc-pagoda",
   "approved": true,
   "prepared": true,

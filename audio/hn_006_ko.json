@@ -1,0 +1,11 @@
+{
+  "text": "안녕하세요, 여러분! 오늘은 '베트남 여성 박물관'에 오신 것을 환영합니다. 이곳은 베트남 여성들의 가족 생활, 의복, 그리고 사회와 역사에 대한 기여를 탐구하는 특별한 공간입니다.\n\n관람 시간은 매일 오전 8시부터 오후 5시까지입니다. 입장료는 40,000 VND입니다. 입장료는 변동이 있을 수 있으니, 티켓 카운터에서 확인하시기 바랍니다.\n\n박물관은 주로 실내 전시로 구성되어 있어 편안하게 관람하실 수 있습니다. 전시물을 통해 베트남 여성들이 사회와 역사에 미친 영향에 대해 깊이 있는 이해를 하실 수 있습니다.\n\n즐거운 관람 되시길 바라며, 많은 것을 배우고 가시길 바랍니다! 감사합니다.",
+  "text_sha256": "ab03b2783c219a59fac58247c4edb68447e159507cdd0ea1693161311c1748fa",
+  "audio_sha256": "290438d734a7720c749794ec6d4d0836dbd9e46c9262158b2cdca32f5b098f6b",
+  "lang": "ko",
+  "provider": "edge-tts",
+  "source": "https://vietnam.travel/vi/things-to-do/11-must-see-attractions-ha-noi/ | https://vinwonders.com/vi/wonderpedia/news/bao-tang-phu-nu-viet-nam/ | https://tourshoponhopoff.com/hanoi-tourist-map/",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "a82afacecdc8690f56c10488b2e61e1378eba723dbf9284155dc829f421fb8c9"
+}

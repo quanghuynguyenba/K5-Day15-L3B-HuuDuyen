@@ -1,0 +1,11 @@
+{
+  "text": "안녕하세요, 여러분! 지금 우리가 방문하고 있는 곳은 하노이의 상징적인 건축물인 원주율 사원, 즉 쭈아 모트 콕(Chùa Một Cột)입니다. 이 사원은 연꽃 모양의 신전으로, 아름다운 연못 위에 솟아오르고 있습니다. 하노이를 대표하는 독특한 건축 양식을 자랑합니다. \n\n베트남 시민은 무료로 입장할 수 있지만, 외국인 방문객은 25,000 VND의 입장료가 있습니다. 운영 시간은 관광 당국의 재량에 따라 달라지지만, 대체로 오전 8시부터 11시까지 열립니다. 방문 전에 운영 시간을 꼭 확인하시기 바랍니다. \n\n여기서는 하노이의 역사와 문화에 대해 깊이 있는 경험을 할 수 있습니다. photos도 많이 찍으시고, 이 아름다운 사원의 여유로운 분위기를 즐기세요!",
+  "text_sha256": "aba2e98a3b11450dc3103c3fdf471776081058efa6a0590b8e010d0dc4189b9d",
+  "audio_sha256": "0748ea9c0569e028e7e7ec4b0f4138ecdccc2f4377fee1d2a95c79647ba58561",
+  "lang": "ko",
+  "provider": "edge-tts",
+  "source": "https://vietnam.travel/things-to-do/11-must-see-attractions-ha-noi/ | https://cityguide.vn/vn/hanoi/dia-diem/chua-mot-cot",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "e26bf45a279d267ec9e12a8b802f00267614c0ee59115cd263d52b1088e071b6"
+}

@@ -1,11 +1,11 @@
 {
   "text": "Đền Voi Phục nằm bên khu hồ Thủ Lệ, là một trong Thăng Long tứ trấn và gắn với tín ngưỡng thờ Linh Lang Đại Vương. Theo quan niệm truyền thống, ngôi đền giữ vai trò trấn phía tây kinh thành. Không gian cây xanh và mặt nước tạo nên vẻ tĩnh lặng, làm nổi bật các lớp kiến trúc thờ tự. Tên gọi Voi Phục gợi dấu ấn của hình tượng voi trong di tích, đồng thời giúp phân biệt nơi đây với những đền thờ khác. Ngôi đền lưu giữ một phần ký ức tín ngưỡng và cách người xưa hình dung sự bảo hộ cho Thăng Long.",
   "text_sha256": "0ebf2c4051d72452d18309bb9ee28103719d8b8d338300c44ee9c767668605ec",
-  "audio_sha256": "21cf9c1eadc4eef2c2fbf80e6e61307830c3c8b7567de8750fa04d8937ff839e",
+  "audio_sha256": "f9046caab1794902ee97f8ef6dd97475d6d476f78f2a2f9b610ffc3f41e6444f",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://www.vietnamairlines.com/vn/vi/plan-book/travel/travel-guide/voi-phuc-temple",
   "approved": true,
   "prepared": true,
-  "context_sha256": "852a74be550ca9d913770620dd91aae475ef9afd76c3769dcd23d0bfcc948b22"
+  "context_sha256": "1855df73084c9ef0b879d15c3f319c13b389c214c81b15c3263cc62513968a83"
 }

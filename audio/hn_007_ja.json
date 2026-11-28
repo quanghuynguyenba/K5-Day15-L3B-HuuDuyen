@@ -1,0 +1,11 @@
+{
+  "text": "皆さん、こんにちは！今日は「ベトナム美術館」（Bảo tàng Mỹ thuật Việt Nam）にお越しいただき、ありがとうございます。この美術館では、ベトナムの視覚芸術を体験することができます。彫刻、漆絵、工芸品、そして伝統的なメディアを通して、ベトナムの芸術の歴史を辿ることができます。\n\n営業時間は毎日08:30から17:00までとなっており、入館料は40,000 VNDです。ガイド付きの解説を希望される方は、別料金がかかりますので、ご了承ください。\n\nこの美術館は、プライベートな美術館とは異なり、特定の祝日の月曜日はアクセスについてご確認いただくことをお勧めします。皆さんがここで素晴らしいアートの世界を楽しんでいただけることを願っています！",
+  "text_sha256": "135bf52c6a56cb0ea3a4cb4f35781e11991efab85849b0d087a21613345b0a17",
+  "audio_sha256": "48bc5d7dcd11cb138430944f9920d79d53a8f0d55849734544a4de3bf36d996a",
+  "lang": "ja",
+  "provider": "edge-tts",
+  "source": "https://vnfam.vn/vi/tham-quan | https://cityguide.vn/vn/hanoi/dia-diem/bao-tang-my-thuat-viet-nam | https://tourshoponhopoff.com/hanoi-tourist-map/",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "5376159cf0bb07af18629ce3f24beed8f697e710e9d08e65b1e15cb3df49e12e"
+}

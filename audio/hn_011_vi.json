@@ -1,9 +1,9 @@
 {
   "text": "Chùa Một Cột là một hình ảnh quen thuộc khi nhắc đến kiến trúc Hà Nội. Điểm nhấn của quần thể là Liên Hoa Đài, công trình nhỏ có dáng tựa bông sen vươn lên khỏi mặt nước. Sự kết hợp giữa cột đỡ, mái cong và hồ nước tạo nên bố cục thanh thoát, thể hiện cách kiến trúc truyền thống hòa vào cảnh quan. Vẻ đẹp nơi đây không nằm ở quy mô đồ sộ, mà ở ý tưởng tạo hình cô đọng. Hình tượng hoa sen cũng gợi liên tưởng đến sự thanh khiết trong văn hóa Phật giáo và đời sống tinh thần người Việt.",
   "text_sha256": "89f0079bc1463a9a49c752e9a383330e8f935828722f7e7522b72bb888a46430",
-  "audio_sha256": "87735b59e36243b96a6fa896d96e0abc45d752406e703a9deafac23f248e8077",
+  "audio_sha256": "8941390b04b86415909d533bcb99823dcc275e4c7d6816769a33736c77a0a1c1",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://vietnam.travel/things-to-do/11-must-see-attractions-ha-noi/",
   "approved": true,
   "prepared": true,

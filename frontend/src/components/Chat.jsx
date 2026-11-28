@@ -4,7 +4,6 @@ import ChatWelcome from "./ChatWelcome.jsx";
 import ChatComposer from "./ChatComposer.jsx";
 import useChatScroll from "../hooks/useChatScroll.js";
 import { useEffect, useRef, useState } from "react";
-import Icon from "./Icon.jsx";
 export default function Chat({
   messages,
   loading,
@@ -82,7 +81,7 @@ export default function Chat({
     <section className="chat" aria-label="Trợ lý hành trình">
       <div className="chat-header">
         <div className="bot-avatar">
-          <Icon name="bot" />
+          <img src="/brand/assistant.png" alt="" width="44" height="44" />
         </div>
         <div>
           <h2>Trợ lý hành trình</h2>

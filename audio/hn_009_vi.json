@@ -1,9 +1,9 @@
 {
   "text": "Bảo tàng Hà Nội là nơi tìm hiểu những lớp ký ức của Thăng Long và cuộc sống đô thị qua các thời kỳ. Hình dáng kim tự tháp ngược tạo cho công trình một diện mạo dễ nhận biết, khác với những không gian di tích truyền thống. Bên trong, hiện vật và tư liệu giúp kết nối lịch sử với văn hóa, nghề nghiệp và sinh hoạt của cư dân. Câu chuyện về Hà Nội vì thế không chỉ thuộc về những sự kiện lớn, mà còn hiện diện trong những vật dụng và dấu tích quen thuộc, góp phần định hình bản sắc của thành phố.",
   "text_sha256": "4056e575ffd05d7cfacbe39d3061e85021f2eff47a463f7ac8aaf773702b0570",
-  "audio_sha256": "6ddda35a64c69eb0087699a5b88171267d8e24d4e01381aa17e253b2aa6ca414",
+  "audio_sha256": "596ad3015034afe5573b1d5e2469e50efad4e92b93fe8cd9d582ec8d56535bbd",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://baotanghanoi.com.vn/",
   "approved": true,
   "prepared": true,

@@ -1,11 +1,11 @@
 {
   "text": "Chùa Quán Sứ là một địa điểm gắn với đời sống Phật giáo giữa trung tâm Hà Nội. Không gian chùa đem lại cảm giác trang nghiêm qua mái ngói, sân trong và các lớp kiến trúc thờ tự. Di tích còn gắn với hoạt động của Giáo hội Phật giáo Việt Nam, thể hiện vai trò của ngôi chùa trong sinh hoạt tôn giáo. Giữa khu phố đông đúc, sự hiện diện của chùa tạo nên một khoảng chuyển về nhịp điệu và cảm xúc. Kiến trúc cùng sinh hoạt tín ngưỡng ở đây giúp hiểu thêm vị trí của Phật giáo trong đời sống văn hóa đô thị.",
   "text_sha256": "e3b0026c6eba4a2c0da10f84737c3f213d39a5a2521eebaff1f62819c7a1612b",
-  "audio_sha256": "371a679a6f057f054ff9194ce17ed74004a632ca6f44a4863732ee5500f344f9",
+  "audio_sha256": "98d18641f5f79161c702d75780438f91fbddfa7fcd4177698a44b30bb810faa4",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://sodantoctongiao.hanoi.gov.vn/articles/3457",
   "approved": true,
   "prepared": true,
-  "context_sha256": "55c2a62714d6c8660829723f03d64b4127f75d162804f536107f8065ff06ca69"
+  "context_sha256": "c8085fbdf30eb9c7fec568467faec0694fd8ddba11d13b6f00597d76f333f688"
 }

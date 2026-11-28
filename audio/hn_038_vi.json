@@ -1,11 +1,11 @@
 {
   "text": "Khu danh thắng Chùa Hương – Hương Sơn kết hợp cảnh quan núi đá vôi, dòng suối và hệ thống đền chùa, hang động. Trên tuyến tham quan quen thuộc, suối Yến mở đầu hành trình bằng không gian mặt nước giữa núi đồi, trước khi nối đến chùa Thiên Trù và động Hương Tích. Giá trị của Hương Sơn nằm ở sự gắn kết giữa thiên nhiên với đời sống tín ngưỡng. Mỗi chặng đường mang một cảm nhận khác nhau, từ khoáng đạt đến tĩnh lặng. Toàn bộ quần thể cho thấy cách cảnh quan tự nhiên trở thành không gian văn hóa và hành hương.",
   "text_sha256": "72e3696488c86594f53a88b0ad14e579a2c862140a53141c2bd80f7cca28d224",
-  "audio_sha256": "8b217cf6b1221e23417d746cefbd36b8e63f1f5f5a853fb0734ef46ac797652e",
+  "audio_sha256": "7a0bc3ff7f1c3e8572797c2c9bc471bd036116c04d3e6cef24c4d2df5eb6430f",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://hanoigo.hanoi.gov.vn/place/quan-the-huong-son-chua-huong-ctv-sa2nx5",
   "approved": true,
   "prepared": true,
-  "context_sha256": "14da2fb666e78cb43a64e2d6db4fe22a40fad367d68188315c56ccd73db8be3c"
+  "context_sha256": "e83fd4cf84f074df0b70c306066481a1cf4268a26f77cfc94aeea2ba45033c4e"
 }

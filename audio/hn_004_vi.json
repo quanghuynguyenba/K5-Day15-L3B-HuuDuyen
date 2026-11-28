@@ -1,9 +1,9 @@
 {
   "text": "Hoàng thành Thăng Long là quần thể di tích gắn với lịch sử kinh đô Thăng Long – Hà Nội. Điều đặc biệt của nơi đây là những lớp dấu tích được lưu giữ qua nhiều thời kỳ, giúp chúng ta hình dung sự tiếp nối của lịch sử ngay dưới bước chân mình. Trong hành trình tham quan, xin quý khách chú ý những dấu tích kiến trúc và hiện vật khảo cổ. Từ một mảnh gốm đến nền móng công trình, mỗi chi tiết đều góp phần kể lại câu chuyện về đời sống hoàng cung xưa.",
   "text_sha256": "b232292dc0fc3b3956c9ed9865ff2bdab423f99ba1c88172230b8579a7aa44f1",
-  "audio_sha256": "a05cc2b7ffad7de70401c227847bd9d8c103713d78dd4c968a0a0d4e26a6faa0",
+  "audio_sha256": "60d7df9061178ca5c03870afeaf76add1c2adf9cc3673bf0f537b3753e65abae",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://hoangthanhthanglong.vn/trung-bay-bau-vat-hoang-cung-thang-long/",
   "approved": true,
   "prepared": true,

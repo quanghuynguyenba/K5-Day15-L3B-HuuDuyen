@@ -1,9 +1,9 @@
 {
   "text": "Bảo tàng Lịch sử Quân sự Việt Nam giới thiệu những chặng đường xây dựng và bảo vệ đất nước qua tư liệu, hiện vật và các không gian trưng bày. Tại cơ sở trên Đại lộ Thăng Long, khu trưng bày trong nhà kết hợp với những hiện vật lớn ngoài trời, tạo nhiều góc tiếp cận lịch sử quân sự. Đằng sau mỗi phương tiện hay kỷ vật là câu chuyện về con người, hoàn cảnh chiến đấu và những lựa chọn trong thời chiến. Các hiện vật giúp người xem hiểu thêm sự hy sinh cùng giá trị của độc lập và hòa bình.",
   "text_sha256": "63def7436c586b727a7da165cad9ef66b89821b03a1775814e01742b64787ce0",
-  "audio_sha256": "bd6a83de9562e9f4e54484fcf20a8991743f93182525f742ca5d9a93609bd7b3",
+  "audio_sha256": "b8ba35730f2d2006891f3dd8833b56bc6f34d1b4ab8491d72b29ed6563ce3fac",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://xaydungchinhsach.chinhphu.vn/tu-1-11-bao-tang-lich-su-quan-su-viet-nam-vi-tri-moi-mo-cua-don-khach-mien-phi-tham-quan-119241004184508454.htm",
   "approved": true,
   "prepared": true,

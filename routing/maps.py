@@ -57,9 +57,17 @@ def _haversine_km(a: tuple, b: tuple) -> float:
     return 2 * 6371 * math.asin(math.sqrt(h))
 
 
+# Ô tô / xe máy khi không gọi được TomTom: phút ≈ min(9,6 + 1,87·km, 1 + 7·km), km = đường chim bay.
+# Hiệu chỉnh 28/11/2026 từ 3.059 cặp thời gian TomTom thật trong data/cache/maps_cache.json:
+# |sai số| trung vị 3 phút, p90 9 phút (công thức tốc độ cố định cũ: p90 84 phút — lệch nặng ở quãng xa).
+FALLBACK_A, FALLBACK_B, FALLBACK_SHORT = 9.6, 1.87, 7.0
+
+
 def haversine_minutes(a: tuple, b: tuple, vehicle: str = "car") -> int:
-    km = _haversine_km(a, b) * DETOUR
-    return max(1, round(km / SPEED_KMH.get(vehicle, 20) * 60))
+    km = _haversine_km(a, b)
+    if vehicle in ("car", "motorbike"):
+        return max(1, round(min(FALLBACK_A + FALLBACK_B * km, 1 + FALLBACK_SHORT * km)))
+    return max(1, round(km * DETOUR / SPEED_KMH.get(vehicle, 4.5) * 60))  # đi bộ: tốc độ cố định
 
 
 def _fmt(p: tuple) -> str:

@@ -1,11 +1,11 @@
 {
   "text": "Chùa Tây Phương nổi bật với kiến trúc gỗ và hệ thống tượng Phật, tượng La Hán giàu giá trị nghệ thuật. Không gian trên đồi tạo cảm giác tách khỏi nhịp sống bên dưới, làm nổi rõ vẻ trầm mặc của mái chùa. Những pho tượng gây chú ý ở dáng ngồi, nét mặt và cách thể hiện cơ thể, cho thấy khả năng quan sát tinh tế của nghệ nhân. Nghệ thuật điêu khắc ở đây vừa phục vụ tín ngưỡng vừa gợi cảm xúc về con người. Kiến trúc và tượng thờ cùng tạo nên một chỉnh thể đáng chú ý của mỹ thuật truyền thống Việt Nam.",
   "text_sha256": "1048d15279d8b83c2a911625d2b5d6efa78e3af3fa785abd6c3932c7b2d46f07",
-  "audio_sha256": "fea82f6ca1eb1ac8acb97236cccc8ad286bec94bafd1f12e9942610d9e8b71a6",
+  "audio_sha256": "cb1ee1035310276bce5c7d62b20d1ba3007c9e0ff2be532ab7976220ea11d72f",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://thuvien.hanoi.gov.vn/Upload/2024/05/16/TMDiachiQuocOai-Web_2024May16_020430355.pdf",
   "approved": true,
   "prepared": true,
-  "context_sha256": "dc0daf23c83eea10bd2bde90682f4247de3d35214e590d278ba89b561dbf3edc"
+  "context_sha256": "89376a5f6833357915d0bb8a583d8070cf9bf2d03920413d33adaabd5eb788f0"
 }

@@ -1,9 +1,9 @@
 {
   "text": "Cầu Long Biên bắc qua sông Hồng, là một dấu ấn quen thuộc trong cảnh quan và ký ức Hà Nội. Kết cấu thép với những nhịp cầu nối tiếp tạo nên đường nét riêng, dễ nhận ra khi nhìn từ bờ sông. Giá trị của cây cầu không chỉ ở chức năng giao thông, mà còn ở mối liên hệ với sự phát triển của thành phố và cuộc sống cư dân hai bên bờ. Hình ảnh cầu, dòng sông và bãi bồi gợi nên một lớp cảnh quan đô thị đặc biệt, nơi dấu tích công nghiệp hòa cùng nhịp sống thường ngày.",
   "text_sha256": "a9aed79e870c10d65aef48a03b246dabf0a18377f7cb686ed0035971117c79b2",
-  "audio_sha256": "77c7141f37f84bb2465cef78c14e8ffbafef1aabed201cfe7e1f857f7424fa58",
+  "audio_sha256": "859a369fdfc5cae1232210a2de360ec25578b2e010fa39dbc6f70d0615229604",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://cdt.gov.vn/map/ha-noi?place=cau-long-bien",
   "approved": true,
   "prepared": true,

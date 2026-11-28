@@ -1,11 +1,11 @@
 {
   "text": "Làng gốm Bát Tràng bên sông Hồng là nơi nghề làm gốm gắn bó với đời sống cộng đồng qua nhiều thế hệ. Từ đất, nước và lửa, người thợ tạo nên những sản phẩm vừa phục vụ sinh hoạt vừa thể hiện khả năng trang trí và tạo hình. Không gian làng cổ, cửa hàng và xưởng nghề cho thấy sự tiếp nối giữa sản xuất truyền thống với nhu cầu hôm nay. Vẻ hấp dẫn của Bát Tràng nằm ở sự đa dạng của dáng gốm, màu men và hoa văn, qua đó nhận ra dấu ấn bàn tay cùng kinh nghiệm của người làm nghề.",
   "text_sha256": "5943daa7480a7060bbde208c09a0581e391d0c738667880e8a6ed57d1d82c645",
-  "audio_sha256": "a9a1ed9b9aae533870cec627a99dd45b4c96f7ccdcc6d5b16279c5ff35ca9a3b",
+  "audio_sha256": "01802790bf76493de3fc4d4fc88856c02404ca945aa8aafe8e94b0f9f0b492f3",
   "lang": "vi",
   "provider": "edge-tts",
   "source": "https://hanoigo.hanoi.gov.vn/destination/diem-du-lich-bat-trang-xa-bat-trang-thanh-pho-ha-noi-xa-bat-trang",
   "approved": true,
   "prepared": true,
-  "context_sha256": "9d002e061e95d97b5a6f55b9aa6fc2b8e685d665c013b662d73eed79e2b5062d"
+  "context_sha256": "d2128bcaa9d4ed50bf684248ab89fe20e7ed17cb23b8aee19d94f7a5a5da1ab2"
 }

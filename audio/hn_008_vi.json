@@ -1,9 +1,9 @@
 {
   "text": "Bảo tàng Lịch sử Quốc gia đưa chúng ta khám phá lịch sử Việt Nam từ thời tiền sử đến ngày nay thông qua những tài liệu và hiện vật được lưu giữ tại bảo tàng. Mỗi hiện vật là một dấu vết của quá khứ, giúp chúng ta hiểu thêm cách người xưa sinh sống, sáng tạo và xây dựng đất nước. Khi tham quan, xin quý khách kết hợp quan sát hiện vật với phần chú thích để nhận ra những câu chuyện phía sau, thay vì chỉ dừng lại ở hình dáng bên ngoài.",
   "text_sha256": "05642d28acf9cd04d5837c46d501a7c1bbb37b75b36de388abf8630f9b998f00",
-  "audio_sha256": "54c691b6561d00682b19d7432f4fe6afc860dbb64110896d5630de6311c9346d",
+  "audio_sha256": "b978dca4f3f4c5e182c3fd87e38b4189fc4bb770864d549b62f94b6c2332fa57",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://baotanglichsuquocgia.vn/DataFiles/2024/08/News/Tieng%20Viet/1.8.2024/Thong%20bao%20Khoa%20hoc%20so%201%20nam%202024/006.pdf",
   "approved": true,
   "prepared": true,

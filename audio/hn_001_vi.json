@@ -1,9 +1,9 @@
 {
   "text": "Văn Miếu – Quốc Tử Giám là nơi lưu giữ những giá trị tiêu biểu của truyền thống hiếu học Việt Nam. Trong không gian cổ kính này, mỗi mái ngói, khoảng sân và hàng cây đều gợi nhắc câu chuyện về việc học và sự trọng dụng nhân tài. Xin quý khách dành chút thời gian chiêm ngưỡng Khuê Văn Các và những tấm bia tiến sĩ, dấu ấn của nền khoa cử xưa. Khi bước qua từng lớp sân, chúng ta sẽ cảm nhận rõ hơn tinh thần tôn sư trọng đạo được gìn giữ qua nhiều thế hệ.",
   "text_sha256": "29631876bee807871ca783a7b292b92ab5208765af09497f11cf5775911e2727",
-  "audio_sha256": "1cd978bfc001fed1b22c6d6703f213c5361d2d596b8032c7952da76b3098d201",
+  "audio_sha256": "149bb99bb9c783153e4f1345d40bce56e463d9442cb111580a67f309f9d37857",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://vanmieu.gov.vn/vi/inner-temple",
   "approved": true,
   "prepared": true,

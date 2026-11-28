@@ -1,0 +1,11 @@
+{
+  "text": "欢迎大家来到越南美术博物馆（Bảo tàng Mỹ thuật Việt Nam）。这个博物馆展示了越南视觉艺术的丰富历史，包括雕塑、漆画、工艺美术和传统媒介等多种形式。这里是了解越南艺术文化的一个绝佳场所。\n\n博物馆的开放时间是每天的08:30到17:00。在参观时，请注意，导览服务需要额外付费。如果您计划在节假日访问，建议提前确认周一的开放情况，因为在假期期间可能会有所不同。\n\n门票的价格是40,000越南盾。请您在游览时保持安静，尊重展品。希望您在这里度过愉快的时光，深入了解越南的艺术魅力！",
+  "text_sha256": "dec95cb6ea090705d0e67ae4d65f87be6e2b71e18165906feb6b04a0dc9cf94e",
+  "audio_sha256": "947accf948950b94a1b01812358843266f836c0c47e216aaa6b3ceac4698eca8",
+  "lang": "zh",
+  "provider": "edge-tts",
+  "source": "https://vnfam.vn/vi/tham-quan | https://cityguide.vn/vn/hanoi/dia-diem/bao-tang-my-thuat-viet-nam | https://tourshoponhopoff.com/hanoi-tourist-map/",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "5376159cf0bb07af18629ce3f24beed8f697e710e9d08e65b1e15cb3df49e12e"
+}

@@ -1,11 +1,11 @@
 {
   "text": "Khu di tích Phủ Chủ tịch – Nhà sàn Bác Hồ giới thiệu không gian sống và làm việc của Chủ tịch Hồ Chí Minh trong một khuôn viên nhiều cây xanh. Nhà sàn, ao cá và những lối đi tạo nên cảnh quan gần gũi, khác với hình dung về nơi ở của một nguyên thủ. Những chi tiết giản dị trong kiến trúc và cách tổ chức sinh hoạt giúp người xem tiếp cận câu chuyện về nếp sống của Người. Giá trị của di tích nằm ở mối liên hệ giữa không gian, hiện vật và con người, đem lại góc nhìn đời thường bên cạnh những sự kiện lịch sử.",
   "text_sha256": "91af730d0b5541d93563d335662ecaf4fe38fbd963f995b42a4d16c76e23a2e8",
-  "audio_sha256": "c470cd4b200040c5866ae368458f3725ab4c627b3b2f8511282b76492062fca9",
+  "audio_sha256": "bf6ac055ce10ebab166cfd142d18d3bc2d25bf773dcb4b4c1cba3826b8b0f308",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://cityguide.vn/vn/hanoi/dia-diem/phu-chu-tich-nha-san-bac-ho",
   "approved": true,
   "prepared": true,
-  "context_sha256": "4d025b812eb1c0f0583478405a7e0d90e300276fb273f2acb585a6c44ed0f40a"
+  "context_sha256": "862b70d950ab1b6b4461299e3637b40496f07e8e83284cae9d1644985c413845"
 }

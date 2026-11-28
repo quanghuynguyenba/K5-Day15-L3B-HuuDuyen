@@ -1,9 +1,9 @@
 {
   "text": "Đình Kim Ngân trên phố Hàng Bạc là không gian gắn với truyền thống nghề thủ công và sinh hoạt cộng đồng của phố cổ Hà Nội. Kiến trúc đình tạo một khoảng chuyển từ đường phố buôn bán vào nơi thờ tự trang nghiêm. Những chi tiết trang trí và bố cục công trình giúp hình dung vai trò của đình trong đời sống người làm nghề. Nơi đây cho thấy phố cổ không chỉ hình thành từ cửa hàng và nhà ở, mà còn từ những thiết chế kết nối cộng đồng. Di tích lưu giữ sự trân trọng đối với nghề nghiệp, tổ nghề và ký ức chung.",
   "text_sha256": "f973d03db22b3c389240442fa55a093b954da258dbe86b6dc5592a9cfb2dc6c6",
-  "audio_sha256": "86a80268ab4b8cc6d85f8fd328049c875885dad7e9f8fec5461e2b66eff7c184",
+  "audio_sha256": "bbebd17120b2576c3c55b38d92c6a743a7f7608ac02f2f2e4d206b3795dc8971",
   "lang": "vi",
-  "provider": "gtts",
+  "provider": "edge-tts",
   "source": "https://baonghean.vn/pho-co-ha-noi-huong-dan-tham-quan-4-di-tich-thu-phi-10313940.html",
   "approved": true,
   "prepared": true,
