@@ -1,0 +1,11 @@
+{
+  "text": "皆さん、こちらはロンビエン橋（Cầu Long Biên）です。この橋は、ハノイの歴史的な鉄橋で、紅河を越えています。ロンビエン橋は、ハノイの交通や都市の歴史を反映しており、特に旅行者にとって重要なスポットです。\n\n入場料は無料で、午前0時から午後11時59分までいつでもご覧いただけます。ただし、橋には特定の歩行者エリアのみが許可されていますので、鉄道の線路には近づかないようにし、交通が行き交う道では立ち止まらないようご注意ください。修理作業により、橋の一部が利用できないことがありますので、その点もご留意ください。\n\nロンビエン橋は、美しい景色を楽しむために最適な場所です。どうぞ安全に楽しんでください！",
+  "text_sha256": "d4ebe1e1b29aa9b2030d03b77f6e12d4cbf8f6a807517b60855b5f8f640d6cf4",
+  "audio_sha256": "3b84ccb5dc140d45b6f269ebc38e80e33da59682f1211ec001deaa239f7b60b7",
+  "lang": "ja",
+  "provider": "edge-tts",
+  "source": "https://cdt.gov.vn/map/ha-noi?place=cau-long-bien | https://www.hanoitourism.org/things-to-do-in-hanoi/",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "76a9b3bbe5c8d83172ad63d8e506a6dc9011fca5122573ca10733069a50c7bd8"
+}

@@ -1,0 +1,11 @@
+{
+  "text": "안녕하세요, 여러분! 오늘은 호치민 박물관에 대해 소개해드리겠습니다. 이 박물관은 바딘 지역에 위치해 있으며, 호치민과 현대 베트남 역사에 관한 다양한 문서와 유물을 전시하고 있습니다. \n\n관람은 베트남 방문객에게는 무료이며, 외국인 방문객은 40,000 동(VND)의 입장료가 필요합니다. 박물관은 오전 8시부터 오후 4시 30분까지 운영되며, 정오부터 오후 2시까지는 잠시 휴관합니다. 티켓 판매는 오전 11시 30분과 오후 4시에 마감되니, 미리 찾아오시는 것이 좋습니다.\n\n호치민 묘소와는 별개의 장소이므로, 꼭 방문 계획에 두시기 바랍니다. 다양한 전시물과 자료를 통해 베트남 역사를 깊이 이해할 수 있는 기회를 놓치지 마세요. 즐거운 관람 되시길 바랍니다! 감사합니다!",
+  "text_sha256": "eeefc07b64c2be3b2c6ea5c06a8eab50113d02fb21f3fce502f5eaf19e5976a4",
+  "audio_sha256": "8b673222a16ce2088702653ae001cf9b6938a1f1c78af1d919602654406e9f90",
+  "lang": "ko",
+  "provider": "edge-tts",
+  "source": "https://baotanghochiminh.vn/ | https://cityguide.vn/vn/hanoi/dia-diem/bao-tang-ho-chi-minh",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "1816d0fa5493be90ba035c26e225dc6a281a6695441d9ad22b9fb9f533aa2add"
+}

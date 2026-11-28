@@ -1,0 +1,11 @@
+{
+  "text": "안녕하세요, 여러분! 지금 여러분께 소개할 곳은 하노이 남부에 위치한 옌소 공원, 즉 공원 Yên Sở입니다. 이곳은 넓은 녹지 공간과 아름다운 호수가 있어 산책, 소풍, 야외 활동에 매우 적합한 장소입니다.\n\n이 공원은 무료로 개방되고 있으며, 매일 오전 5시부터 오후 7시까지 운영됩니다. 하지만 캠핑이나 바비큐는 지정된 구역에서만 가능하니 참고하시기 바랍니다. 그 외의 대여 서비스나 행사들은 추가 비용이 발생할 수 있습니다. \n\n옌소 공원은 자연과 여유로운 휴식을 즐기기에 최적의 장소입니다. 방문하실 때는 편안한 복장과 필요한 용품을 챙기는 것이 좋습니다. 그럼 모두 즐거운 시간 되세요!",
+  "text_sha256": "6a30efaac7b102bf9e59dea96e6a7434c0fef864d334db6d3c36a5bfb29457ed",
+  "audio_sha256": "58286331f4a4f42669071396bd6f50a5b57ecec0ff5839336391d5987b1e3981",
+  "lang": "ko",
+  "provider": "edge-tts",
+  "source": "https://congvienyenso.vn/ | https://travel.com.vn/en/tin-tuc-du-lich/dia-diem-du-lich-ha-noi-v18484.aspx",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "d0d0a483e7ff15d239c88779e77cecdf86f21293ef476462c66b73de25db7651"
+}

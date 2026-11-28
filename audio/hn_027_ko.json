@@ -1,0 +1,11 @@
+{
+  "text": "여러분, 지금 여러분이 계신 곳은 역사적인 장소인 롱비엔 다리(Long Biên Bridge)입니다. 이 다리는 홍강을 가로지르는 강철 다리로, 하노이의 교통 및 도시 역사와 깊은 관련이 있습니다. 롱비엔 다리는 특별한 출입금지 구역이 아닌 공공 보행 지역이니, 정해진 구역 안에서만 안전하게 이동하시기 바랍니다. 철도 선로에는 들어가지 않도록 주의하시고, 교통 차선에서 멈추지 않도록 하세요. 다리의 수리 작업으로 인해 접근이 제한될 수 있습니다. \n\n이곳을 방문하시기 위해서는 입장료가 전혀 없습니다. 운영 시간은 24시간, 언제든지 여러분이 오셔도 좋습니다. 하노이의 아름다움을 감상하면서 이 역사적인 다리를 걸어보세요. 안전하고 즐거운 여행 되시길 바랍니다!",
+  "text_sha256": "43f1293162f128f0ab00bedaf4c03f37475c7bf6d4ff2ef3d895b2789cc25084",
+  "audio_sha256": "fb60c2677569ae487fe2c3a0e75845fc2bbb922c0c505d73b2942d92dd6fea87",
+  "lang": "ko",
+  "provider": "edge-tts",
+  "source": "https://cdt.gov.vn/map/ha-noi?place=cau-long-bien | https://www.hanoitourism.org/things-to-do-in-hanoi/",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "76a9b3bbe5c8d83172ad63d8e506a6dc9011fca5122573ca10733069a50c7bd8"
+}

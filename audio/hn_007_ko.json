@@ -1,0 +1,11 @@
+{
+  "text": "안녕하세요, 여러분! 오늘은 베트남 미술관, 즉 한국어로 베트남 국립 미술관에 대해 소개해 드리겠습니다. 이곳은 조각, 옻칠화, 미술, 그리고 전통 매체를 통해 베트남의 시각 예술을 탐험하는 공간입니다. 이 미술관에서는 베트남의 예술 작품들을 다양하게 감상하실 수 있습니다.\n\n미술관의 운영 시간은 오전 8시 30분부터 오후 5시까지입니다. 입장 요금은 40,000 동입니다. 또한, 해설 관람 서비스는 별도의 요금이 발생하니 참고해 주세요. \n\n관람하시기 전 주의할 점은, 공휴일에는 월요일에 개방 여부를 반드시 확인하셔야 한다는 것입니다. 이 미술관은 개인 미술관과는 다르게 운영되고 있으니 혼동하지 않도록 주의해 주세요.\n\n이제 여러분은 베트남 미술의 깊이 있는 세계로 들어갈 준비가 되셨나요? 즐거운 시간 되시길 바랍니다! 감사합니다.",
+  "text_sha256": "faebcb7924c2d8633f1c7704082b115ca6d6464828afd56a25d4a5056e116555",
+  "audio_sha256": "6905a8931a14be2ec563c0f6c3434379668878a2a9bd7cc4ccdc0893d30dc7c3",
+  "lang": "ko",
+  "provider": "edge-tts",
+  "source": "https://vnfam.vn/vi/tham-quan | https://cityguide.vn/vn/hanoi/dia-diem/bao-tang-my-thuat-viet-nam | https://tourshoponhopoff.com/hanoi-tourist-map/",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "5376159cf0bb07af18629ce3f24beed8f697e710e9d08e65b1e15cb3df49e12e"
+}

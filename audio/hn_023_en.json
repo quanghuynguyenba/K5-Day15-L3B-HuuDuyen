@@ -1,0 +1,11 @@
+{
+  "text": "Welcome to the Ho Chi Minh Museum, or Bảo tàng Hồ Chí Minh, located in the historic Ba Dinh area. This museum showcases a wealth of documents, artifacts, and interpretive displays that delve into the life of Ho Chi Minh and the modern history of Vietnam. \n\nAdmission is free for Vietnamese visitors, while international guests are charged a fee of 40,000 VND. Please note that the museum operates from 8:00 AM to 4:30 PM, but it closes for lunch between 12:00 PM and 2:00 PM. Ticket counters will stop selling tickets at 11:30 AM and again at 4:00 PM, so be sure to plan your visit accordingly.\n\nRemember, the Ho Chi Minh Museum is separate from the Mausoleum, which is also in the vicinity. Enjoy your visit as you explore the rich heritage and significant events that shaped Vietnam's history!",
+  "text_sha256": "a231d27025819a60ef447153d00d599adc2ebcf6841499ed03af4f2e99a0f985",
+  "audio_sha256": "2c3ba7307f22886ca04facfada61177f4567881b9d42edb3bd4fa9581720d63d",
+  "lang": "en",
+  "provider": "edge-tts",
+  "source": "https://baotanghochiminh.vn/ | https://cityguide.vn/vn/hanoi/dia-diem/bao-tang-ho-chi-minh",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "1816d0fa5493be90ba035c26e225dc6a281a6695441d9ad22b9fb9f533aa2add"
+}

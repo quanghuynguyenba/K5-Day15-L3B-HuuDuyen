@@ -1,0 +1,11 @@
+{
+  "text": "안녕하세요, 여러분! 오늘은 하노이 근처에 위치한 바트짱 도자기 마을(Bát Tràng Pottery Village)을 소개해 드리겠습니다. 이곳은 전통 도자기가 유명한 마을로, 도자기 시장과 아트워크샵이 있습니다.\n\n마을의 골목길을 걸으며 현지의 전통적인 분위기를 느낄 수 있고, 다양한 도자기 작품을 만나볼 수 있습니다. 도자기 박물관이나 워크샵에 방문할 경우에는 별도의 요금이 부과되니 참고하시기 바랍니다. 입장은 무료로, 도자기 시장과 워크샵은 대개 오전 8시부터 오후 6시까지 운영됩니다.\n\n여기에서 도자기 만들기를 직접 체험할 수 있는 기회도 있으니, 손으로 직접 만들어보는 것을 추천드립니다. 바트짱 마을은 현지 주민들의 전통을 느끼며 독특한 기념품을 구매할 수 있는 장소입니다. 방문하시기 전에 운영 시간과 요금을 다시 확인하시길 바랍니다. 즐거운 시간 되세요!",
+  "text_sha256": "b63c79b6c438185f9a288a11afaeccd42728f31fc3e74d58ef0d9412eb44f897",
+  "audio_sha256": "a115dd27936ca8bff67fcc0f75d287deb64aa2522304b20a536f408f58dfbf58",
+  "lang": "ko",
+  "provider": "edge-tts",
+  "source": "https://hanoigo.hanoi.gov.vn/destination/diem-du-lich-bat-trang-xa-bat-trang-thanh-pho-ha-noi-xa-bat-trang | https://travel.com.vn/en/tin-tuc-du-lich/dia-diem-du-lich-ha-noi-v18484.aspx",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "7e41a0e765f5662096f2c476dc52daf9d268fb9b9ae4cae10396e10f54d4895c"
+}

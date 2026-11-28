@@ -1,0 +1,11 @@
+{
+  "text": "안녕하세요, 여러분! 지금 여러분이 계신 곳은 하노이의 유명한 시장, 동쑤안 시장(Chợ Đồng Xuân)입니다. 이곳은 북부 구시가지에 위치해 있으며, 다양한 의류와 생활용품, 지역 특산물을 판매하는 가판대로 가득 차 있습니다.\n\n이 시장은 무료로 들어올 수 있지만, 상품이나 음식을 구매하려면 추가 비용이 발생합니다. 또한, 가판대의 운영 시간은 각기 달라 정해진 일정을 확인하는 것이 좋습니다. 낮 시장과 별도로 운영되는 야시장이 있으니, 저녁에도 방문하실 분들은 시간을 확인해 주시기 바랍니다.\n\n동쑤안 시장은 매일 오전 6시부터 오후 6시까지 열리니, 이 시간을 참고하셔서 쇼핑을 즐기세요. 이곳에서는 하노이의 정취를 만끽할 수 있어요. 쇼핑을 하시면서 현지 문화도 체험해 보시기 바랍니다. 지금부터 즐거운 시간 되세요!",
+  "text_sha256": "5f13a708d6c22bdb1a76ea094945f1cecff3827a23b7225050b908d915f6b808",
+  "audio_sha256": "49f6f7debdfb38dd9733a774f752f632be8510e48933dee0c8ee5f085880a77b",
+  "lang": "ko",
+  "provider": "edge-tts",
+  "source": "https://cityguide.vn/en/hanoi/places/cho-dong-xuan | https://www.vietnamtourism.com/vi/cho-ong-xuan-o-ha-noi-cam-nang-ay-u-ve-khu-cho-bieu-tuong",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "6d9453707f4e0c25dfda663982151273396ac0e65ffe6f584185a0ccb772c1b0"
+}

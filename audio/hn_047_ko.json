@@ -1,0 +1,11 @@
+{
+  "text": "안녕하세요, 여러분! 오늘 여러분과 함께 있는 곳은 바로 공원인 '미래 공원 바오손'입니다. 이곳은 하노이 서쪽에 위치해 있으며, 다양한 재미와 즐길 거리를 제공하는 레저 공원입니다. \n\n여기서는 사파리, 아쿠아리움, 다양한 놀이기구와 테마 체험을 즐길 수 있습니다. 아이들과 함께 오시면 특히 좋을 것 같습니다. \n\n입장료는 250,000 VND이며, 운영 시간은 오전 8시부터 오후 5시까지입니다. 방문 전에 패키지 비용이나 신장에 따라 요금이 달라질 수 있으니, 꼭 확인하시는 것이 좋습니다. 또한 일부 놀이기구는 건강이나 신장 제한이 있으니, 이용 전에 참고하시기 바랍니다. \n\n즐거운 시간을 보내시길 바라며, 궁금한 점이 있다면 말씀해 주세요!",
+  "text_sha256": "908e3737f72215f90fee0c41a88f7504b966d6ff1e273989d491fcf8a8c3cc1a",
+  "audio_sha256": "da4f07596f790c20d186ae2836d11cca106e8c61b4192a97847109126fe46aaa",
+  "lang": "ko",
+  "provider": "edge-tts",
+  "source": "https://cityguide.vn/vn/hanoi/dia-diem | https://travel.com.vn/en/tin-tuc-du-lich/dia-diem-du-lich-ha-noi-v18484.aspx",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "da9a32ac24568902f224cd129e09182fb6af3a3c0911bfe7617468eb16c9af10"
+}

@@ -1,0 +1,11 @@
+{
+  "text": "안녕하세요 여러분, 오늘은 롯데 월드 수족관(Thủy cung Lotte World Hà Nội)에 대해 소개해 드리겠습니다. 이 수족관은 하노이의 롯데몰 서호 지하 1층과 2층에 위치하고 있습니다. 이곳은 담수와 해양 생물을 전시하는 다양한 수조가 있어 가족 단위 방문객들이 즐길 수 있는 장소입니다.\n\n수족관의 운영 시간은 매일 오전 9시 30분부터 오후 10시까지입니다. 마지막 입장은 오후 9시까지 가능하니, 꼭 시간을 확인하시기 바랍니다. \n\n입장료는 평일에는 성인 280,000 동, 어린이 190,000 동이며, 주말이나 공휴일에는 성인 350,000 동, 어린이 250,000 동으로 변경됩니다. 그러나 80cm 미만의 어린이는 성인과 함께 방문 시 무료로 입장할 수 있습니다.\n\n수족관 내에서는 다양한 해양 생물과 아름다운 전시를 감상할 수 있으니, 멋진 시간을 보내시길 바랍니다. 추가 질문이 있으시면 직원에게 문의해 주세요. 감사합니다!",
+  "text_sha256": "e35c43e3c8efa31e333207858b505a681efc6a4240e3cd2152fc453eeca47bc3",
+  "audio_sha256": "2b43f42fe33316ad7bcd0f069b13bd7ab4c230d73b4782c7c2b720a15dfd3edd",
+  "lang": "ko",
+  "provider": "edge-tts",
+  "source": "https://lotteworld.vn/ticket/ | https://lotteworld.vn/plan/ | https://cityguide.vn/vn/hanoi/dia-diem/thuy-cung-lotte-world-ha-noi",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "ad5ff0593692973911623b681e28a7fb8b43b056c06f46b0a21ac949049f27a9"
+}

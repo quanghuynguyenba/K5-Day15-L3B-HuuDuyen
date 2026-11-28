@@ -1,0 +1,11 @@
+{
+  "text": "欢迎大家来到河内乐天世界水族馆（Lotte World Aquarium Hanoi）。这里位于乐天购物中心的地下1层和2层，是一个展示淡水和海洋生物的奇妙地方。\n\n水族馆的开放时间为每天早上9:30到晚上10:00，最后入场时间为晚上9:00。成人票价为350,000越南盾，而儿童票价为250,000越南盾。值得一提的是，身高在80厘米以下的儿童可在成人陪同下免费入场。\n\n在这里，您将有机会看到各种各样的水下生物，亲眼目睹它们生活在水中的精彩瞬间。请尽量安排好您的时间，确保能在最后入场时间之前来到这里。如果您有任何疑问，请随时询问工作人员。希望您能度过一个愉快的时光！",
+  "text_sha256": "567bfa9c28e5c11a21f529b1ca56f7361aa103ec7d866c5be6fde52155d9cfe8",
+  "audio_sha256": "f64bde20cc78961ae05f060af29b44ce291ce923b359c421faa9ec5b45c59b91",
+  "lang": "zh",
+  "provider": "edge-tts",
+  "source": "https://lotteworld.vn/ticket/ | https://lotteworld.vn/plan/ | https://cityguide.vn/vn/hanoi/dia-diem/thuy-cung-lotte-world-ha-noi",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "ad5ff0593692973911623b681e28a7fb8b43b056c06f46b0a21ac949049f27a9"
+}

@@ -1,0 +1,11 @@
+{
+  "text": "안녕하세요, 여러분! 지금 저희는 하노이의 유명한 백마사원, 즉 Đền Bạch Mã에 도착했습니다. 이 사원은 흰 말의 신에게 바쳐진 곳으로, Thang Long의 기원과 관련된 전설들이 전해 내려옵니다.\n\n사원의 운영 시간은 매일 아침 8시부터 오후 5시 30분까지입니다. 하지만 주말인 금요일부터 일요일 사이에는 특별히 저녁 7시부터 9시까지 추가 개방이 있을 수 있으니, 미리 확인해 주시기 바랍니다. 점심시간인 12시부터 1시 30분까지는 잠시 문을 닫으니 유의해주세요.\n\n입장료는 20,000동으로, 특정 음력 날짜에는 무료로 입장할 수 있는 혜택도 있으니, 방문 계획을 세울 때 참고하시면 좋을 것 같습니다. 백마사원은 하노이에 있는 네 개의 수호 사원 중 하나로, 그 역사와 전통을 직접 체험해 보시길 바랍니다.\n\n이제 사원 내부로 들어가 보실까요?",
+  "text_sha256": "b3119d3a2e0ccae31c0963d41a577f549fda65abc330b1776705662a281687ae",
+  "audio_sha256": "bd78d80caabdbb34bb43db205db66947a2da47091bf68e81cafb5d4b1b73dc5f",
+  "lang": "ko",
+  "provider": "edge-tts",
+  "source": "https://cityguide.vn/vn/hanoi/dia-diem/den-bach-ma | https://phocohanoi.hoankiem.vn/ | https://mapcarta.com/W700840711 | https://phocohanoi.hoankiem.vn/",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "28548b947944baaca83cc5a546e8a934cc18f288c8f55bad31b00507539fb7ea"
+}
