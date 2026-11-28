@@ -1,0 +1,11 @@
+{
+  "text": "Bảo tàng Phụ nữ Việt Nam kể câu chuyện lịch sử và văn hóa từ góc nhìn của những người phụ nữ. Qua trang phục, hình ảnh và vật dụng đời thường, các phòng trưng bày giới thiệu vai trò của họ trong gia đình, lao động và những chặng đường của đất nước. Nét cuốn hút ở đây là sự gắn kết giữa câu chuyện lớn với những trải nghiệm rất riêng của mỗi con người. Một bộ váy, một bức ảnh hay một kỷ vật đều có thể mở ra câu chuyện về sự khéo léo, tình yêu thương và khả năng vượt qua thử thách.",
+  "text_sha256": "c5d1532b8da3e77129ae1ae9ce713746d3923e6da2139001d42f1f0197ff741b",
+  "audio_sha256": "17a1e1d40fde365ac9068db06d6e34deb720a49206f1825cb59f6cf92e127496",
+  "lang": "vi",
+  "provider": "gtts",
+  "source": "https://www.vietnamtourism.com/en/places/hanoi/vietnamese-womens-museum",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "7e1060dafb127fc1d31e0b3db7361599fa9a809094c7ffa695b9ca1c7a52ff9c"
+}

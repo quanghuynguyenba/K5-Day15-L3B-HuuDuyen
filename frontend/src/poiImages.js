@@ -1,5 +1,8 @@
 // Curated images only: never reuse one landmark's photograph for another POI.
+import catalogueImages from "./poiImages.generated.json";
+
 export const poiImages = {
+  ...catalogueImages,
   hn_001: {
     src: "/images/pois/van-mieu.jpg",
     alt: "Khuê Văn Các tại Văn Miếu – Quốc Tử Giám, Hà Nội",

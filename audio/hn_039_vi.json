@@ -1,0 +1,11 @@
+{
+  "text": "Làng Văn hóa – Du lịch các dân tộc Việt Nam tại Đồng Mô giới thiệu sự đa dạng văn hóa thông qua kiến trúc và không gian sinh hoạt cộng đồng. Những kiểu nhà, công trình tín ngưỡng và cách tổ chức cảnh quan giúp nhận diện nét riêng của nhiều dân tộc. Đây là không gian để tìm hiểu mối liên hệ giữa nơi ở, môi trường và phong tục. Thay vì xem văn hóa như những hình ảnh tách biệt, người tham quan có thể đặt chúng trong bối cảnh sinh hoạt rộng hơn, qua đó cảm nhận những khác biệt cùng các giá trị kết nối cộng đồng.",
+  "text_sha256": "b2dd309554e8142acf9595cebcd28cd7150737e6fc365467713e4b6afceb6a34",
+  "audio_sha256": "aa07dc9ce86fca0e50dce5c9fd38dc34967289eb5daaf6559b577daa3d74fd7e",
+  "lang": "vi",
+  "provider": "gtts",
+  "source": "https://langvanhoavietnam.vn/nhung-thong-tin-huu-ich-khi-tham-quan-lang-van-hoa-du-lich-cac-dan-toc-viet-nam/",
+  "approved": true,
+  "prepared": true,
+  "context_sha256": "25e7f2ee75a6aa57d94064acc94bd845cca5c2482e9ed701620d313d2992a32b"
+}

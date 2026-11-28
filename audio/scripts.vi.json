@@ -1,0 +1,362 @@
+[
+  {
+    "poi_id": "hn_001",
+    "lang": "vi",
+    "text": "Văn Miếu – Quốc Tử Giám là nơi lưu giữ những giá trị tiêu biểu của truyền thống hiếu học Việt Nam. Trong không gian cổ kính này, mỗi mái ngói, khoảng sân và hàng cây đều gợi nhắc câu chuyện về việc học và sự trọng dụng nhân tài. Xin quý khách dành chút thời gian chiêm ngưỡng Khuê Văn Các và những tấm bia tiến sĩ, dấu ấn của nền khoa cử xưa. Khi bước qua từng lớp sân, chúng ta sẽ cảm nhận rõ hơn tinh thần tôn sư trọng đạo được gìn giữ qua nhiều thế hệ.",
+    "source": "https://vanmieu.gov.vn/vi/inner-temple",
+    "approved": true,
+    "name": "Văn Miếu – Quốc Tử Giám",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_002",
+    "lang": "vi",
+    "text": "Hồ Hoàn Kiếm và đền Ngọc Sơn tạo nên một không gian văn hóa tiêu biểu giữa lòng Hà Nội. Trước mắt chúng ta, cầu Thê Húc nối bờ hồ với đảo Ngọc, dẫn lối vào ngôi đền cổ kính. Xin quý khách cùng quan sát tháp Bút, đài Nghiên và những chi tiết kiến trúc trong quần thể di tích. Những công trình ấy gợi nhắc truyền thống trọng chữ nghĩa và đời sống tinh thần của người Hà Nội. Giữa nhịp phố phường, nơi đây mời chúng ta bước chậm để cảm nhận vẻ thanh nhã bên mặt nước.",
+    "source": "https://dsvh.gov.vn/di-tich-lich-su-va-danh-lam-thang-canh-ho-hoan-kiem-va-den-ngoc-son-2978",
+    "approved": true,
+    "name": "Hồ Hoàn Kiếm – Đền Ngọc Sơn",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_003",
+    "lang": "vi",
+    "text": "Bảo tàng Dân tộc học Việt Nam mở ra bức tranh đa dạng về đời sống các dân tộc trên đất nước Việt Nam. Trang phục, đồ dùng và những ngôi nhà truyền thống cho thấy cách mỗi cộng đồng thích ứng với môi trường, tổ chức gia đình và gìn giữ bản sắc. Điểm hấp dẫn của bảo tàng nằm ở những chi tiết gần gũi: hoa văn trên vải, vật dụng lao động hay cách bố trí không gian sống. Qua đó, văn hóa hiện lên như một phần sinh động của đời thường, với những nét riêng cùng góp nên sự phong phú của cộng đồng Việt Nam.",
+    "source": "https://vietnam.travel/things-to-do/best-museums-vietnam/",
+    "approved": true,
+    "name": "Bảo tàng Dân tộc học Việt Nam",
+    "category": "museum"
+  },
+  {
+    "poi_id": "hn_004",
+    "lang": "vi",
+    "text": "Hoàng thành Thăng Long là quần thể di tích gắn với lịch sử kinh đô Thăng Long – Hà Nội. Điều đặc biệt của nơi đây là những lớp dấu tích được lưu giữ qua nhiều thời kỳ, giúp chúng ta hình dung sự tiếp nối của lịch sử ngay dưới bước chân mình. Trong hành trình tham quan, xin quý khách chú ý những dấu tích kiến trúc và hiện vật khảo cổ. Từ một mảnh gốm đến nền móng công trình, mỗi chi tiết đều góp phần kể lại câu chuyện về đời sống hoàng cung xưa.",
+    "source": "https://hoangthanhthanglong.vn/trung-bay-bau-vat-hoang-cung-thang-long/",
+    "approved": true,
+    "name": "Hoàng thành Thăng Long",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_005",
+    "lang": "vi",
+    "text": "Di tích Nhà tù Hỏa Lò là nơi lưu giữ những ký ức về cuộc đấu tranh giành độc lập của dân tộc. Qua các không gian trưng bày, chúng ta sẽ tìm hiểu hoàn cảnh giam giữ khắc nghiệt và tinh thần kiên cường của những người tù yêu nước. Xin quý khách dành thời gian đọc những câu chuyện gắn với từng hiện vật, bởi phía sau đó là số phận, niềm tin và sự hy sinh của con người. Hy vọng chuyến tham quan giúp chúng ta thêm trân trọng giá trị của tự do và cuộc sống hòa bình hôm nay.",
+    "source": "https://trungbayonline.hoalo.vn/Home/About",
+    "approved": true,
+    "name": "Di tích Nhà tù Hỏa Lò",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_006",
+    "lang": "vi",
+    "text": "Bảo tàng Phụ nữ Việt Nam kể câu chuyện lịch sử và văn hóa từ góc nhìn của những người phụ nữ. Qua trang phục, hình ảnh và vật dụng đời thường, các phòng trưng bày giới thiệu vai trò của họ trong gia đình, lao động và những chặng đường của đất nước. Nét cuốn hút ở đây là sự gắn kết giữa câu chuyện lớn với những trải nghiệm rất riêng của mỗi con người. Một bộ váy, một bức ảnh hay một kỷ vật đều có thể mở ra câu chuyện về sự khéo léo, tình yêu thương và khả năng vượt qua thử thách.",
+    "source": "https://www.vietnamtourism.com/en/places/hanoi/vietnamese-womens-museum",
+    "approved": true,
+    "name": "Bảo tàng Phụ nữ Việt Nam",
+    "category": "museum"
+  },
+  {
+    "poi_id": "hn_007",
+    "lang": "vi",
+    "text": "Bảo tàng Mỹ thuật Việt Nam giới thiệu hành trình sáng tạo của người Việt qua nhiều thời kỳ và chất liệu. Những tác phẩm điêu khắc, tranh sơn mài và hội họa cho thấy sự biến đổi trong cách nghệ sĩ nhìn con người, thiên nhiên và cuộc sống. Sức hấp dẫn của bộ sưu tập không chỉ nằm ở đề tài, mà còn ở đường nét, màu sắc và kỹ thuật thể hiện. Giữa các phòng trưng bày, người xem có thể nhận ra sự tiếp nối của truyền thống cùng những tìm tòi mới, tạo nên diện mạo phong phú của mỹ thuật Việt Nam.",
+    "source": "https://vnfam.vn/vi/tham-quan",
+    "approved": true,
+    "name": "Bảo tàng Mỹ thuật Việt Nam",
+    "category": "museum"
+  },
+  {
+    "poi_id": "hn_008",
+    "lang": "vi",
+    "text": "Bảo tàng Lịch sử Quốc gia đưa chúng ta khám phá lịch sử Việt Nam từ thời tiền sử đến ngày nay thông qua những tài liệu và hiện vật được lưu giữ tại bảo tàng. Mỗi hiện vật là một dấu vết của quá khứ, giúp chúng ta hiểu thêm cách người xưa sinh sống, sáng tạo và xây dựng đất nước. Khi tham quan, xin quý khách kết hợp quan sát hiện vật với phần chú thích để nhận ra những câu chuyện phía sau, thay vì chỉ dừng lại ở hình dáng bên ngoài.",
+    "source": "https://baotanglichsuquocgia.vn/DataFiles/2024/08/News/Tieng%20Viet/1.8.2024/Thong%20bao%20Khoa%20hoc%20so%201%20nam%202024/006.pdf",
+    "approved": true,
+    "name": "Bảo tàng Lịch sử Quốc gia",
+    "category": "museum"
+  },
+  {
+    "poi_id": "hn_009",
+    "lang": "vi",
+    "text": "Bảo tàng Hà Nội là nơi tìm hiểu những lớp ký ức của Thăng Long và cuộc sống đô thị qua các thời kỳ. Hình dáng kim tự tháp ngược tạo cho công trình một diện mạo dễ nhận biết, khác với những không gian di tích truyền thống. Bên trong, hiện vật và tư liệu giúp kết nối lịch sử với văn hóa, nghề nghiệp và sinh hoạt của cư dân. Câu chuyện về Hà Nội vì thế không chỉ thuộc về những sự kiện lớn, mà còn hiện diện trong những vật dụng và dấu tích quen thuộc, góp phần định hình bản sắc của thành phố.",
+    "source": "https://baotanghanoi.com.vn/",
+    "approved": true,
+    "name": "Bảo tàng Hà Nội",
+    "category": "museum"
+  },
+  {
+    "poi_id": "hn_010",
+    "lang": "vi",
+    "text": "Bảo tàng Lịch sử Quân sự Việt Nam giới thiệu những chặng đường xây dựng và bảo vệ đất nước qua tư liệu, hiện vật và các không gian trưng bày. Tại cơ sở trên Đại lộ Thăng Long, khu trưng bày trong nhà kết hợp với những hiện vật lớn ngoài trời, tạo nhiều góc tiếp cận lịch sử quân sự. Đằng sau mỗi phương tiện hay kỷ vật là câu chuyện về con người, hoàn cảnh chiến đấu và những lựa chọn trong thời chiến. Các hiện vật giúp người xem hiểu thêm sự hy sinh cùng giá trị của độc lập và hòa bình.",
+    "source": "https://xaydungchinhsach.chinhphu.vn/tu-1-11-bao-tang-lich-su-quan-su-viet-nam-vi-tri-moi-mo-cua-don-khach-mien-phi-tham-quan-119241004184508454.htm",
+    "approved": true,
+    "name": "Bảo tàng Lịch sử Quân sự Việt Nam",
+    "category": "museum"
+  },
+  {
+    "poi_id": "hn_011",
+    "lang": "vi",
+    "text": "Chùa Một Cột là một hình ảnh quen thuộc khi nhắc đến kiến trúc Hà Nội. Điểm nhấn của quần thể là Liên Hoa Đài, công trình nhỏ có dáng tựa bông sen vươn lên khỏi mặt nước. Sự kết hợp giữa cột đỡ, mái cong và hồ nước tạo nên bố cục thanh thoát, thể hiện cách kiến trúc truyền thống hòa vào cảnh quan. Vẻ đẹp nơi đây không nằm ở quy mô đồ sộ, mà ở ý tưởng tạo hình cô đọng. Hình tượng hoa sen cũng gợi liên tưởng đến sự thanh khiết trong văn hóa Phật giáo và đời sống tinh thần người Việt.",
+    "source": "https://vietnam.travel/things-to-do/11-must-see-attractions-ha-noi/",
+    "approved": true,
+    "name": "Chùa Một Cột",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_012",
+    "lang": "vi",
+    "text": "Chùa Trấn Quốc nằm bên Hồ Tây, nổi bật bởi sự hòa quyện giữa kiến trúc Phật giáo và cảnh quan mặt nước. Những mái chùa, sân cây và bảo tháp nhiều tầng tạo nên không gian trang nghiêm nhưng vẫn gần gũi với thiên nhiên. Vị trí bên hồ khiến hình ảnh ngôi chùa thay đổi theo ánh sáng và góc nhìn, khi hiện rõ trên nền trời, khi in bóng xuống mặt nước. Đây là điểm đến để tìm hiểu đời sống tín ngưỡng của Hà Nội, đồng thời cảm nhận cách người xưa tổ chức một không gian tâm linh trong lòng cảnh sắc đô thị.",
+    "source": "https://www.vietnamairlines.com/vn/vi/plan-book/travel/travel-guide/tran-quoc-pagoda",
+    "approved": true,
+    "name": "Chùa Trấn Quốc",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_013",
+    "lang": "vi",
+    "text": "Đền Quán Thánh là một trong Thăng Long tứ trấn, gắn với tín ngưỡng thờ Huyền Thiên Trấn Vũ và vai trò trấn giữ phía bắc kinh thành trong quan niệm xưa. Không gian đền mang vẻ trầm mặc, với những lớp kiến trúc dẫn từ cổng vào khu thờ tự. Điểm nổi bật là pho tượng đồng Huyền Thiên Trấn Vũ, thể hiện kỹ thuật tạo tác và đời sống tín ngưỡng của người Việt. Nằm gần Hồ Tây, ngôi đền góp thêm chiều sâu văn hóa cho khu vực, nơi cảnh quan thiên nhiên và di sản tâm linh cùng hiện diện.",
+    "source": "https://myhanoi.vn/vi/denquanthanh",
+    "approved": true,
+    "name": "Đền Quán Thánh",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_014",
+    "lang": "vi",
+    "text": "Nhà thờ Lớn Hà Nội tạo nên điểm nhấn kiến trúc ở khu vực phố Nhà Chung với hai tháp chuông và những đường nét mang phong cách Gothic. Mặt đứng vươn cao, các ô cửa và màu sắc trầm của công trình tạo cảm giác cổ kính giữa phố phường. Không gian quanh nhà thờ cũng là nơi thể hiện nhịp sống đô thị, khi sinh hoạt tôn giáo song hành với những hoạt động thường ngày. Nhìn từ quảng trường phía trước, có thể cảm nhận rõ sự tương phản giữa vẻ trang nghiêm của kiến trúc và chuyển động gần gũi của đời sống Hà Nội.",
+    "source": "https://vietnam.travel/things-to-do/11-must-see-attractions-ha-noi/",
+    "approved": true,
+    "name": "Nhà thờ Lớn Hà Nội",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_016",
+    "lang": "vi",
+    "text": "Phố cổ Hà Nội lưu giữ dấu ấn của một đô thị phát triển từ những phố nghề và hoạt động buôn bán. Các con phố nhỏ, nhà ống và cửa hàng san sát tạo nên không gian vừa chật hẹp vừa giàu sức sống. Điều đặc biệt nằm ở sự đan xen giữa nơi ở, nơi làm nghề và những công trình tín ngưỡng của cộng đồng. Những tên phố, mặt tiền nhà và nhịp sinh hoạt thường ngày cùng kể câu chuyện về cư dân qua nhiều thế hệ. Di sản ở đây vẫn tiếp tục được sử dụng, biến đổi và gìn giữ trong cuộc sống hôm nay.",
+    "source": "https://phocohanoi.hoankiem.vn/",
+    "approved": true,
+    "name": "Phố cổ Hà Nội",
+    "category": "culture"
+  },
+  {
+    "poi_id": "hn_017",
+    "lang": "vi",
+    "text": "Ngôi nhà Di sản 87 Mã Mây giới thiệu một cách tổ chức không gian sống tiêu biểu trong phố cổ Hà Nội. Dáng nhà ống kéo dài được chia thành các lớp, xen giữa là khoảng sân giúp lấy ánh sáng và thông thoáng. Không gian buôn bán, sinh hoạt và thờ tự cho thấy sự gắn bó giữa công việc với đời sống gia đình. Những chi tiết gỗ, mái ngói và vật dụng góp phần tái hiện nếp ở của cư dân xưa. Qua ngôi nhà, có thể hiểu thêm cách người phố cổ thích ứng với diện tích hẹp mà vẫn giữ những khoảng riêng cần thiết.",
+    "source": "https://giaoducthoidai.vn/ha-noi-chinh-thuc-thu-phi-tham-quan-bang-ve-dien-tu-tai-hai-di-tich-pho-co-post764010.html",
+    "approved": true,
+    "name": "Ngôi nhà Di sản 87 Mã Mây",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_018",
+    "lang": "vi",
+    "text": "Đền Bạch Mã nằm trên phố Hàng Buồm, là một di tích tín ngưỡng quan trọng trong không gian phố cổ. Ngôi đền gắn với truyền thuyết ngựa trắng giúp nhà vua xác định dấu thành khi xây dựng kinh đô Thăng Long. Câu chuyện dân gian ấy thể hiện cách cộng đồng lý giải và gửi gắm niềm tin vào sự bảo hộ của thần linh. Bên trong di tích, kiến trúc thờ tự và những chi tiết trang trí tạo nên vẻ trang nghiêm. Giữa khu phố buôn bán đông đúc, đền giữ vai trò như một điểm tựa tinh thần và ký ức của cư dân.",
+    "source": "https://cityguide.vn/vn/hanoi/dia-diem/den-bach-ma",
+    "approved": true,
+    "name": "Đền Bạch Mã",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_019",
+    "lang": "vi",
+    "text": "Di tích Nhà 48 Hàng Ngang gắn với sự kiện Chủ tịch Hồ Chí Minh soạn thảo bản Tuyên ngôn Độc lập năm 1945. Nằm giữa khu phố buôn bán, ngôi nhà cho thấy một không gian đời thường có thể trở thành nơi chứng kiến bước ngoặt của lịch sử đất nước. Giá trị của di tích nằm ở mối liên hệ giữa địa điểm, con người và văn kiện khai sinh nước Việt Nam Dân chủ Cộng hòa. Những không gian được giới thiệu tại đây giúp người xem hình dung bối cảnh chuẩn bị cho sự kiện lịch sử, đồng thời nhận ra chiều sâu ký ức giữa phố cổ.",
+    "source": "https://baotanghochiminh.vn/di-tich-lich-su-48-hang-ngang-ha-noi.htm",
+    "approved": true,
+    "name": "Di tích Nhà 48 Hàng Ngang",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_021",
+    "lang": "vi",
+    "text": "Lăng Chủ tịch Hồ Chí Minh nằm tại quảng trường Ba Đình, tạo nên một không gian tưởng niệm trang nghiêm của Thủ đô. Công trình có hình khối vững chãi, kết hợp với khoảng quảng trường rộng và cảnh quan cây xanh xung quanh. Đây là nơi người dân và du khách đến bày tỏ lòng tưởng nhớ đối với Chủ tịch Hồ Chí Minh. Giá trị của không gian không chỉ nằm ở kiến trúc, mà còn ở sự gắn bó với ký ức lịch sử và tình cảm của nhiều thế hệ. Toàn bộ cảnh quan góp phần tạo nên bầu không khí thành kính, lắng đọng.",
+    "source": "https://vietnam.travel/things-to-do/11-must-see-attractions-ha-noi/",
+    "approved": true,
+    "name": "Lăng Chủ tịch Hồ Chí Minh",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_022",
+    "lang": "vi",
+    "text": "Khu di tích Phủ Chủ tịch – Nhà sàn Bác Hồ giới thiệu không gian sống và làm việc của Chủ tịch Hồ Chí Minh trong một khuôn viên nhiều cây xanh. Nhà sàn, ao cá và những lối đi tạo nên cảnh quan gần gũi, khác với hình dung về nơi ở của một nguyên thủ. Những chi tiết giản dị trong kiến trúc và cách tổ chức sinh hoạt giúp người xem tiếp cận câu chuyện về nếp sống của Người. Giá trị của di tích nằm ở mối liên hệ giữa không gian, hiện vật và con người, đem lại góc nhìn đời thường bên cạnh những sự kiện lịch sử.",
+    "source": "https://cityguide.vn/vn/hanoi/dia-diem/phu-chu-tich-nha-san-bac-ho",
+    "approved": true,
+    "name": "Khu di tích Phủ Chủ tịch – Nhà sàn Bác Hồ",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_023",
+    "lang": "vi",
+    "text": "Bảo tàng Hồ Chí Minh giới thiệu cuộc đời và sự nghiệp của Chủ tịch Hồ Chí Minh trong mối liên hệ với lịch sử Việt Nam hiện đại. Tư liệu, hình ảnh và hiện vật được kết hợp với những không gian mang tính biểu tượng, giúp câu chuyện được tiếp cận từ nhiều góc nhìn. Các phần trưng bày nối những dấu mốc hoạt động với bối cảnh xã hội và con người đương thời. Điểm đáng chú ý là cách bảo tàng sử dụng ngôn ngữ tạo hình để bổ sung cho thông tin lịch sử, đem lại trải nghiệm vừa tìm hiểu tư liệu vừa cảm nhận ý nghĩa của chúng.",
+    "source": "https://baotanghochiminh.vn/",
+    "approved": true,
+    "name": "Bảo tàng Hồ Chí Minh",
+    "category": "museum"
+  },
+  {
+    "poi_id": "hn_024",
+    "lang": "vi",
+    "text": "Bảo tàng Thiên nhiên Việt Nam đưa người xem đến với câu chuyện về sự sống và tính đa dạng của thế giới tự nhiên. Các mẫu vật giúp giới thiệu đặc điểm của sinh vật, mối liên hệ giữa chúng với môi trường và những biến đổi qua thời gian. Khác với việc chỉ nhìn hình ảnh trong sách, quan sát mẫu vật tạo cơ hội nhận ra hình dáng, cấu trúc và những chi tiết rất nhỏ. Không gian trưng bày khơi gợi sự tò mò khoa học, đồng thời nhắc đến giá trị của việc nghiên cứu, lưu giữ và bảo vệ di sản thiên nhiên.",
+    "source": "https://vnmn.ac.vn/public/",
+    "approved": true,
+    "name": "Bảo tàng Thiên nhiên Việt Nam",
+    "category": "museum"
+  },
+  {
+    "poi_id": "hn_025",
+    "lang": "vi",
+    "text": "Bảo tàng Chiến thắng B-52 giới thiệu những tư liệu và hiện vật liên quan đến lịch sử phòng không, đặc biệt là cuộc chiến đấu bảo vệ Hà Nội tháng mười hai năm một nghìn chín trăm bảy mươi hai. Những hiện vật quân sự giúp hình dung quy mô và tính chất của cuộc đối đầu trên bầu trời. Bên cạnh câu chuyện về phương tiện và kỹ thuật là vai trò của con người trong tổ chức chiến đấu và bảo vệ thành phố. Không gian bảo tàng góp phần lưu giữ ký ức chiến tranh, để các thế hệ sau hiểu hơn giá trị của hòa bình.",
+    "source": "https://www.qdnd.vn/50-nam-chien-thang-ha-noi-dien-bien-phu-tren-khong/am-vang-chien-thang/noi-luu-giu-quang-ba-tam-voc-chien-thang-b-52-714153",
+    "approved": true,
+    "name": "Bảo tàng Chiến thắng B-52",
+    "category": "museum"
+  },
+  {
+    "poi_id": "hn_026",
+    "lang": "vi",
+    "text": "Nhà hát Lớn Hà Nội là điểm nhấn kiến trúc nổi bật ở khu vực Tràng Tiền, nhìn ra quảng trường Cách mạng Tháng Tám. Công trình mang dấu ấn kiến trúc Pháp, với mặt đứng cân đối, những hàng cột và các chi tiết trang trí tạo vẻ trang trọng. Từ bên ngoài, sự kết hợp giữa bậc thềm, cửa lớn và phần mái thể hiện rõ tính chất của một công trình biểu diễn nghệ thuật. Trong cảnh quan đô thị, nhà hát vừa là dấu mốc nhận diện vừa gợi câu chuyện về đời sống sân khấu và sự giao thoa văn hóa của Hà Nội.",
+    "source": "https://cityguide.vn/vn/hanoi/dia-diem/nha-hat-lon-ha-noi",
+    "approved": true,
+    "name": "Nhà hát Lớn Hà Nội – ngắm bên ngoài",
+    "category": "culture"
+  },
+  {
+    "poi_id": "hn_027",
+    "lang": "vi",
+    "text": "Cầu Long Biên bắc qua sông Hồng, là một dấu ấn quen thuộc trong cảnh quan và ký ức Hà Nội. Kết cấu thép với những nhịp cầu nối tiếp tạo nên đường nét riêng, dễ nhận ra khi nhìn từ bờ sông. Giá trị của cây cầu không chỉ ở chức năng giao thông, mà còn ở mối liên hệ với sự phát triển của thành phố và cuộc sống cư dân hai bên bờ. Hình ảnh cầu, dòng sông và bãi bồi gợi nên một lớp cảnh quan đô thị đặc biệt, nơi dấu tích công nghiệp hòa cùng nhịp sống thường ngày.",
+    "source": "https://cdt.gov.vn/map/ha-noi?place=cau-long-bien",
+    "approved": true,
+    "name": "Cầu Long Biên",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_028",
+    "lang": "vi",
+    "text": "Đình Kim Ngân trên phố Hàng Bạc là không gian gắn với truyền thống nghề thủ công và sinh hoạt cộng đồng của phố cổ Hà Nội. Kiến trúc đình tạo một khoảng chuyển từ đường phố buôn bán vào nơi thờ tự trang nghiêm. Những chi tiết trang trí và bố cục công trình giúp hình dung vai trò của đình trong đời sống người làm nghề. Nơi đây cho thấy phố cổ không chỉ hình thành từ cửa hàng và nhà ở, mà còn từ những thiết chế kết nối cộng đồng. Di tích lưu giữ sự trân trọng đối với nghề nghiệp, tổ nghề và ký ức chung.",
+    "source": "https://baonghean.vn/pho-co-ha-noi-huong-dan-tham-quan-4-di-tich-thu-phi-10313940.html",
+    "approved": true,
+    "name": "Đình Kim Ngân",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_029",
+    "lang": "vi",
+    "text": "Đền Quan Đế tại số hai mươi tám Hàng Buồm là một điểm di sản tín ngưỡng trong khu phố cổ Hà Nội. Không gian đền giúp nhận diện một phần đời sống tinh thần từng song hành với hoạt động giao thương của khu vực. Kiến trúc thờ tự, các lớp không gian và chi tiết trang trí tạo nên vẻ trang nghiêm giữa những dãy phố đông đúc. Giá trị của di tích nằm ở sự kết nối giữa tín ngưỡng với lịch sử cư dân đô thị. Qua đó, có thể hiểu thêm tính đa dạng văn hóa và những dấu ấn cộng đồng còn lưu lại trong phố cổ.",
+    "source": "https://baonghean.vn/pho-co-ha-noi-huong-dan-tham-quan-4-di-tich-thu-phi-10313940.html",
+    "approved": true,
+    "name": "Đền Quan Đế – 28 Hàng Buồm",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_030",
+    "lang": "vi",
+    "text": "Trung tâm Giao lưu Văn hóa Phố cổ Hà Nội tại số năm mươi Đào Duy Từ là không gian giới thiệu những giá trị của di sản đô thị. Câu chuyện về phố nghề, kiến trúc và đời sống cư dân được kết nối với hoạt động giao lưu văn hóa. Điểm đặc biệt của trung tâm là cách nhìn phố cổ như một cộng đồng đang sống, thay vì chỉ là tập hợp những ngôi nhà cũ. Những nội dung giới thiệu giúp đặt từng di tích vào bối cảnh rộng hơn, nơi nghề nghiệp, sinh hoạt và ký ức cùng góp phần hình thành bản sắc Hà Nội.",
+    "source": "https://baonghean.vn/pho-co-ha-noi-huong-dan-tham-quan-4-di-tich-thu-phi-10313940.html",
+    "approved": true,
+    "name": "Trung tâm Giao lưu Văn hóa Phố cổ Hà Nội",
+    "category": "culture"
+  },
+  {
+    "poi_id": "hn_031",
+    "lang": "vi",
+    "text": "Làng gốm Bát Tràng bên sông Hồng là nơi nghề làm gốm gắn bó với đời sống cộng đồng qua nhiều thế hệ. Từ đất, nước và lửa, người thợ tạo nên những sản phẩm vừa phục vụ sinh hoạt vừa thể hiện khả năng trang trí và tạo hình. Không gian làng cổ, cửa hàng và xưởng nghề cho thấy sự tiếp nối giữa sản xuất truyền thống với nhu cầu hôm nay. Vẻ hấp dẫn của Bát Tràng nằm ở sự đa dạng của dáng gốm, màu men và hoa văn, qua đó nhận ra dấu ấn bàn tay cùng kinh nghiệm của người làm nghề.",
+    "source": "https://hanoigo.hanoi.gov.vn/destination/diem-du-lich-bat-trang-xa-bat-trang-thanh-pho-ha-noi-xa-bat-trang",
+    "approved": true,
+    "name": "Làng gốm Bát Tràng",
+    "category": "culture"
+  },
+  {
+    "poi_id": "hn_032",
+    "lang": "vi",
+    "text": "Làng lụa Vạn Phúc gắn với nghề dệt và những sản phẩm lụa đã trở thành một dấu ấn văn hóa của vùng Hà Đông. Trên từng tấm vải, độ óng, màu sắc và hoa văn cho thấy sự kết hợp giữa chất liệu với kỹ thuật của người thợ. Không gian làng nghề còn kết nối hoạt động sản xuất, buôn bán và sinh hoạt cộng đồng. Câu chuyện về lụa vì thế không dừng ở một món hàng, mà mở ra cách một nghề truyền thống được truyền nối và thích ứng với đời sống mới, đồng thời gìn giữ nét riêng của địa phương.",
+    "source": "https://thanglong.chinhphu.vn/ha-noi-cong-nhan-diem-du-lich-lang-nghe-det-lua-van-phuc-ha-dong-103260804125611912.htm",
+    "approved": true,
+    "name": "Làng lụa Vạn Phúc",
+    "category": "culture"
+  },
+  {
+    "poi_id": "hn_033",
+    "lang": "vi",
+    "text": "Làng hương Quảng Phú Cầu nổi bật với những bó tăm hương được nhuộm màu và xòe thành cụm trên sân phơi. Đằng sau hình ảnh rực rỡ ấy là công việc đòi hỏi sự tỉ mỉ trong chuẩn bị nguyên liệu, xử lý tăm và phơi sản phẩm. Nghề hương gắn với đời sống tín ngưỡng, khi những nén hương trở thành vật quen thuộc trong không gian thờ cúng. Vẻ đẹp của làng nghề không chỉ nằm ở màu sắc, mà còn ở nhịp lao động và kinh nghiệm được truyền lại, tạo nên mối liên hệ giữa sản xuất thủ công với văn hóa cộng đồng.",
+    "source": "https://vanvn.vn/giu-nghe-xua-giua-thoi-hien-dai-lang-huong-quang-phu-cau/",
+    "approved": true,
+    "name": "Làng hương Quảng Phú Cầu",
+    "category": "culture"
+  },
+  {
+    "poi_id": "hn_034",
+    "lang": "vi",
+    "text": "Khu di tích Cổ Loa gắn với nước Âu Lạc và An Dương Vương, mở ra một phần câu chuyện về buổi đầu dựng nước. Những vòng thành đất cùng hệ thống đền, đình và không gian làng xóm cho thấy sự kết hợp giữa dấu tích thành cổ với đời sống cộng đồng. Bên cạnh tư liệu lịch sử và khảo cổ, nơi đây còn lưu truyền câu chuyện nỏ thần cùng Mỵ Châu, Trọng Thủy. Đó là lớp truyền thuyết cần được phân biệt với sự kiện đã kiểm chứng, nhưng vẫn phản ánh cách người xưa gửi gắm ký ức và bài học vào di sản.",
+    "source": "https://donganh.hanoi.gov.vn/di-tich-lich-su-va-van-hoa/khu-di-tich-co-loa-28342506231105416.htm",
+    "approved": true,
+    "name": "Khu di tích Cổ Loa",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_035",
+    "lang": "vi",
+    "text": "Làng cổ Đường Lâm ở vùng Sơn Tây lưu giữ nhiều nét đặc trưng của không gian làng Bắc Bộ. Cổng làng, đình Mông Phụ, những ngõ nhỏ và ngôi nhà sử dụng đá ong tạo nên diện mạo mộc mạc, gần gũi. Giá trị của làng không chỉ nằm ở từng công trình, mà còn ở cách chúng liên kết với nơi ở và sinh hoạt của cộng đồng. Đá ong với sắc nâu ấm trở thành một dấu ấn dễ nhận biết trong cảnh quan. Đường Lâm vì thế là nơi tìm hiểu kiến trúc truyền thống đồng thời cảm nhận sức sống của một làng quê đang tiếp nối.",
+    "source": "https://sovhtt.hanoi.gov.vn/dua-lang-co-o-duong-lam-tro-thanh-di-tich-quoc-gia-dac-biet/",
+    "approved": true,
+    "name": "Làng cổ Đường Lâm",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_036",
+    "lang": "vi",
+    "text": "Chùa Thầy nằm dưới chân núi Sài Sơn, tạo nên một quần thể cảnh quan kết hợp giữa chùa, núi và mặt nước. Di tích gắn với Thiền sư Từ Đạo Hạnh và những câu chuyện văn hóa được lưu truyền trong cộng đồng. Hồ Long Chiểu cùng thủy đình là điểm nhấn giúp không gian trước chùa trở nên khoáng đạt. Kiến trúc không tách rời thiên nhiên mà được đặt trong mối quan hệ với sườn núi và hồ nước. Vẻ đẹp của chùa Thầy vì thế vừa mang tính tâm linh, vừa cho thấy cách người xưa lựa chọn và tổ chức cảnh quan.",
+    "source": "https://sovhtt.hanoi.gov.vn/khong-to-chuc-le-hoi-chua-thay-nam-2021/",
+    "approved": true,
+    "name": "Chùa Thầy",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_037",
+    "lang": "vi",
+    "text": "Chùa Tây Phương nổi bật với kiến trúc gỗ và hệ thống tượng Phật, tượng La Hán giàu giá trị nghệ thuật. Không gian trên đồi tạo cảm giác tách khỏi nhịp sống bên dưới, làm nổi rõ vẻ trầm mặc của mái chùa. Những pho tượng gây chú ý ở dáng ngồi, nét mặt và cách thể hiện cơ thể, cho thấy khả năng quan sát tinh tế của nghệ nhân. Nghệ thuật điêu khắc ở đây vừa phục vụ tín ngưỡng vừa gợi cảm xúc về con người. Kiến trúc và tượng thờ cùng tạo nên một chỉnh thể đáng chú ý của mỹ thuật truyền thống Việt Nam.",
+    "source": "https://thuvien.hanoi.gov.vn/Upload/2024/05/16/TMDiachiQuocOai-Web_2024May16_020430355.pdf",
+    "approved": true,
+    "name": "Chùa Tây Phương",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_038",
+    "lang": "vi",
+    "text": "Khu danh thắng Chùa Hương – Hương Sơn kết hợp cảnh quan núi đá vôi, dòng suối và hệ thống đền chùa, hang động. Trên tuyến tham quan quen thuộc, suối Yến mở đầu hành trình bằng không gian mặt nước giữa núi đồi, trước khi nối đến chùa Thiên Trù và động Hương Tích. Giá trị của Hương Sơn nằm ở sự gắn kết giữa thiên nhiên với đời sống tín ngưỡng. Mỗi chặng đường mang một cảm nhận khác nhau, từ khoáng đạt đến tĩnh lặng. Toàn bộ quần thể cho thấy cách cảnh quan tự nhiên trở thành không gian văn hóa và hành hương.",
+    "source": "https://hanoigo.hanoi.gov.vn/place/quan-the-huong-son-chua-huong-ctv-sa2nx5",
+    "approved": true,
+    "name": "Khu danh thắng Chùa Hương – Hương Sơn",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_039",
+    "lang": "vi",
+    "text": "Làng Văn hóa – Du lịch các dân tộc Việt Nam tại Đồng Mô giới thiệu sự đa dạng văn hóa thông qua kiến trúc và không gian sinh hoạt cộng đồng. Những kiểu nhà, công trình tín ngưỡng và cách tổ chức cảnh quan giúp nhận diện nét riêng của nhiều dân tộc. Đây là không gian để tìm hiểu mối liên hệ giữa nơi ở, môi trường và phong tục. Thay vì xem văn hóa như những hình ảnh tách biệt, người tham quan có thể đặt chúng trong bối cảnh sinh hoạt rộng hơn, qua đó cảm nhận những khác biệt cùng các giá trị kết nối cộng đồng.",
+    "source": "https://langvanhoavietnam.vn/nhung-thong-tin-huu-ich-khi-tham-quan-lang-van-hoa-du-lich-cac-dan-toc-viet-nam/",
+    "approved": true,
+    "name": "Làng Văn hóa – Du lịch các dân tộc Việt Nam",
+    "category": "culture"
+  },
+  {
+    "poi_id": "hn_043",
+    "lang": "vi",
+    "text": "Trung tâm Văn hóa Nghệ thuật hai mươi hai Hàng Buồm nằm trong công trình từng là Hội quán Quảng Đông, mang dấu ấn giao lưu văn hóa của phố cổ Hà Nội. Những khoảng sân, chi tiết kiến trúc và trang trí lưu lại câu chuyện về sinh hoạt cộng đồng người Hoa. Trong vai trò không gian văn hóa nghệ thuật, công trình tạo sự gặp gỡ giữa di sản và sáng tạo. Giá trị của nơi đây nằm ở cách kiến trúc cũ tiếp tục tham gia đời sống đô thị, để ký ức về một cộng đồng được kết nối với những cách biểu đạt hôm nay.",
+    "source": "https://bvhttdl.gov.vn/danh-thuc-di-san-do-thi-20220110083815772.htm",
+    "approved": true,
+    "name": "Trung tâm Văn hóa Nghệ thuật 22 Hàng Buồm",
+    "category": "culture"
+  },
+  {
+    "poi_id": "hn_048",
+    "lang": "vi",
+    "text": "Chùa Quán Sứ là một địa điểm gắn với đời sống Phật giáo giữa trung tâm Hà Nội. Không gian chùa đem lại cảm giác trang nghiêm qua mái ngói, sân trong và các lớp kiến trúc thờ tự. Di tích còn gắn với hoạt động của Giáo hội Phật giáo Việt Nam, thể hiện vai trò của ngôi chùa trong sinh hoạt tôn giáo. Giữa khu phố đông đúc, sự hiện diện của chùa tạo nên một khoảng chuyển về nhịp điệu và cảm xúc. Kiến trúc cùng sinh hoạt tín ngưỡng ở đây giúp hiểu thêm vị trí của Phật giáo trong đời sống văn hóa đô thị.",
+    "source": "https://sodantoctongiao.hanoi.gov.vn/articles/3457",
+    "approved": true,
+    "name": "Chùa Quán Sứ",
+    "category": "history"
+  },
+  {
+    "poi_id": "hn_049",
+    "lang": "vi",
+    "text": "Đền Voi Phục nằm bên khu hồ Thủ Lệ, là một trong Thăng Long tứ trấn và gắn với tín ngưỡng thờ Linh Lang Đại Vương. Theo quan niệm truyền thống, ngôi đền giữ vai trò trấn phía tây kinh thành. Không gian cây xanh và mặt nước tạo nên vẻ tĩnh lặng, làm nổi bật các lớp kiến trúc thờ tự. Tên gọi Voi Phục gợi dấu ấn của hình tượng voi trong di tích, đồng thời giúp phân biệt nơi đây với những đền thờ khác. Ngôi đền lưu giữ một phần ký ức tín ngưỡng và cách người xưa hình dung sự bảo hộ cho Thăng Long.",
+    "source": "https://www.vietnamairlines.com/vn/vi/plan-book/travel/travel-guide/voi-phuc-temple",
+    "approved": true,
+    "name": "Đền Voi Phục – Thủ Lệ",
+    "category": "history"
+  }
+]
